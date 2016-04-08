@@ -194,24 +194,24 @@ section {
 	padding-bottom: 56px;
 }
 
-.about-intro ul {
+.about-sub ul {
     list-style-type: square;
     padding-left: 0px;
     list-style-position: inside;
     color: #74b5b0;
 }
 
-.about-intro ul p {
+.about-sub ul h4 {
     color: #3b3a36;
 }
 
 .about-sub {
-    font-size: 11pt; 
+    font-size: 11.5pt; 
     position: relative;
 }
 
 .about-sub div:first-child {
-    margin-bottom: -10px;
+    margin-bottom: -4px;
 }
 
 .about-sub .col-xs-6 {
@@ -219,22 +219,22 @@ section {
     padding-right: 0;
 }
 
-.about-sub p:nth-of-type(even), .about-sub h4:nth-of-type(2) {
-    text-align: left;
+.about-sub p {
+    margin-bottom: 4px;
 }
 
-.about-portrait {
-    height: 72px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    text-align: center;
+@media (min-width: 992px) {
+    .about-portrait {
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+    }
 }
 
 .about-pics {
     display: inline-block;
-    height: inherit;
-    margin-right: -5px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .highlighted {
@@ -244,6 +244,10 @@ section {
 #footer {
     text-align: center;
     font-size: 8.5pt;
+}
+
+.extra {
+    text-align: center;
 }
 
 .extra svg:hover path, .extra svg:hover rect, .extra svg:hover .cls-3 {
