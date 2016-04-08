@@ -136,7 +136,7 @@ h4, .links a {
     font-size: 14pt;
 }
 
-h3, h4{
+h2, h3, h4{
 	font-family: 'Raleway', serif;
 	letter-spacing: 0.5pt;
 	text-transform: none;
@@ -194,11 +194,6 @@ section {
 	padding-bottom: 56px;
 }
 
-.about-intro {
-    margin-bottom: 48px;
-    position: relative;
-}
-
 .about-intro ul {
     list-style-type: square;
     padding-left: 0px;
@@ -233,6 +228,7 @@ section {
     position: absolute;
     bottom: 0;
     right: 0;
+    text-align: center;
 }
 
 .about-pics {
