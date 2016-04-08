@@ -16,7 +16,7 @@ a:hover {
 }
 
 #home {
-	height: 328px;
+	padding-bottom: 0;
 	text-align: center;
 	text-transform: uppercase;
 	position: relative;
@@ -27,24 +27,36 @@ a:hover {
 	margin-right: 0;
 }
 
+#home .row:nth-of-type(2) {
+    margin-bottom: 14px;
+}
+
 #home p {
 	text-transform: none;
 }
 
-#navbar {
-    transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
+nav {
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
-.links {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	z-index: 1030;
-    min-height: 64px;
+nav, nav a {
+    transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+}
+
+nav ul {
+    list-style-type: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+nav ul li{
+    display: inline-block;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
 }
 
 .links a {
@@ -53,7 +65,6 @@ a:hover {
     font-weight: 100;
     text-decoration: none;
     display: inline-block;
-    position: relative;
 }
 
 .links a:after {
@@ -84,7 +95,6 @@ a:hover {
 	z-index: 1030;
 	text-align: center;
 	background-color: #fff;
-	min-height: 32px;
 }
 
 .fixed a{
@@ -98,26 +108,6 @@ a:hover {
 
 .fixed a:hover {
 	color: #74b5b0;
-}
-
-nav {
-    width: 45%;
-	position: absolute;
-  	top: 50%;
-  	left: 50%;
-  	transform: translate(-50%,-50%);
-}
-
-nav ul {
-    list-style-type: none;
-    margin-bottom: 0;
-    padding-left: 0;
-}
-
-nav ul li{
-    display: inline-block;
-    padding-left: 36px !important;
-    padding-right: 36px !important;
 }
 
 .fixed .active {
@@ -278,3 +268,4 @@ section {
   	-moz-transition:    padding 0.3s ease;
   	-o-transition:      padding 0.3s ease;
 }
+

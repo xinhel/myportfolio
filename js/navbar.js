@@ -4,11 +4,12 @@
     $(function () {
         $(window).scroll(function() {
             var windscroll = $(this).scrollTop();
-            if (windscroll >= $('#home').height()+56) {
+            if (windscroll >= $('#home').height()+28) {
+                console.log(windscroll);
                 navbar.removeClass('links');
                 navbar.addClass('fixed');
                 $('#work, #about').each(function(i) {
-                    if (windscroll >= $(this).position().top-56) {
+                    if (windscroll >= $(this).position().top-32) {
                         $('.nav-item.active').removeClass('active');
                         $('.nav-item').eq(i).addClass('active');
                     }
@@ -24,7 +25,7 @@
         $('.nav-item').on('click', function() {
             
             var scrollAnchor = $(this).attr('data-scroll'),
-                scrollPoint = $('section[data-anchor="' + scrollAnchor + '"]').offset().top -31;
+                scrollPoint = $('section[data-anchor="' + scrollAnchor + '"]').offset().top+32;
 
             $('body,html').animate({
                 scrollTop: scrollPoint
@@ -34,14 +35,6 @@
 
         });
     });
-      
-    var sourceSwap = function () {
-        var newSource = $(this).data('alt-src');
-        $(this).data('alt-src', $(this).attr('src'));
-        $(this).attr('src', newSource);
-    };
-      
-    $('.extra img').hover(sourceSwap, sourceSwap);
 
   });
 }(jQuery));
