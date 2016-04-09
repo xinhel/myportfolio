@@ -29,23 +29,49 @@ nav li:nth-of-type(3) {
 }
 
 .vpadding {
-    padding-left: 76px;
-    padding-right: 76px;
+    padding-left: 18px;
+    padding-right: 18px;
 }
 
 .hpadding-lg {
-	padding-top: 32px;
-	padding-bottom: 32px;
+	padding-top: 22px;
+	padding-bottom: 22px;
 }
 
 .hpadding-sm {
-	padding-top: 18px;
-	padding-bottom: 18px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .vpadding-sm {
-    padding-left: 32px;
-    padding-right: 32px;
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
+@media (min-width: 768px) {
+    .vpadding {
+        padding-left: 76px;
+        padding-right: 76px;
+    }
+
+    .hpadding-lg {
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+
+    .hpadding-sm {
+        padding-top: 18px;
+        padding-bottom: 18px;
+    }
+
+    .vpadding-sm {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .margin-dv {
+        margin-bottom: 32px;
+    }
 }
 
 .margin-dv {
@@ -226,8 +252,10 @@ a {
     color: #1ABC9C;
 }
 
-.pm .process_label {
-    text-align: right;
+@media (min-width: 992px) {
+    .pm .process_label {
+        text-align: right;
+    }
 }
 
 .pm .features .strong {
@@ -278,8 +306,10 @@ a {
     color: #F14700;
 }
 
-.intern .process .step {
-    text-align: right;
+@media (min-width: 992px) {
+    .intern .process .step {
+        text-align: right;
+    }
 }
 
 .intern .process .description {

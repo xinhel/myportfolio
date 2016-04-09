@@ -16,7 +16,7 @@ a:hover {
 }
 
 #home {
-	height: 328px;
+	padding-bottom: 0;
 	text-align: center;
 	text-transform: uppercase;
 	position: relative;
@@ -27,24 +27,43 @@ a:hover {
 	margin-right: 0;
 }
 
+#home .row:nth-of-type(2) {
+    margin-bottom: 14px;
+}
+
 #home p {
 	text-transform: none;
+    display: none;
 }
 
-#navbar {
-    transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
+@media (min-width: 768px) {
+    #home p {
+       display: block; 
+    }
 }
 
-.links {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	z-index: 1030;
-    min-height: 64px;
+nav {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+nav, nav a {
+    transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+}
+
+nav ul {
+    list-style-type: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+nav ul li{
+    display: inline-block;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
 }
 
 .links a {
@@ -53,7 +72,6 @@ a:hover {
     font-weight: 100;
     text-decoration: none;
     display: inline-block;
-    position: relative;
 }
 
 .links a:after {
@@ -84,40 +102,18 @@ a:hover {
 	z-index: 1030;
 	text-align: center;
 	background-color: #fff;
-	min-height: 32px;
 }
 
 .fixed a{
-	color: #3b3a36;
 	font-family: "Raleway", sans-serif;
-	font-size: 12.5pt;
-	font-weight: 200;	
+	font-size: 11.5pt;
+	font-weight: 300;	
 	text-transform: uppercase;
 	text-decoration: none;
 }
 
 .fixed a:hover {
 	color: #74b5b0;
-}
-
-nav {
-    width: 45%;
-	position: absolute;
-  	top: 50%;
-  	left: 50%;
-  	transform: translate(-50%,-50%);
-}
-
-nav ul {
-    list-style-type: none;
-    margin-bottom: 0;
-    padding-left: 0;
-}
-
-nav ul li{
-    display: inline-block;
-    padding-left: 36px !important;
-    padding-right: 36px !important;
 }
 
 .fixed .active {
@@ -147,7 +143,7 @@ h4, .links a {
     font-size: 14pt;
 }
 
-h3, h4{
+h2, h3, h4{
 	font-family: 'Raleway', serif;
 	letter-spacing: 0.5pt;
 	text-transform: none;
@@ -177,27 +173,37 @@ figcaption {
 }
 
 .vpadding {
-	padding-left: 48px;
-	padding-right: 48px;
-}
-
-.hpadding-lg {
-	padding-top: 48px;
-	padding-bottom: 48px;
-}
-
-.hpadding-sm {
-	padding-top: 18px;
-	padding-bottom: 18px;
-}
-
-.vpadding-sm {
     padding-left: 18px;
     padding-right: 18px;
 }
 
+.hpadding-sm {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.vpadding-sm {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .nopadding {
     padding: 0;
+}
+
+@media (min-width: 768px) {
+    .vpadding {
+        padding-left: 48px;
+        padding-right: 48px;
+    }
+    .hpadding-sm {
+        padding-top: 18px;
+        padding-bottom: 18px;
+    }
+    .vpadding-sm {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
 }
 
 section {
@@ -205,47 +211,54 @@ section {
 	padding-bottom: 56px;
 }
 
-.about-intro {
-    margin-bottom: 48px;
-    position: relative;
-}
-
-.about-intro ul {
+.about-sub ul {
     list-style-type: square;
     padding-left: 0px;
     list-style-position: inside;
     color: #74b5b0;
 }
 
-.about-intro ul p {
+.about-sub ul h4 {
     color: #3b3a36;
 }
 
 .about-sub {
+    font-size: 11.5pt; 
     position: relative;
-    font-size: 11pt;
+}
+
+.about-sub div:first-child {
+    margin-bottom: -4px;
 }
 
 .about-sub .col-xs-6 {
-    float: right;
-    text-align: right;
-    margin-bottom: -10px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
-.about-sub p:nth-of-type(even), .about-sub h4:nth-of-type(2) {
-    text-align: left;
+.about-sub p {
+    margin-bottom: 4px;
 }
 
-.about-portrait {
-    height: 72px;
-    position: absolute;
-    bottom: 0;
+.about-side {
+        display: none;
+}
+
+@media (min-width: 992px) {
+    .about-portrait {
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+    }
+    .about-side {
+        display: block;
+    }
 }
 
 .about-pics {
     display: inline-block;
-    height: inherit;
-    margin-right: -5px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .highlighted {
@@ -255,6 +268,10 @@ section {
 #footer {
     text-align: center;
     font-size: 8.5pt;
+}
+
+.extra {
+    text-align: center;
 }
 
 .extra svg:hover path, .extra svg:hover rect, .extra svg:hover .cls-3 {
@@ -268,13 +285,3 @@ section {
   	-o-transition:      fill 0.3s ease;
 }
 
-.work_thumbnail:hover {
-    padding: 0;
-}
-
-.work_thumbnail {
-    transition: padding .3s;
-	-webkit-transition: padding 0.3s ease;
-  	-moz-transition:    padding 0.3s ease;
-  	-o-transition:      padding 0.3s ease;
-}
