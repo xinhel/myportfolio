@@ -118,7 +118,7 @@ figure {
 }
 
 .work_thumbnail:hover figcaption {
-  opacity: 1;
+  opacity: 0;
 }
 
 figcaption .caption {
@@ -149,7 +149,7 @@ figcaption h3 {
 
 figcaption {
 	text-transform: capitalize;
-	background-color: rgba(59,58,54,0.85);
+	background-color: rgba(59,58,54,0.7);
 	text-align: center;
 	color: #74b5b0;
 	top: auto;
@@ -158,7 +158,7 @@ figcaption {
 	height: 100%;
 	padding: 12%;
 	position: absolute;
-	opacity: 0;
+	opacity: 1;
 	transition: all 0.3s ease;
 	-webkit-transition: all 0.3s ease;
   	-moz-transition:    all 0.3s ease;
