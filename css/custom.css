@@ -33,6 +33,13 @@ a:hover {
 
 #home p {
 	text-transform: none;
+    display: none;
+}
+
+@media (min-width: 768px) {
+    #home p {
+       display: block; 
+    }
 }
 
 nav {
@@ -166,27 +173,37 @@ figcaption {
 }
 
 .vpadding {
-	padding-left: 48px;
-	padding-right: 48px;
-}
-
-.hpadding-lg {
-	padding-top: 48px;
-	padding-bottom: 48px;
-}
-
-.hpadding-sm {
-	padding-top: 18px;
-	padding-bottom: 18px;
-}
-
-.vpadding-sm {
     padding-left: 18px;
     padding-right: 18px;
 }
 
+.hpadding-sm {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.vpadding-sm {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .nopadding {
     padding: 0;
+}
+
+@media (min-width: 768px) {
+    .vpadding {
+        padding-left: 48px;
+        padding-right: 48px;
+    }
+    .hpadding-sm {
+        padding-top: 18px;
+        padding-bottom: 18px;
+    }
+    .vpadding-sm {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
 }
 
 section {
@@ -223,11 +240,18 @@ section {
     margin-bottom: 4px;
 }
 
+.about-side {
+        display: none;
+}
+
 @media (min-width: 992px) {
     .about-portrait {
         position: absolute;
         right: 18px;
         bottom: 18px;
+    }
+    .about-side {
+        display: block;
     }
 }
 
