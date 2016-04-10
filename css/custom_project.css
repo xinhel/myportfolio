@@ -7,7 +7,13 @@ body {
 }
 
 nav {
-    padding-top: 24px;
+    padding-top: 36px;
+    padding-bottom: 8px;
+}
+
+nav.footer {
+    padding-top: 36px;
+    padding-bottom: 36px;
 }
 
 nav ul {
@@ -121,13 +127,6 @@ h4 {
     font-size: 14.5pt;
 }
 
-.footer {
-    text-align: center;
-    font-size: 8.5pt;
-    padding-top: 24px;
-    padding-bottom: 24px;
-}
-
 .overview_role ul {
     list-style-type: square;
     padding-left: 0px;
@@ -191,10 +190,6 @@ a {
 
 .qpool .persona {
     text-align: center;
-}
-
-.qpool .prototype, .qpool .prototype_thm {
-    padding-bottom: 0;
 }
 
 .expcko .header {
