@@ -220,6 +220,7 @@ section {
 
 .about-sub ul h4 {
     color: #3b3a36;
+    display: inline-block;
 }
 
 .about-sub {
