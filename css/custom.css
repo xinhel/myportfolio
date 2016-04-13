@@ -27,8 +27,8 @@ a:hover {
 	margin-right: 0;
 }
 
-#home .row:nth-of-type(2) {
-    margin-bottom: 14px;
+#home .row:first-child {
+    margin-bottom: 28px;
 }
 
 #home p {
@@ -270,7 +270,8 @@ section {
     padding-right: 0;
 }
 
-.highlighted {
+.underlined {
+    color: #74b5b0;
     font-weight: 400;
 }
 

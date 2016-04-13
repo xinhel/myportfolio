@@ -315,3 +315,16 @@ a {
     font-weight: 300;
     font-size: 11pt;
 }
+
+.port a:hover {
+    color: #74b5b0;
+    text-decoration: none;
+}
+
+.port .overview h4{
+    text-align: left;
+}
+
+.port .style img {
+    box-shadow: -10px 10px 10px #cdcdcd;
+}
