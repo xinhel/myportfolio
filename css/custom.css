@@ -270,7 +270,8 @@ section {
     padding-right: 0;
 }
 
-.highlighted {
+.underlined {
+    color: #74b5b0;
     font-weight: 400;
 }
 
