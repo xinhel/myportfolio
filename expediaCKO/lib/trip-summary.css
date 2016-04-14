@@ -1,0 +1,8 @@
+.trip-summary .temp {
+  float: left;
+  padding: 12px 12px 12px 12px;
+  height: 150px;
+  width: 100%;
+  border: 1px dashed grey;
+}
+

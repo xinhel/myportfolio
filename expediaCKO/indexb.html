@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Review and book your trip</title>
+    <script src="lib/core.js"></script>
+    <script src="lib/lib.js"></script>
+    <script>
+    $LAB.setGlobalDefaults({
+        AlwaysPreserveOrder: true
+    });
+    $LAB.queueScript("lib/jquery.js");
+    $LAB.queueScript("lib/core.js");
+    $LAB.queueScript("lib/header.js");
+    $LAB.queueScript("lib/customb.js").queueWait(function() {
+        uitk.init();
+    });
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="lib/core.css" />
+    <link rel="stylesheet" href="lib/responsive.css" />
+    <link rel="stylesheet" type="text/css " href="lib/custom.css" />
+    <link rel="stylesheet" type="text/css " href="custom.css" />
+    <link rel="stylesheet" type="text/css" href="new.css">
+</head>
+
+<body class="wrap cf layout-2col-stack inverse checkout">
+    <!-- Site Header -->
+    <div class="site-header">
+        <div id="confirmmodal" class="col cf">
+            <div class="cols-row">
+                <h3>We're confirming your booking now...</h3>
+                <p>
+                    Please don't close your browser or use the back button.
+                </p>
+                <span id="loaderPrimary" class="loader loader-light loader-animated loading" title="Loading..."></span>
+            </div>
+        </div>
+        <div class="notification-wrap">
+            <div class="notification">
+                <p>
+                    Updating your total...
+                </p>
+            </div>
+        </div>
+        <div class="cols-row" role="banner">
+            <a id="header-logo" data-tid="header-logo" href="http://wwwexpediacom.trunk.sb.karmalab.net/" class="logo ">Expedia</a>
+            <!-- Responsive Menu Toggle -->
+        </div>
+    </div>
+
+    <div class="site-content-wrap">
+        <div class="site-content cols-row left-col cf" role="region">
+            <header class="cols-row-header cf page-header no-group" id="page-header">
+                <h1 class="section-header-main">Review and Book</h1>
+            </header>
+
+            <aside class="col tripsum" role="complementary">
+                <div class="trip-summary-container">
+                    <div class="cols-nested scroller">
+
+                        <!-- begin of flight-->
+                        <div class="col product-info-panel">
+                            <div class="tripsum-card">
+                                <div class="product-image-panel">
+                                    <h1 class="display">
+                                        <span class="icon icon-flights"></span>
+                                    </h1>
+                                </div>
+                                <div class="product-data-panel">
+                                    <div class="product-title">
+                                        <h2 class="remove-margin" style="margin: 0px;">Seattle
+                                            <span class="icon icon-roundtrip" style="font-size:80%;"></span>Honolulu
+                                        </h2>
+                                    </div>
+                                    <div class="product-sub-title remove-margin">
+                                        <p>
+                                            2 Tickets, 2 Adults
+                                        </p>
+                                        <p class="remove-margin">
+                                            <b>Fri, Jul 18, 5:05pm</b>
+                                            <br>
+                                            <span class="icon icon-roundtrip" style="font-size:80%; color:#aaa;"></span>
+                                            <br>
+                                            <b>Sun, Jul 20, 8:30pm</b> 
+                                        </p>
+                                    </div>
+                                    <div class="cf">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- start of hotel-->
+                            <div class="tripsum-card">
+                                <div class="product-image-panel">
+                                    <h1 class="display">
+                                        <span class="icon icon-hotels"></span>
+                                    </h1>
+                                </div>
+                                <div class="product-data-panel">
+                                    <div class="product-title remove-margin">
+                                        <h2 style="margin: 0px;">Hawaii Prince Hotel Waikiki</h2>
+                                    </div>
+                                    <div class="product-sub-title">
+                                        <p>
+                                            1 Room, 2 Nights
+                                        </p>
+                                        <p class="remove-margin">
+                                            Check-in<b>Fri, Jul 18</b>
+                                            <br>Check-out
+                                            <b>Sun, Jul 20</b>
+                                        </p>
+                                    </div>
+                                    <div class="cf">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Start of activity-->
+                            <div class="tripsum-card">
+                                <div class="product-image-panel">
+                                    <h1 class="display">
+                                        <span class="icon icon-activities"></span>
+                                    </h1>
+                                </div>
+                                <div class="product-data-panel">
+                                    <div class="product-title remove-margin">
+                                        <h2 style="margin: 0px;">Dolphin Encounter</h2>
+                                    </div>
+                                    <div class="product-sub-title remove-margin">
+                                        <p>2 Tickets</p>
+                                        <p class="remove-margin">
+                                            <b>Sat, Jul 19</b>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Start of price-->
+                        <div class="col price-info-panel">
+                            <div class="price-line cf">
+                                <span class="left price-item">Flight + Hotel</span>
+                                <div class="right price-item">
+                                    $1,425.89
+                                    <span class="icon icon-expand" style="visibility:hidden;"></span>
+                                </div>
+                            </div>
+                            <div class="price-line cf">
+                                <span class="left price item zero-due">Savings
+                                    <a href="#savings" class="what-is-this-tooltip-icon" data-control="tooltip" data-width="225" data-arrow="true" aria-describedby="savings" data-fade="out" data-tooltip-id="yoursavings">
+                                        <span class="icon icon-help"></span>
+                                    </a>
+                                </span>
+                                <div id="savings" role="tooltip" tooltipid="yoursavings" class="visuallyhidden ">
+                                    <p class="cvv-example-label">
+                                        You saved this amount of money because you booked hotel and flight together at Expedia
+                                    </p>
+                                </div>
+                                <div class="right price-item zero-due">
+                                    -$67.68
+                                    <span class="icon icon-expand" style="visibility:hidden;"></span>
+                                </div>
+                            </div>
+                            <div class="price-line activity-price cf">
+                                <span class="left price-item">Activity</span>
+                                <div class="right price-item">
+                                    $180.28
+                                    <span class="icon icon-expand" style="visibility:hidden;"></span>
+                                </div>
+                            </div>
+                            <div class="price-line cf ">
+                                <span class="left price-item">Total</span>
+                                <span style="font-size: 1.7em" class="right price-item total">$1,625.28</span>
+                            </div>
+                            <p class="disclaimer-text">
+                                Rates quoted in US Dollars.
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+
+            <section class="col" role="main">
+                <!-- ================== Confidence Message ================== -->
+                <div class="confidence-container">
+                    <div class="confidence-msg">
+                        <span class="icon icon-success"></span>Free Cancellation
+                    </div>
+                    <div class="confidence-msg">
+                        <span class="icon icon-success"></span>Best Price Guarantee
+                        <a href="http://www.expedia.com/p/info-other/guarantees.htm">
+                            <span class="icon icon-popup"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ================== Sign In ================== -->
+                <section class="segmented-list signin">
+                    <article class="segment no-target cf segment-form notsignedin">
+                        <hgroup>
+                            <h3>
+                                <img class="signin-exp-logo" src="lib/exp-logo-mark.svg" />
+                            </h3>
+                        </hgroup>
+                        <fieldset>
+                            <a href="#signin-pane" data-transition="fade" class="toggle-trigger" data-control="toggle">Sign in to book faster <span class="icon icon-expand"></span></a>
+                            <div id="signin-pane" class="toggle-pane" role="region">
+                                <div class="toggle-inner cf">
+                                    <fieldset class="signin-fields cf">
+                                        <label class="text field-username">
+                                            <span class="label">Email address</span>
+                                            <input type="text" placeholder="" value="" />
+                                        </label>
+                                        <label class="text field-password">
+                                            <span class="label">Password</span>
+                                            <input type="password" placeholder="" value="" />
+                                        </label>
+                                        <label class="check keep-signedin">
+                                            <input type="checkbox" name="testCB" value="a" />
+                                            <span class="inline-label">Keep me signed in</span>
+                                        </label>
+                                        <button onclick="signIn();" class="btn btn-action btn-secondary btn-signin">
+                                            <span onclick="signIn();" class="btn-label">Sign In</span>
+                                        </button>
+                                        <a class="forgot-password-link">Forgot your password?</a>
+                                    </fieldset>
+                                    <fieldset class="signin-facebook">
+                                        <a onclick="signIn();" onclick="signIn();" class="btn btn-secondary btn-signin-facebook">
+                                            <span onclick="signIn();" class="btn-label">
+                                                <img src="lib/facebook-logo.svg" />
+                                                <span class="bpLgPhCTA">Sign in with Facebook</span>
+                                                <span class="bpLgPhPlusCTA">Facebook</span>
+                                            </span>
+                                        </a>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </article>
+                </section>
+
+                <section class="segmented-list form-content travelerinfo">
+
+                    <!-- ================== Traveler Info ================== -->
+                    <article class="segment no-target cf segment-form notsignedin toggle open">
+                        <hgroup>
+                            <h3>
+                                <span class="icon icon-traveler"></span>
+                            </h3>
+                        </hgroup>
+
+                        <fieldset>
+                            <a href="#traveler-info" data-transition="fade" class="toggle-trigger open" data-control="toggle" aria-controls="traveler-info">
+                                <h4 id="step1" class="stepbar">
+                                    Step 1 of 3: Traveler Information
+                                    <span class="icon icon-expand"></span>
+                                </h4>
+                            </a>
+
+                            <div id="traveler-info" class="toggle-pane" role="region" aria-expanded="true">
+                                <div class="toggle-inner cf">
+
+                                    <h4 style="margin-bottom:0px; margin-top:0px;">Flight:
+                                        <span class="light-weight">
+                                            2 Adults
+                                        </span>
+                                    </h4>
+                                    <p class="secondary id-msg">
+                                        Traveler names must match government-issued photo ID exactly.
+                                    </p>
+
+                                    <!-- Start of Playback -->
+                                    <fieldset id="infoplayback" class="infoplayback">
+                                        <div id="tplayback1">
+                                            <div class="playbacktitle">
+                                                <span style="color:#477a00; padding-left:12px;" class="icon icon-success"></span>
+                                                <h5 id="tplayback1name1" style="line-height:2;padding:5px;display:inline">
+                                                    Traveler 1 Name
+                                                </h5>
+                                                <a id="editinfo1" class="editbutton" href="#traveler1edit">Edit</a>
+                                            </div>
+                                            <div class="traveler1info1 playback-detail secondary ">
+                                                <p id="tplayback1email1" class=" remove-margin">Email</p>
+                                                <p id="tplaybackphone1" class=" remove-margin">Phone Number</p>
+                                                <p id="tplaybackgender1" class=" remove-margin">Gender</p>
+                                                <p id="tplaybackdob1" class=" remove-margin">Date of Birth
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!-- start of edit form for playback1-->
+                                        <article id="traveler1edit" class="no-target cf segment-form notsignedin toggle open playback-edit">
+                                            <h5 class="playback-banner"><a href="#traveler1pform" aria-controls="traveler1" class="toggle-trigger open" data-control="toggle" data-transition="slide">Traveler 1<span class="icon icon-expand"></span></a>
+                                            </h5>
+                                            <div id="traveler1pform" class="toggle-pane" role="region" aria-expanded="true">
+                                                <div class="toggle-inner cf">
+                                                    <!-- start of basic info -->
+                                                    <fieldset style="padding:5px 0px 10px 30px;">
+                                                        <div class="text field-contactname">
+                                                            <span class="label required">Name
+                                                                <span>*</span>
+                                                            </span>
+                                                            <input type="text" class="name-field" placeholder="First name" id="t1firstnamepform" value="" />
+                                                            <input type="text" class="name-field" placeholder="Last name" id="t1lastnamepform" value="" />
+                                                        </div>
+                                                        <label class="text field-email">
+                                                            <span class="label required">Email address
+                                                                <span>*</span>
+                                                            </span>
+                                                            <input id="t1emailaddresspform" type="text" placeholder="We'll send your confirmation here" value="">
+                                                        </label>
+                                                        <label class="field-country-code select icon icon-toggle180 cc-select">
+                                                            <span class="label required">Country code
+                                                                <span>*</span>
+                                                            </span>
+                                                            <select name="country-code" id="ccodeSelect" data-control="country-code-select" data-target-id="phoneNumber">
+                                                                <option value="54" data-country-iso="ar" data-country-name="Argentina">Argentina +54</option>
+                                                                <option value="44" data-country-iso="gb" data-country-name="United Kingdom">United Kingdom +44</option>
+                                                                <option value="1" data-country-iso="us" data-country-name="United States" selected="selected">United States +1</option>
+                                                                <option value="84" data-country-iso="vn" data-country-name="Vietnam">Vietnam +84</option>
+                                                            </select>
+                                                        </label>
+                                                        <label class="field-phone text icon-before phone-number cc-input">
+                                                            <span class="label required">Phone number
+                                                                <span>*</span>
+                                                            </span>
+                                                            <input type="tel" placeholder="In case we need to reach you" value="" id="t1phonenopform">
+                                                        </label>
+
+
+                                                        <label>
+                                                            <span class="label required">Gender
+                                                                <span class="visuallyhidden">Gender</span>
+                                                                <span>*</span>
+                                                            </span>
+                                                            <fieldset>
+                                                                <label class="check" for="t1malepform">
+                                                                    <input type="radio" id="t1malepform" name="t1genderpform" value="male" />
+                                                                    <span style="color:#333333" class="inline-label">Male</span>
+                                                                </label>
+                                                                <label class="check" for="t1femalepform">
+                                                                    <input type="radio" id="t1femalepform" name="t1genderpform" value="female" />
+                                                                    <span style="color:#333333" class="inline-label">Female</span>
+                                                                </label>
+                                                            </fieldset>
+                                                        </label>
+                                                        <label>
+                                                            <span class="label required">Date of birth
+                                                                <span>*</span>
+                                                            </span>
+                                                        </label>
+                                                        <label style="display:inline" for="t1monthpform">
+                                                            <input id="t1monthpform" style="width:25%" type="tel" maxlength="2" size="2" placeHolder="MM" inlineLabel="true">
+                                                        </label>
+                                                        <label style="display:inline" for="t1daypform">
+                                                            <input id="t1daypform" style="width:25%" type="tel" maxlength="2" size="2" placeHolder="DD" inlineLabel="true">
+                                                        </label>
+                                                        <label style="display:inline" for="t1yearpform">
+                                                            <input id="t1yearpform" style="width:45%" type="tel" maxlength="4" size="4" placeHolder="YYYY" inlineLabel="true">
+                                                        </label>
+
+
+                                                        <!-- <span class="label required">Date of birth
+                                                            <span>*</span>
+                                                        </span>
+
+
+                                                        <label class="select icon icon-toggle180 day-select">
+
+                                                            <select>
+                                                                <option value="0">Month</option>
+                                                                <option value="1">01 - Jan</option>
+                                                                <option value="2">02 - Feb</option>
+                                                                <option value="3">03 - Mar</option>
+                                                                <option value="4">04 - Apr</option>
+                                                                <option value="5">05 - May</option>
+                                                                <option value="6">06 - Jun</option>
+                                                                <option value="7">07 - Jul</option>
+                                                                <option value="8">08 - Aug</option>
+                                                                <option value="9">09 - Sep</option>
+                                                                <option value="10">10 - Oct</option>
+                                                                <option value="11">11 - Nov</option>
+                                                                <option value="12">12 - Dec</option>
+                                                            </select>
+                                                        </label>
+
+                                                        <label class="select icon icon-toggle180 month-select">
+
+                                                            <select>
+                                                                <option value="0">Day</option>
+                                                                <option value="1">01</option>
+                                                                <option value="2">02</option>
+                                                                <option value="3">03</option>
+                                                                <option value="4">04</option>
+                                                                <option value="5">05</option>
+                                                                <option value="6">06</option>
+                                                                <option value="7">07</option>
+                                                                <option value="8">08</option>
+                                                                <option value="9">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                            </select>
+                                                        </label>
+
+                                                        <label class="select icon icon-toggle180 year-select">
+
+                                                            <select>
+                                                                <option value="0">Year</option>
+                                                                <option value="2014">2014</option>
+                                                                <option value="2013">2013</option>
+                                                                <option value="2012">2012</option>
+                                                                <option value="2011">2011</option>
+                                                                <option value="2010">2010</option>
+                                                                <option value="2009">2009</option>
+                                                                <option value="2008">2008</option>
+                                                                <option value="2007">2007</option>
+                                                                <option value="2006">2006</option>
+                                                                <option value="2005">2005</option>
+                                                                <option value="2004">2004</option>
+                                                                <option value="2003">2003</option>
+                                                                <option value="2002">2002</option>
+                                                                <option value="2001">2001</option>
+                                                                <option value="2000">2000</option>
+                                                                <option value="1999">1999</option>
+                                                                <option value="1998">1998</option>
+                                                                <option value="1997">1997</option>
+                                                                <option value="1996">1996</option>
+                                                                <option value="1995">1995</option>
+                                                                <option value="1994">1994</option>
+                                                                <option value="1993">1993</option>
+                                                                <option value="1992">1992</option>
+                                                                <option value="1991">1991</option>
+                                                                <option value="1990">1990</option>
+                                                                <option value="1989">1989</option>
+                                                                <option value="1988">1988</option>
+                                                                <option value="1987">1987</option>
+                                                                <option value="1986">1986</option>
+                                                                <option value="1985">1985</option>
+                                                                <option value="1984">1984</option>
+                                                                <option value="1983">1983</option>
+                                                                <option value="1982">1982</option>
+                                                                <option value="1981">1981</option>
+                                                                <option value="1980">1980</option>
+                                                                <option value="1979">1979</option>
+                                                                <option value="1978">1978</option>
+                                                                <option value="1977">1977</option>
+                                                                <option value="1976">1976</option>
+                                                                <option value="1975">1975</option>
+                                                                <option value="1974">1974</option>
+                                                                <option value="1973">1973</option>
+                                                                <option value="1972">1972</option>
+                                                                <option value="1971">1971</option>
+                                                                <option value="1970">1970</option>
+                                                                <option value="1969">1969</option>
+                                                                <option value="1968">1968</option>
+                                                                <option value="1967">1967</option>
+                                                                <option value="1966">1966</option>
+                                                                <option value="1965">1965</option>
+                                                                <option value="1964">1964</option>
+                                                                <option value="1963">1963</option>
+                                                                <option value="1962">1962</option>
+                                                                <option value="1961">1961</option>
+                                                                <option value="1960">1960</option>
+                                                                <option value="1959">1959</option>
+                                                                <option value="1958">1958</option>
+                                                                <option value="1957">1957</option>
+                                                                <option value="1956">1956</option>
+                                                                <option value="1955">1955</option>
+                                                                <option value="1954">1954</option>
+                                                                <option value="1953">1953</option>
+                                                                <option value="1952">1952</option>
+                                                                <option value="1951">1951</option>
+                                                                <option value="1950">1950</option>
+                                                                <option value="1949">1949</option>
+                                                                <option value="1948">1948</option>
+                                                                <option value="1947">1947</option>
+                                                                <option value="1946">1946</option>
+                                                                <option value="1945">1945</option>
+                                                                <option value="1944">1944</option>
+                                                                <option value="1943">1943</option>
+                                                                <option value="1942">1942</option>
+                                                                <option value="1941">1941</option>
+                                                                <option value="1940">1940</option>
+                                                                <option value="1939">1939</option>
+                                                                <option value="1938">1938</option>
+                                                                <option value="1937">1937</option>
+                                                                <option value="1936">1936</option>
+                                                                <option value="1935">1935</option>
+                                                                <option value="1934">1934</option>
+                                                                <option value="1933">1933</option>
+                                                                <option value="1932">1932</option>
+                                                                <option value="1931">1931</option>
+                                                                <option value="1930">1930</option>
+                                                                <option value="1929">1929</option>
+                                                                <option value="1928">1928</option>
+                                                                <option value="1927">1927</option>
+                                                                <option value="1926">1926</option>
+                                                                <option value="1925">1925</option>
+                                                                <option value="1924">1924</option>
+                                                                <option value="1923">1923</option>
+                                                                <option value="1922">1922</option>
+                                                                <option value="1921">1921</option>
+                                                            </select>
+                                                        </label> -->
+
+                                                        <!-- Start of optional -->
+                                                        <article class="toggle slide viewed">
+                                                            <p class="loyalty">
+                                                                <a href="#advancedlistpform" aria-controls="advancedlist" class="toggle-trigger" data-transition="slide" data-control="toggle">Loyalty Program and Emergency Contact<span class="icon icon-expand"></span></a>
+                                                            </p>
+                                                            <div id="advancedlistpform" class="toggle-pane" role="region" aria-expanded="false" style="visibility: hidden; height: 0px; opacity: 0; overflow: hidden;">
+                                                                <div class="toggle-inner cf">
+                                                                    <fieldset class="optional-fieldset">
+                                                                        <label class="text">
+                                                                            <p>
+                                                                                <b>Flight company: Delta</b>
+                                                                            </p>
+                                                                        </label>
+                                                                        <h3 class="optional-field-heading">Frequent flyer information</h3>
+                                                                        <label class="select icon icon-toggle180 field-ff-program-name">
+                                                                            <span class="label">Frequent flyer information</span>
+                                                                            <select class="cko-field" maxlength="30">
+                                                                                <option value="a">Select a program</option>
+                                                                                <option class="select-dash" disabled="disabled">-- My Programs --</option>
+                                                                                <option value="b">LAM Mozambique Flights Airlines</option>
+                                                                                <option value="c">Alaska Airlines</option>
+                                                                                <option class="select-dash" disabled="disabled">-- All Programs --</option>
+                                                                                <option value="d">Aero Mexico</option>
+                                                                                <option value="e">Baltic Airlines</option>
+                                                                                <option value="f">Cathay Pacific</option>
+                                                                            </select>
+                                                                        </label>
+                                                                        <label class="text field-ff-program-number">
+                                                                            <span class="label">Program number</span>
+                                                                            <input class="text cko-field " data-cko-blur="fieldValidation" placeholder="Program number" required title="Enter your program number" type="text">
+                                                                        </label>
+                                                                        <div class="cf">
+                                                                        </div>
+                                                                        <label class="text">
+                                                                            <p>
+                                                                                Emergency Contact
+                                                                            </p>
+                                                                        </label>
+                                                                        <label class="text field-ff-program-number">
+                                                                            <input class="text cko-field" type="text" placeholder="Emergcy contact name" />
+                                                                        </label>
+                                                                        <label class="field-country-code select icon icon-toggle180 cc-select">
+                                                                            <span class="label required">Country code
+                                                                                <span>*</span>
+                                                                            </span>
+                                                                            <select name="country-code" id="ccodeSelect" data-control="country-code-select" data-target-id="phoneNumber">
+                                                                                <option value="54" data-country-iso="ar" data-country-name="Argentina">Argentina +54</option>
+                                                                                <option value="44" data-country-iso="gb" data-country-name="United Kingdom">United Kingdom +44</option>
+                                                                                <option value="1" data-country-iso="us" data-country-name="United States" selected="selected">United States +1</option>
+                                                                                <option value="84" data-country-iso="vn" data-country-name="Vietnam">Vietnam +84</option>
+                                                                            </select>
+                                                                        </label>
+                                                                        <label class="field-ff-program-number text icon-before phone-number cc-input">
+                                                                            <input type="tel" maxlength="30" placeholder="Conact phone number" value="" id="phoneNumber">
+                                                                        </label>
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                        <button id="updateplayback1" type="submit" class="btn-action btn-secondary update">
+                                                            <span class="btn-label">Update</span>
+                                                        </button>
+                                                    </fieldset>
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                        <!-- end of edit from for playback1-->
+
+
+                                        <div id="tplayback2">
+                                            <div class="playbacktitle">
+                                                <span style="color:#477a00; padding-left:12px;" class="icon icon-success"></span>
+                                                <h5 id="tplaybackname2" style="line-height:2;padding:5px;display:inline">Traveler 2 Name
+                                                </h5>
+                                                <a id="editinfo2" class="editbutton">Edit</a>
+                                            </div>
+                                            <div class="traveler2info2 playback-detail secondary">
+                                                <p id="tplaybackgender2" class="remove-margin">Gender</p>
+                                                <p id="tplaybackdob2" class="remove-margin">Date of Birth
+                                                </p>
+                                            </div>
+                                            <hr style="margin-bottom:0px;">
+                                        </div>
+
+                                        <!-- start of edit form for playback2-->
+                                        <article id="traveler2edit" class="no-target cf segment-form notsignedin toggle open playback-edit">
+                                            <h5 class="playback-ban"><a href="#traveler1pform" aria-controls="traveler1" class="toggle-trigger open" data-control="toggle" data-transition="slide">Traveler 2<span class="icon icon-expand"></span></a>
+                                            </h5>
+                                            <div id="traveler1pform" class="toggle-pane" role="region" aria-expanded="true">
+                                                <div class="toggle-inner cf">
+
+                                                    <!-- start of basic info -->
+                                                    <fieldset style="padding:5px 0px 10px 30px;">
+                                                        <div class="text field-contactname">
+                                                            <span class="label required">Name
+                                                                <span>*</span>
+                                                            </span>
+
+                                                            <input class="name-field" type="text" placeholder="First name" id="t2firstnamepform" value="" />
+                                                            <input class="name-field" type="text" placeholder="Last name" id="t2lastnamepform" value="" />
+                                                        </div>
+
+                                                        <label>
+                                                            <span class="label required">Gender
+                                                                <span class="visuallyhidden">Gender</span>
+                                                                <span>*</span>
+                                                            </span>
+                                                            <fieldset>
+                                                                <label class="check" for="t2malepform">
+                                                                    <input type="radio" id="t2malepform" name="t2genderform" value="male" />
+                                                                    <span style="color:#333333" class="inline-label">Male</span>
+                                                                </label>
+                                                                <label class="check" for="t2femalepform">
+                                                                    <input type="radio" id="t2femalepform" name="t2genderform" value="female" />
+                                                                    <span style="color:#333333" class="inline-label">Female</span>
+                                                                </label>
+                                                            </fieldset>
+                                                        </label>
+                                                        <label>
+                                                            <span class="label required">Date of birth
+                                                                <span>*</span>
+                                                            </span>
+                                                        </label>
+                                                        <label style="display:inline" for="t2monthpform">
+                                                            <input id="t2monthpform" style="width:25%" type="tel" maxlength="2" size="2" placeHolder="MM" inlineLabel="true">
+                                                        </label>
+                                                        <label style="display:inline" for="t2daypform">
+                                                            <input id="t2daypform" style="width:25%" type="tel" maxlength="2" size="2" placeHolder="DD" inlineLabel="true">
+                                                        </label>
+                                                        <label style="display:inline" for="t2yearpform">
+                                                            <input id="t2yearpform" style="width:45%" type="tel" maxlength="4" size="4" placeHolder="YYYY" inlineLabel="true">
+                                                        </label>
+
+
+                                                        <!-- <span class="label required">Date of birth
+                                                            <span>*</span>
+                                                        </span>
+
+
+                                                        <label class="select icon icon-toggle180 day-select">
+
+                                                            <select>
+                                                                <option value="0">Month</option>
+                                                                <option value="1">01 - Jan</option>
+                                                                <option value="2">02 - Feb</option>
+                                                                <option value="3">03 - Mar</option>
+                                                                <option value="4">04 - Apr</option>
+                                                                <option value="5">05 - May</option>
+                                                                <option value="6">06 - Jun</option>
+                                                                <option value="7">07 - Jul</option>
+                                                                <option value="8">08 - Aug</option>
+                                                                <option value="9">09 - Sep</option>
+                                                                <option value="10">10 - Oct</option>
+                                                                <option value="11">11 - Nov</option>
+                                                                <option value="12">12 - Dec</option>
+                                                            </select>
+                                                        </label>
+
+                                                        <label class="select icon icon-toggle180 month-select">
+
+                                                            <select>
+                                                                <option value="0">Day</option>
+                                                                <option value="1">01</option>
+                                                                <option value="2">02</option>
+                                                                <option value="3">03</option>
+                                                                <option value="4">04</option>
+                                                                <option value="5">05</option>
+                                                                <option value="6">06</option>
+                                                                <option value="7">07</option>
+                                                                <option value="8">08</option>
+                                                                <option value="9">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                            </select>
+                                                        </label>
+
+                                                        <label class="select icon icon-toggle180 year-select">
+
+                                                            <select>
+                                                                <option value="0">Year</option>
+                                                                <option value="2014">2014</option>
+                                                                <option value="2013">2013</option>
+                                                                <option value="2012">2012</option>
+                                                                <option value="2011">2011</option>
+                                                                <option value="2010">2010</option>
+                                                                <option value="2009">2009</option>
+                                                                <option value="2008">2008</option>
+                                                                <option value="2007">2007</option>
+                                                                <option value="2006">2006</option>
+                                                                <option value="2005">2005</option>
+                                                                <option value="2004">2004</option>
+                                                                <option value="2003">2003</option>
+                                                                <option value="2002">2002</option>
+                                                                <option value="2001">2001</option>
+                                                                <option value="2000">2000</option>
+                                                                <option value="1999">1999</option>
+                                                                <option value="1998">1998</option>
+                                                                <option value="1997">1997</option>
+                                                                <option value="1996">1996</option>
+                                                                <option value="1995">1995</option>
+                                                                <option value="1994">1994</option>
+                                                                <option value="1993">1993</option>
+                                                                <option value="1992">1992</option>
+                                                                <option value="1991">1991</option>
+                                                                <option value="1990">1990</option>
+                                                                <option value="1989">1989</option>
+                                                                <option value="1988">1988</option>
+                                                                <option value="1987">1987</option>
+                                                                <option value="1986">1986</option>
+                                                                <option value="1985">1985</option>
+                                                                <option value="1984">1984</option>
+                                                                <option value="1983">1983</option>
+                                                                <option value="1982">1982</option>
+                                                                <option value="1981">1981</option>
+                                                                <option value="1980">1980</option>
+                                                                <option value="1979">1979</option>
+                                                                <option value="1978">1978</option>
+                                                                <option value="1977">1977</option>
+                                                                <option value="1976">1976</option>
+                                                                <option value="1975">1975</option>
+                                                                <option value="1974">1974</option>
+                                                                <option value="1973">1973</option>
+                                                                <option value="1972">1972</option>
+                                                                <option value="1971">1971</option>
+                                                                <option value="1970">1970</option>
+                                                                <option value="1969">1969</option>
+                                                                <option value="1968">1968</option>
+                                                                <option value="1967">1967</option>
+                                                                <option value="1966">1966</option>
+                                                                <option value="1965">1965</option>
+                                                                <option value="1964">1964</option>
+                                                                <option value="1963">1963</option>
+                                                                <option value="1962">1962</option>
+                                                                <option value="1961">1961</option>
+                                                                <option value="1960">1960</option>
+                                                                <option value="1959">1959</option>
+                                                                <option value="1958">1958</option>
+                                                                <option value="1957">1957</option>
+                                                                <option value="1956">1956</option>
+                                                                <option value="1955">1955</option>
+                                                                <option value="1954">1954</option>
+                                                                <option value="1953">1953</option>
+                                                                <option value="1952">1952</option>
+                                                                <option value="1951">1951</option>
+                                                                <option value="1950">1950</option>
+                                                                <option value="1949">1949</option>
+                                                                <option value="1948">1948</option>
+                                                                <option value="1947">1947</option>
+                                                                <option value="1946">1946</option>
+                                                                <option value="1945">1945</option>
+                                                                <option value="1944">1944</option>
+                                                                <option value="1943">1943</option>
+                                                                <option value="1942">1942</option>
+                                                                <option value="1941">1941</option>
+                                                                <option value="1940">1940</option>
+                                                                <option value="1939">1939</option>
+                                                                <option value="1938">1938</option>
+                                                                <option value="1937">1937</option>
+                                                                <option value="1936">1936</option>
+                                                                <option value="1935">1935</option>
+                                                                <option value="1934">1934</option>
+                                                                <option value="1933">1933</option>
+                                                                <option value="1932">1932</option>
+                                                                <option value="1931">1931</option>
+                                                                <option value="1930">1930</option>
+                                                                <option value="1929">1929</option>
+                                                                <option value="1928">1928</option>
+                                                                <option value="1927">1927</option>
+                                                                <option value="1926">1926</option>
+                                                                <option value="1925">1925</option>
+                                                                <option value="1924">1924</option>
+                                                                <option value="1923">1923</option>
+                                                                <option value="1922">1922</option>
+                                                                <option value="1921">1921</option>
+                                                            </select>
+                                                        </label> -->
+
+
+                                                        <!-- Start of optional -->
+                                                        <article class="toggle slide viewed">
+                                                            <p class="loyalty">
+                                                                <a href="#advancedlistpform" aria-controls="advancedlist" class="toggle-trigger" data-transition="slide" data-control="toggle">Loyalty and Emergency contact<span class="icon icon-expand"></span></a>
+                                                            </p>
+                                                            <div id="advancedlistpform" class="toggle-pane" role="region" aria-expanded="false" style="visibility: hidden; height: 0px; opacity: 0; overflow: hidden;">
+                                                                <div class="toggle-inner cf">
+                                                                    <fieldset class="optional-fieldset">
+                                                                        <label class="text">
+                                                                            <p>
+                                                                                <b>Flight company: Delta</b>
+                                                                            </p>
+                                                                        </label>
+                                                                        <h3 class="optional-field-heading">Frequent flyer information</h3>
+                                                                        <label class="select icon icon-toggle180 field-ff-program-name">
+                                                                            <span class="label">Frequent flyer information</span>
+                                                                            <select class="cko-field" maxlength="30">
+                                                                                <option value="a">Select a program</option>
+                                                                                <option class="select-dash" disabled="disabled">-- My Programs --</option>
+                                                                                <option value="b">LAM Mozambique Flights Airlines</option>
+                                                                                <option value="c">Alaska Airlines</option>
+                                                                                <option class="select-dash" disabled="disabled">-- All Programs --</option>
+                                                                                <option value="d">Aero Mexico</option>
+                                                                                <option value="e">Baltic Airlines</option>
+                                                                                <option value="f">Cathay Pacific</option>
+                                                                            </select>
+                                                                        </label>
+                                                                        <label class="text field-ff-program-number">
+                                                                            <span class="label">Program number</span>
+                                                                            <input class="text cko-field " data-cko-blur="fieldValidation" placeholder="Program number" required title="Enter your program number" type="text">
+                                                                        </label>
+                                                                        <div class="cf">
+                                                                        </div>
+                                                                        <label class="text">
+                                                                            <span class="label">
+                                                                                Emergency Contact
+                                                                            </span>
+                                                                        </label>
+                                                                        <label class="text field-ff-program-number">
+                                                                            <input class="text cko-field" type="text" placeholder="Emergcy contact name" />
+                                                                        </label>
+                                                                        <label class="field-country-code select icon icon-toggle180 cc-select">
+                                                                            <span class="label required">Country code
+                                                                                <span>*</span>
+                                                                            </span>
+                                                                            <select name="country-code" id="ccodeSelect" data-control="country-code-select" data-target-id="phoneNumber">
+                                                                                <option value="54" data-country-iso="ar" data-country-name="Argentina">Argentina +54</option>
+                                                                                <option value="44" data-country-iso="gb" data-country-name="United Kingdom">United Kingdom +44</option>
+                                                                                <option value="1" data-country-iso="us" data-country-name="United States" selected="selected">United States +1</option>
+                                                                                <option value="84" data-country-iso="vn" data-country-name="Vietnam">Vietnam +84</option>
+                                                                            </select>
+                                                                        </label>
+                                                                        <label class="field-ff-program-number text icon-before phone-number cc-input">
+                                                                            <input type="tel" maxlength="30" placeholder="Conact phone number" value="" id="phoneNumber">
+                                                                        </label>
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                        <button id="updateplayback2" type="submit" class="update btn-action btn-secondary">
+                                                            <span class="btn-label">Update</span>
+                                                        </button>
+                                                    </fieldset>
+                                                </div>
+
+                                            </div>
+                                            <hr style="margin:0px;">
+                                        </article>
+                                        <!-- end of edit form for playback2-->
+                                    </fieldset>
+                                    <!-- End of Placyback -->
+
+                                    <!-- ================== Traveler 1 ================== -->
+                                    <article id="traveler1form" class="no-target cf segment-form notsignedin toggle open">
+                                        <h5 class="traveler-title"><a href="#traveler1" aria-controls="traveler1" class="toggle-trigger open" data-control="toggle" data-transition="slide">Traveler 1<span class="icon icon-expand"></span></a>
+                                        </h5>
+                                        <div id="traveler1" class="toggle-pane form-content" role="region" aria-expanded="true">
+                                            <div class="toggle-inner cf">
+
+                                                <!-- start of basic info -->
+                                                <fieldset>
+                                                    <div class="text field-contactname">
+                                                        <span class="label required">Name
+                                                            <span>*</span>
+                                                        </span>
+                                                        <input class="name-field" type="text" placeholder="First name" id="t1firstname" value="" />
+                                                        <input class="name-field" type="text" placeholder="Last name" id="t1lastname" value="" />
+                                                    </div>
+                                                    <label class="text field-email">
+                                                        <span class="label required">Email address
+                                                            <span>*</span>
+                                                        </span>
+                                                        <input id="t1emailaddress" type="text" placeholder="We'll send your confirmation here" value="">
+                                                    </label>
+                                                    <label class="field-country-code select icon icon-toggle180 cc-select">
+                                                        <span class="label required">Country code
+                                                            <span>*</span>
+                                                        </span>
+                                                        <select name="country-code" id="ccodeSelect" data-control="country-code-select" data-target-id="phoneNumber">
+                                                            <option value="54" data-country-iso="ar" data-country-name="Argentina">Argentina +54</option>
+                                                            <option value="44" data-country-iso="gb" data-country-name="United Kingdom">United Kingdom +44</option>
+                                                            <option value="1" data-country-iso="us" data-country-name="United States" selected="selected">United States +1</option>
+                                                            <option value="84" data-country-iso="vn" data-country-name="Vietnam">Vietnam +84</option>
+                                                        </select>
+                                                    </label>
+                                                    <label class="field-phone text icon-before phone-number cc-input">
+                                                        <span class="label required">Phone number
+                                                            <span>*</span>
+                                                        </span>
+                                                        <input id="t1phoneno" type="tel" placeholder="In case we need to reach you" value="" id="phoneNumber">
+                                                    </label>
+                                                    <label>
+                                                        <span class="label required">Gender
+                                                            <span class="visuallyhidden">Gender</span>
+                                                            <span>*</span>
+                                                        </span>
+                                                        <fieldset>
+                                                            <label class="check" for="t1male">
+                                                                <input type="radio" id="t1male" name="t1gender" value="male" />
+                                                                <span style="color:#333333" class="inline-label">Male</span>
+                                                            </label>
+                                                            <label class="check" for="t1female">
+                                                                <input type="radio" id="t1female" name="t1gender" value="female" />
+                                                                <span style="color:#333333" class="inline-label">Female</span>
+                                                            </label>
+                                                        </fieldset>
+                                                    </label>
+                                                    <label>
+                                                        <span class="label required">Date of birth
+                                                            <span>*</span>
+                                                        </span>
+                                                    </label>
+                                                    <label style="display:inline" for="t1month">
+                                                        <input id="t1month" name="t1month" style="width:25%" type="tel" maxlength="2" size="2" placeHolder="MM" inlineLabel="true" onkeyup="autotab(this, document.t1day)">
+                                                    </label>
+                                                    <label style="display:inline" for="t1day">
+                                                        <input id="t1day" name="t1day" style="width:25%" type="tel" maxlength="2" size="2" placeHolder="DD" inlineLabel="true">
+                                                    </label>
+                                                    <label style="display:inline" for="t1year">
+                                                        <input id="t1year" name="t1year" style="width:45%" type="tel" maxlength="4" size="4" placeHolder="YYYY" inlineLabel="true">
+                                                    </label>
+
+
+
+                                                    <!-- <span class="label required">Date of birth
+                                                        <span>*</span>
+                                                    </span> -->
+
+
+                                                    <!-- <label class="select icon icon-toggle180 day-select">
+
+                                                        <select>
+                                                            <option value="0">Month</option>
+                                                            <option value="1">01 - Jan</option>
+                                                            <option value="2">02 - Feb</option>
+                                                            <option value="3">03 - Mar</option>
+                                                            <option value="4">04 - Apr</option>
+                                                            <option value="5">05 - May</option>
+                                                            <option value="6">06 - Jun</option>
+                                                            <option value="7">07 - Jul</option>
+                                                            <option value="8">08 - Aug</option>
+                                                            <option value="9">09 - Sep</option>
+                                                            <option value="10">10 - Oct</option>
+                                                            <option value="11">11 - Nov</option>
+                                                            <option value="12">12 - Dec</option>
+                                                        </select>
+                                                    </label>
+
+                                                    <label class="select icon icon-toggle180 month-select">
+
+                                                        <select>
+                                                            <option value="0">Day</option>
+                                                            <option value="1">01</option>
+                                                            <option value="2">02</option>
+                                                            <option value="3">03</option>
+                                                            <option value="4">04</option>
+                                                            <option value="5">05</option>
+                                                            <option value="6">06</option>
+                                                            <option value="7">07</option>
+                                                            <option value="8">08</option>
+                                                            <option value="9">09</option>
+                                                            <option value="10">10</option>
+                                                            <option value="11">11</option>
+                                                            <option value="12">12</option>
+                                                            <option value="13">13</option>
+                                                            <option value="14">14</option>
+                                                            <option value="15">15</option>
+                                                            <option value="16">16</option>
+                                                            <option value="17">17</option>
+                                                            <option value="18">18</option>
+                                                            <option value="19">19</option>
+                                                            <option value="20">20</option>
+                                                            <option value="21">21</option>
+                                                            <option value="22">22</option>
+                                                            <option value="23">23</option>
+                                                            <option value="24">24</option>
+                                                            <option value="25">25</option>
+                                                            <option value="26">26</option>
+                                                            <option value="27">27</option>
+                                                            <option value="28">28</option>
+                                                            <option value="29">29</option>
+                                                            <option value="30">30</option>
+                                                            <option value="31">31</option>
+                                                        </select>
+                                                    </label>
+
+                                                    <label class="select icon icon-toggle180  year-select">
+
+                                                        <select>
+                                                            <option value="0">Year</option>
+                                                            <option value="2014">2014</option>
+                                                            <option value="2013">2013</option>
+                                                            <option value="2012">2012</option>
+                                                            <option value="2011">2011</option>
+                                                            <option value="2010">2010</option>
+                                                            <option value="2009">2009</option>
+                                                            <option value="2008">2008</option>
+                                                            <option value="2007">2007</option>
+                                                            <option value="2006">2006</option>
+                                                            <option value="2005">2005</option>
+                                                            <option value="2004">2004</option>
+                                                            <option value="2003">2003</option>
+                                                            <option value="2002">2002</option>
+                                                            <option value="2001">2001</option>
+                                                            <option value="2000">2000</option>
+                                                            <option value="1999">1999</option>
+                                                            <option value="1998">1998</option>
+                                                            <option value="1997">1997</option>
+                                                            <option value="1996">1996</option>
+                                                            <option value="1995">1995</option>
+                                                            <option value="1994">1994</option>
+                                                            <option value="1993">1993</option>
+                                                            <option value="1992">1992</option>
+                                                            <option value="1991">1991</option>
+                                                            <option value="1990">1990</option>
+                                                            <option value="1989">1989</option>
+                                                            <option value="1988">1988</option>
+                                                            <option value="1987">1987</option>
+                                                            <option value="1986">1986</option>
+                                                            <option value="1985">1985</option>
+                                                            <option value="1984">1984</option>
+                                                            <option value="1983">1983</option>
+                                                            <option value="1982">1982</option>
+                                                            <option value="1981">1981</option>
+                                                            <option value="1980">1980</option>
+                                                            <option value="1979">1979</option>
+                                                            <option value="1978">1978</option>
+                                                            <option value="1977">1977</option>
+                                                            <option value="1976">1976</option>
+                                                            <option value="1975">1975</option>
+                                                            <option value="1974">1974</option>
+                                                            <option value="1973">1973</option>
+                                                            <option value="1972">1972</option>
+                                                            <option value="1971">1971</option>
+                                                            <option value="1970">1970</option>
+                                                            <option value="1969">1969</option>
+                                                            <option value="1968">1968</option>
+                                                            <option value="1967">1967</option>
+                                                            <option value="1966">1966</option>
+                                                            <option value="1965">1965</option>
+                                                            <option value="1964">1964</option>
+                                                            <option value="1963">1963</option>
+                                                            <option value="1962">1962</option>
+                                                            <option value="1961">1961</option>
+                                                            <option value="1960">1960</option>
+                                                            <option value="1959">1959</option>
+                                                            <option value="1958">1958</option>
+                                                            <option value="1957">1957</option>
+                                                            <option value="1956">1956</option>
+                                                            <option value="1955">1955</option>
+                                                            <option value="1954">1954</option>
+                                                            <option value="1953">1953</option>
+                                                            <option value="1952">1952</option>
+                                                            <option value="1951">1951</option>
+                                                            <option value="1950">1950</option>
+                                                            <option value="1949">1949</option>
+                                                            <option value="1948">1948</option>
+                                                            <option value="1947">1947</option>
+                                                            <option value="1946">1946</option>
+                                                            <option value="1945">1945</option>
+                                                            <option value="1944">1944</option>
+                                                            <option value="1943">1943</option>
+                                                            <option value="1942">1942</option>
+                                                            <option value="1941">1941</option>
+                                                            <option value="1940">1940</option>
+                                                            <option value="1939">1939</option>
+                                                            <option value="1938">1938</option>
+                                                            <option value="1937">1937</option>
+                                                            <option value="1936">1936</option>
+                                                            <option value="1935">1935</option>
+                                                            <option value="1934">1934</option>
+                                                            <option value="1933">1933</option>
+                                                            <option value="1932">1932</option>
+                                                            <option value="1931">1931</option>
+                                                            <option value="1930">1930</option>
+                                                            <option value="1929">1929</option>
+                                                            <option value="1928">1928</option>
+                                                            <option value="1927">1927</option>
+                                                            <option value="1926">1926</option>
+                                                            <option value="1925">1925</option>
+                                                            <option value="1924">1924</option>
+                                                            <option value="1923">1923</option>
+                                                            <option value="1922">1922</option>
+                                                            <option value="1921">1921</option>
+                                                        </select>
+                                                    </label> -->
+
+
+                                                    <!-- Start of optional -->
+                                                    <article class="toggle slide viewed">
+                                                        <p class="loyalty">
+                                                            <a href="#advancedlist" aria-controls="advancedlist" class="toggle-trigger" data-transition="slide" data-control="toggle">Loyalty and Emergency contact<span class="icon icon-expand"></span></a>
+                                                        </p>
+                                                        <div id="advancedlist" class="toggle-pane" role="region" aria-expanded="false" style="visibility: hidden; height: 0px; opacity: 0; overflow: hidden;">
+                                                            <div class="toggle-inner cf">
+                                                                <fieldset class="optional-fieldset">
+                                                                    <label class="text">
+                                                                        <p style="font-size:0.9em;">
+                                                                            <b>Flight company: Delta</b>
+                                                                        </p>
+                                                                    </label>
+                                                                    <h3 class="optional-field-heading">Frequent flyer information</h3>
+                                                                    <label class="select icon icon-toggle180 field-ff-program-name">
+                                                                        <span class="label">Frequent flyer information</span>
+                                                                        <select class="cko-field" maxlength="30">
+                                                                            <option value="a">Select a program</option>
+                                                                            <option class="select-dash" disabled="disabled">-- My Programs --</option>
+                                                                            <option value="b">LAM Mozambique Flights Airlines</option>
+                                                                            <option value="c">Alaska Airlines</option>
+                                                                            <option class="select-dash" disabled="disabled">-- All Programs --</option>
+                                                                            <option value="d">Aero Mexico</option>
+                                                                            <option value="e">Baltic Airlines</option>
+                                                                            <option value="f">Cathay Pacific</option>
+                                                                        </select>
+                                                                    </label>
+                                                                    <label class="text field-ff-program-number">
+                                                                        <span class="label">Program number</span>
+                                                                        <input class="text cko-field " data-cko-blur="fieldValidation" placeholder="Program number" required title="Enter your program number" type="text">
+                                                                    </label>
+                                                                    <div class="cf">
+                                                                    </div>
+                                                                    <label class="text">
+                                                                        <p class="label">
+                                                                            Emergency Contact
+                                                                        </p>
+                                                                    </label>
+                                                                    <label class="text field-ff-program-number">
+                                                                        <input class="text cko-field" type="text" placeholder="Emergcy contact name" />
+                                                                    </label>
+                                                                    <label class="field-country-code select icon icon-toggle180 cc-select">
+                                                                        <span class="label required">Country code
+                                                                            <span>*</span>
+                                                                        </span>
+                                                                        <select name="country-code" id="ccodeSelect" data-control="country-code-select" data-target-id="phoneNumber">
+                                                                            <option value="54" data-country-iso="ar" data-country-name="Argentina">Argentina +54</option>
+                                                                            <option value="44" data-country-iso="gb" data-country-name="United Kingdom">United Kingdom +44</option>
+                                                                            <option value="1" data-country-iso="us" data-country-name="United States" selected="selected">United States +1</option>
+                                                                            <option value="84" data-country-iso="vn" data-country-name="Vietnam">Vietnam +84</option>
+                                                                        </select>
+                                                                    </label>
+                                                                    <label class="field-ff-program-number text icon-before phone-number cc-input">
+                                                                        <input type="tel" maxlength="30" placeholder="Conact phone number" value="" id="phoneNumber">
+                                                                    </label>
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+
+                                    </article>
+
+                                    <!-- ==================== Traveler 2 ============================ -->
+                                    <article id="traveler2form" class="no-target cf segment-form toggle open">
+                                        <h5 class="traveler-title"><a id="traveler2link" href="#traveler2" aria-controls="traveler2" class="toggle-trigger open" data-control="toggle" data-transition="slide">Traveler 2<span class="icon icon-expand"></span></a>
+                                        </h5>
+                                        <div id="traveler2" class="toggle-pane" role="region" aria-expanded="true">
+                                            <div class="toggle-inner cf form-content">
+                                                <!-- start of basic info -->
+                                                <fieldset style="padding-bottom:20px">
+                                                    <div class="text field-contactname">
+                                                        <span class="label required">Name
+                                                            <span>*</span>
+                                                        </span>
+                                                        <input class="name-field" type="text" placeholder="First name" id="t2firstname" value="" />
+                                                        <input class="name-field" type="text" placeholder="Last name" id="t2lastname" value="" />
+                                                    </div>
+
+
+                                                    <label>
+                                                        <span class="label required">Gender
+                                                            <span class="visuallyhidden">Gender</span>
+                                                            <span>*</span>
+                                                        </span>
+                                                        <fieldset>
+                                                            <label class="check" for="t2male">
+                                                                <input id="t2male" type="radio" name="t2gender" value="male">
+                                                                <span style="color:#333333" class="inline-label">Male</span>
+                                                            </label>
+                                                            <label class="check" for="t2female">
+                                                                <input id="t2female" type="radio" name="t2gender" value="female">
+                                                                <span style="color:#333333" class="inline-label">Female</span>
+                                                            </label>
+                                                        </fieldset>
+                                                    </label>
+                                                    <label>
+                                                        <span class="label required">Date of birth
+                                                            <span>*</span>
+                                                        </span>
+                                                    </label>
+                                                    <label style="display:inline" for="t2month">
+                                                        <input id="t2month" style="width:25%" type="tel" maxlength="2" size="2" placeHolder="MM" inlineLabel="true">
+                                                    </label>
+                                                    <label style="display:inline" for="t2day">
+                                                        <input id="t2day" style="width:25%" type="tel" maxlength="2" size="2" placeHolder="DD" inlineLabel="true">
+                                                    </label>
+                                                    <label style="display:inline" for="t2year">
+                                                        <input id="t2year" style="width:45%" type="tel" maxlength="4" size="4" placeHolder="YYYY" inlineLabel="true">
+                                                    </label>
+
+                                                    <!-- <span class="label required">Date of birth
+                                                        <span>*</span>
+                                                    </span> -->
+
+
+                                                    <!--  <label class="select icon icon-toggle180 month-select">
+
+                                                        <select>
+                                                            <option value="0">Month</option>
+                                                            <option value="1">01 - Jan</option>
+                                                            <option value="2">02 - Feb</option>
+                                                            <option value="3">03 - Mar</option>
+                                                            <option value="4">04 - Apr</option>
+                                                            <option value="5">05 - May</option>
+                                                            <option value="6">06 - Jun</option>
+                                                            <option value="7">07 - Jul</option>
+                                                            <option value="8">08 - Aug</option>
+                                                            <option value="9">09 - Sep</option>
+                                                            <option value="10">10 - Oct</option>
+                                                            <option value="11">11 - Nov</option>
+                                                            <option value="12">12 - Dec</option>
+                                                        </select>
+                                                    </label>
+
+                                                    <label class="select icon icon-toggle180 day-select">
+
+                                                        <select>
+                                                            <option value="0">Day</option>
+                                                            <option value="1">01</option>
+                                                            <option value="2">02</option>
+                                                            <option value="3">03</option>
+                                                            <option value="4">04</option>
+                                                            <option value="5">05</option>
+                                                            <option value="6">06</option>
+                                                            <option value="7">07</option>
+                                                            <option value="8">08</option>
+                                                            <option value="9">09</option>
+                                                            <option value="10">10</option>
+                                                            <option value="11">11</option>
+                                                            <option value="12">12</option>
+                                                            <option value="13">13</option>
+                                                            <option value="14">14</option>
+                                                            <option value="15">15</option>
+                                                            <option value="16">16</option>
+                                                            <option value="17">17</option>
+                                                            <option value="18">18</option>
+                                                            <option value="19">19</option>
+                                                            <option value="20">20</option>
+                                                            <option value="21">21</option>
+                                                            <option value="22">22</option>
+                                                            <option value="23">23</option>
+                                                            <option value="24">24</option>
+                                                            <option value="25">25</option>
+                                                            <option value="26">26</option>
+                                                            <option value="27">27</option>
+                                                            <option value="28">28</option>
+                                                            <option value="29">29</option>
+                                                            <option value="30">30</option>
+                                                            <option value="31">31</option>
+                                                        </select>
+                                                    </label>
+
+                                                    <label class="select icon icon-toggle180 year-select">
+
+                                                        <select>
+                                                            <option value="0">Year</option>
+                                                            <option value="2014">2014</option>
+                                                            <option value="2013">2013</option>
+                                                            <option value="2012">2012</option>
+                                                            <option value="2011">2011</option>
+                                                            <option value="2010">2010</option>
+                                                            <option value="2009">2009</option>
+                                                            <option value="2008">2008</option>
+                                                            <option value="2007">2007</option>
+                                                            <option value="2006">2006</option>
+                                                            <option value="2005">2005</option>
+                                                            <option value="2004">2004</option>
+                                                            <option value="2003">2003</option>
+                                                            <option value="2002">2002</option>
+                                                            <option value="2001">2001</option>
+                                                            <option value="2000">2000</option>
+                                                            <option value="1999">1999</option>
+                                                            <option value="1998">1998</option>
+                                                            <option value="1997">1997</option>
+                                                            <option value="1996">1996</option>
+                                                            <option value="1995">1995</option>
+                                                            <option value="1994">1994</option>
+                                                            <option value="1993">1993</option>
+                                                            <option value="1992">1992</option>
+                                                            <option value="1991">1991</option>
+                                                            <option value="1990">1990</option>
+                                                            <option value="1989">1989</option>
+                                                            <option value="1988">1988</option>
+                                                            <option value="1987">1987</option>
+                                                            <option value="1986">1986</option>
+                                                            <option value="1985">1985</option>
+                                                            <option value="1984">1984</option>
+                                                            <option value="1983">1983</option>
+                                                            <option value="1982">1982</option>
+                                                            <option value="1981">1981</option>
+                                                            <option value="1980">1980</option>
+                                                            <option value="1979">1979</option>
+                                                            <option value="1978">1978</option>
+                                                            <option value="1977">1977</option>
+                                                            <option value="1976">1976</option>
+                                                            <option value="1975">1975</option>
+                                                            <option value="1974">1974</option>
+                                                            <option value="1973">1973</option>
+                                                            <option value="1972">1972</option>
+                                                            <option value="1971">1971</option>
+                                                            <option value="1970">1970</option>
+                                                            <option value="1969">1969</option>
+                                                            <option value="1968">1968</option>
+                                                            <option value="1967">1967</option>
+                                                            <option value="1966">1966</option>
+                                                            <option value="1965">1965</option>
+                                                            <option value="1964">1964</option>
+                                                            <option value="1963">1963</option>
+                                                            <option value="1962">1962</option>
+                                                            <option value="1961">1961</option>
+                                                            <option value="1960">1960</option>
+                                                            <option value="1959">1959</option>
+                                                            <option value="1958">1958</option>
+                                                            <option value="1957">1957</option>
+                                                            <option value="1956">1956</option>
+                                                            <option value="1955">1955</option>
+                                                            <option value="1954">1954</option>
+                                                            <option value="1953">1953</option>
+                                                            <option value="1952">1952</option>
+                                                            <option value="1951">1951</option>
+                                                            <option value="1950">1950</option>
+                                                            <option value="1949">1949</option>
+                                                            <option value="1948">1948</option>
+                                                            <option value="1947">1947</option>
+                                                            <option value="1946">1946</option>
+                                                            <option value="1945">1945</option>
+                                                            <option value="1944">1944</option>
+                                                            <option value="1943">1943</option>
+                                                            <option value="1942">1942</option>
+                                                            <option value="1941">1941</option>
+                                                            <option value="1940">1940</option>
+                                                            <option value="1939">1939</option>
+                                                            <option value="1938">1938</option>
+                                                            <option value="1937">1937</option>
+                                                            <option value="1936">1936</option>
+                                                            <option value="1935">1935</option>
+                                                            <option value="1934">1934</option>
+                                                            <option value="1933">1933</option>
+                                                            <option value="1932">1932</option>
+                                                            <option value="1931">1931</option>
+                                                            <option value="1930">1930</option>
+                                                            <option value="1929">1929</option>
+                                                            <option value="1928">1928</option>
+                                                            <option value="1927">1927</option>
+                                                            <option value="1926">1926</option>
+                                                            <option value="1925">1925</option>
+                                                            <option value="1924">1924</option>
+                                                            <option value="1923">1923</option>
+                                                            <option value="1922">1922</option>
+                                                            <option value="1921">1921</option>
+                                                        </select>
+                                                    </label> -->
+
+
+
+
+                                                    <article class="toggle slide viewed ">
+                                                        <p class="loyalty">
+                                                            <a href="#advancedlist1" aria-controls="advancedlist1" class="toggle-trigger" data-transition="slide" data-control="toggle">Loyalty and Emergency contact<span class="icon icon-expand"></span></a>
+                                                        </p>
+                                                        <div id="advancedlist1" class="toggle-pane" role="region" aria-expanded="false" style="visibility: hidden; height: 0px; opacity: 0; overflow: hidden;">
+                                                            <div class="toggle-inner cf">
+                                                                <fieldset class="optional-fieldset">
+                                                                    <label class="text">
+                                                                        <p style="font-size:0.9em;">
+                                                                            <b>Flight company: Delta</b>
+                                                                        </p>
+                                                                    </label>
+                                                                    <h3 class="optional-field-heading">Frequent flyer information</h3>
+                                                                    <label class="select icon icon-toggle180 field-ff-program-name">
+                                                                        <span class="label">Frequent flyer information</span>
+                                                                        <select class="cko-field" maxlength="30">
+                                                                            <option value="a">Select a program</option>
+                                                                            <option class="select-dash" disabled="disabled">-- My Programs --</option>
+                                                                            <option value="b">LAM Mozambique Flights Airlines</option>
+                                                                            <option value="c">Alaska Airlines</option>
+                                                                            <option class="select-dash" disabled="disabled">-- All Programs --</option>
+                                                                            <option value="d">Aero Mexico</option>
+                                                                            <option value="e">Baltic Airlines</option>
+                                                                            <option value="f">Cathay Pacific</option>
+                                                                        </select>
+                                                                    </label>
+                                                                    <label class="text field-ff-program-number">
+                                                                        <span class="label">Program number</span>
+                                                                        <input class="text cko-field " data-cko-blur="fieldValidation" placeholder="Program number" required title="Enter your program number" type="text">
+                                                                    </label>
+                                                                    <div class="cf">
+                                                                    </div>
+                                                                    <label class="text">
+                                                                        <p class="label">
+                                                                            Emergcy Contact
+                                                                        </p>
+                                                                    </label>
+                                                                    <label class="text field-ff-program-number">
+                                                                        <input class="text cko-field" type="text" placeholder="Emergcy contact name" />
+                                                                    </label>
+                                                                    <label class="field-country-code select icon icon-toggle180 cc-select">
+                                                                        <span class="label required">Country code
+                                                                            <span>*</span>
+                                                                        </span>
+                                                                        <select name="country-code" id="ccodeSelect" data-control="country-code-select" data-target-id="phoneNumber">
+                                                                            <option value="54" data-country-iso="ar" data-country-name="Argentina">Argentina +54</option>
+                                                                            <option value="44" data-country-iso="gb" data-country-name="United Kingdom">United Kingdom +44</option>
+                                                                            <option value="1" data-country-iso="us" data-country-name="United States" selected="selected">United States +1</option>
+                                                                            <option value="84" data-country-iso="vn" data-country-name="Vietnam">Vietnam +84</option>
+                                                                        </select>
+                                                                    </label>
+                                                                    <label class="field-ff-program-number text icon-before phone-number cc-input">
+                                                                        <input type="tel" maxlength="30" placeholder="Conact phone number" value="" id="phoneNumber">
+                                                                    </label>
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <hr id="flight-hotel-sep" style="margin:3px 0px;">
+                                    </article>
+
+                                    <!-- start of hotel-->
+                                    <div>
+
+                                        <div class="hotel-prompt">
+                                            <h4 style="margin-bottom:0px;">
+                                                Hotel:
+                                                <!-- Bellagio Hotel, -->
+                                                <span class="light-weight">2 Nights, 1 Room</span>
+                                            </h4>
+                                            <span class="secondary id-msg">
+                                                Please tell us who will be checking in. Must be 18 or older.
+                                            </span>
+                                        </div>
+
+
+                                        <fieldset id="hotelinfo" style="padding:10px 0px 0px 30px ;">
+                                            <span class="label required">Contact Name
+                                                <span>*</span>
+                                            </span>
+                                            <label for="hotel1" class="traveler-select check">
+                                                <input type="radio" name="hotel" value="male" checked="checked" id="hotel1">
+                                                <span id="hotelname1" style="color:#333333;" class="inline-label">Traveler 1</span>
+                                            </label>
+                                            <br/>
+                                            <label for="hotel2" class="traveler-select check">
+                                                <input type="radio" name="hotel" value="female" id="hotel2">
+                                                <span id="hotelname2" style="color:#333333;" class="inline-label">Traveler 2</span>
+                                            </label>
+                                            <br/>
+                                            <label for="hotelbutton" class="traveler-select">
+                                                <input id="hotelbutton" type="radio" name="hotel">
+                                                <input id="hotelcontact" class="text cko-field inline-label" type="text" placeholder="Other Contacts">
+                                                <br/>
+                                            </label>
+                                            <button id="updatehotel" style="display:none" type="submit" class="update btn-action btn-secondary">
+                                                <span class="btn-label">Update</span>
+                                            </button>
+                                        </fieldset>
+
+
+                                        <!-- start of hotel playback -->
+                                        <fieldset id="hotelplayback" class="playback-banner">
+                                            <span style="color:#477a00; padding-left:12px; padding-right:2px;" class="icon icon-success"></span>
+                                            <h5 style="display:inline;">
+                                                <span class="light-weight">Hotel contact:</span>
+                                                <span id="hotelplaybackname">Contact Name</span>
+                                            </h5>
+                                            <a id="edithotel" class="editbutton">Edit</a> 
+                                        </fieldset>
+                                        <!-- end of hotel playback-->
+                                        <hr class="hotel-prompt" style="margin:0px;">
+                                    </div>
+                                    <!-- end of hotel>
+
+
+                                <!-- start of activity-->
+                                    <div>
+                                        <div class="activity-prompt">
+                                            <h4 style="margin-bottom:0px">Activities:
+                                                <span class="light-weight">
+                                                    Dolphin Encounter or Swim, 2 Tickets
+                                                </span>
+                                            </h4>
+                                            <span class="secondary id-msg">
+                                                Please tell us who will redeem the voucher(s).
+                                            </span>
+                                        </div>
+
+
+                                        <fieldset id="activityinfo" style="padding:10px 30px;">
+
+                                            <span class="label required">Contact Name
+                                                <span>*</span>
+                                            </span>
+                                            <label class="traveler-select check">
+                                                <input type="radio" name="activity" value="male" checked="checked" id="activity1">
+                                                <span id="activityname1" style="color:#333333;" class="inline-label">Traveler 1</span>
+                                            </label>
+                                            <br/>
+                                            <label class="traveler-select check">
+                                                <input type="radio" name="activity" value="female" id="activity2">
+                                                <span id="activityname2" style="color:#333333;" class="inline-label">Traveler 2</span>
+                                            </label>
+                                            <br/>
+                                            <label class="traveler-select">
+                                                <input id="activitybutton" type="radio" name="activity" />
+                                                <input id="activitycontact" class="text cko-field inline-label" type="text" name="activity" placeholder="Other Contacts" />
+                                            </label>
+                                            <button id="updateactivity" style="display:none" type="submit" class="update btn-action btn-secondary">
+                                                <span class="btn-label">Update</span>
+                                            </button>
+                                        </fieldset>
+
+                                        <!-- start of activity playback -->
+                                        <fieldset id="activityplayback" class="playback-banner">
+                                            <span style="color:#477a00;padding-left:12px;padding-right:2px;" class="icon icon-success"></span>
+                                            <h5 style="display:inline;" class="remove-margin">
+                                                <span class="light-weight">Activity contact:</span>
+                                                <span id="activityplaybackname">Contact Name</span>
+                                            </h5>
+                                            <a id="editactivity" class="editbutton">Edit</a>
+                                        </fieldset>
+                                        <!-- end of hotel playback-->
+                                        <!-- end of activity-->
+                                    </div>
+
+                        </fieldset>
+
+                        <!-- next button -->
+                        <button id="traveler-info-done" type="submit" class="btn-action btn-secondary" onclick="travelerDone();">
+                            <span class="btn-label">Next</span>
+                        </button>
+                    </article>
+
+
+
+
+
+                    <!-- ================== Insurance ================== -->
+                    <article id="insurance-sec" class="segment no-target cf segment-form insurance">
+                        <hgroup>
+                            <h3>
+                                <span class="icon icon-shield"></span>
+                            </h3>
+                        </hgroup>
+                        <fieldset>
+
+
+                            <a href="#insurance-pane" data-transition="fade" class="toggle-trigger" data-control="toggle">
+                                <h4 class="stepbar" id="ins-title">Step 2 of 3: Choose Insurance
+                                    <span class="icon icon-expand"></span>
+                                </h4>
+                            </a>
+
+                            <div id="insurance-pane" class="toggle-pane" role="region">
+
+                                <div class="toggle-inner cf">
+
+                                    <article class="no-target cf segment-form insurance">
+                                        <div class="alert alert-success icon icon-success with-close-btn" id="ins-added1">
+                                            <div class="alert-message">You've added travel protection to your trip!
+                                                <br>Your total is now <b>$2107.28</b>.
+                                                <br>
+                                                <span class="change-ins" onClick="showInsPlan();"><u style="color:#0065b8">Change</u>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-success icon icon-success with-close-btn" id="ins-added2">
+                                            <div class="alert-message">You've added travel protection to your trip!
+                                                <br>Your total is now <b>$2137.28</b>.
+                                                <br>
+                                                <span class="change-ins" onClick="showInsPlan();"><u style="color:#0065b8">Change</u>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-warn icon icon-warn with-close-btn" id="ins-declined">
+                                            <h5 class="alert-title">Warning</h5>
+                                            <div class="alert-message">Your trip is not protected.
+                                                <span class="change-ins" onClick="showInsPlan();"><u style="color:#0065b8">Change</u>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div id="ins-plans">
+                                            <p>
+                                                <span class="secondary required" id="inswarning">
+                                                    <span>*</span>
+                                                    Please select an insurance plan.
+                                                </span>
+                                            </p>
+
+
+                                            <fieldset id="ins-plan-1">
+                                                <h3>Vacation Waiver
+                                                    <!-- <span class="insurance-c-dt">See details</span> -->
+                                                </h3>
+                                                <div class="insurance-benefits cf">
+                                                    <div class="ins-bullet">
+                                                        <div>
+                                                            <span class="icon icon-success"></span>
+                                                            <span class="ins-bullet-text">Change for ANY reason</span>
+                                                            <ul class="ins-detail">
+                                                                <li>No fees for one-time flight change</li>
+                                                                <li>Expedia refunds 100% of hotel, car and activities</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <a href="http://www.expedia.com/daily/promos/travel_protection_plans/car_print.asp" target="_blank" class="ins-terms-link">View terms, conditions and plan sponsor <span class="icon icon-popup icon-spacer"></span></a>
+                                                </div>
+
+                                                <label class="check" style="display:inline-block;">
+                                                    <span class="inline-label">
+                                                        <input type="radio" name="ins-choice" value="a" id="ins-option1-button" onClick="selectInsurance();">Yes, add this plan for
+                                                        <span class="insurance-daily">$42</span>/person</span>
+                                                    </input>
+                                                </label>
+                                            </fieldset>
+
+
+                                            <fieldset id="ins-plan-2">
+                                                <h3>Package Protection Insurance</h3>
+                                                <div class="insurance-benefits cf">
+                                                    <div class="ins-bullet">
+                                                        <div>
+                                                            <span class="icon icon-success"></span>
+                                                            <span class="ins-bullet-text">Change for ANY reason</span>
+                                                            <ul class="ins-detail">
+                                                                <li>No fees for one-time flight change</li>
+                                                                <li>Expedia refunds 100% of hotel, car and activities</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ins-bullet">
+                                                        <div>
+                                                            <span class="icon icon-success"></span>
+                                                            <span class="ins-bullet-text">Cancel for medical reasons</span>
+                                                            <ul class="ins-detail">
+                                                                <li>100% refund on your flight cost or unused hotel days</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ins-bullet">
+                                                        <div>
+                                                            <span class="icon icon-success"></span>
+                                                            <span class="ins-bullet-text">Protection during your trip, up to</span>
+                                                            <ul class="ins-detail">
+                                                                <li>$5,000 for covered medical expenses</li>
+                                                                <li>$1,000 for lost items (camera, phone, laptop etc.)</li>
+                                                                <li>$500 for meals, hotel, transport if trip is delayed</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <a href="http://www.expedia.com/daily/promos/travel_protection_plans/car_print.asp" target="_blank" class="ins-terms-link">View terms, conditions and plan sponsor <span class="icon icon-popup icon-spacer"></span></a>
+                                                </div>
+
+                                                <label class="check" style="display:inline-block;">
+                                                    <span class="inline-label">
+                                                        <input type="radio" name="ins-choice" value="a" id="ins-option2-button" onClick="selectInsurance();">Yes, add this plan for
+                                                        <span class="insurance-daily">$57</span>/person</span>
+                                                    </input>
+                                                </label>
+                                            </fieldset>
+
+
+                                            <div id="noplan">
+                                                <fieldset>
+                                                    <label class="check" id="decline" style="display:inline-block;">
+                                                        <span class="inline-label">
+                                                            <input type="radio" name="ins-choice" value="a" id="ins-option3-button" onClick="selectInsurance();">No. I don't need trip protection and I understand this is not available after purchase.</span>
+                                                        </input>
+                                                    </label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </article>
+
+
+
+                    <!-- ================== Payment ================== -->
+                    <article id="payment-sec" class="segment no-target cf segment-form toggle open">
+                        <hgroup>
+                            <h3>
+                                <span class="icon icon-shop"></span>
+                            </h3>
+                        </hgroup>
+                        <fieldset>
+                            <a href="#payment-pane" data-transition="fade" class="toggle-trigger" data-control="toggle">
+                                <h4 class="stepbar">Step 3 of 3: Payment
+                                    <span class="icon icon-expand"></span>
+                                </h4>
+                            </a>
+                            <div id="payment-pane" class="toggle-pane" role="region">
+                                <div class="toggle-inner cf">
+
+                                    <div class="cards-no-label">
+                                        <object class="cc-box-color visa" type="image/svg+xml" data="img/mastercard.svg"></object>
+                                        <object class="cc-box-color mastercard" type="image/svg+xml" data="img/visa.svg"></object>
+                                        <object class="cc-box-color amex" type="image/svg+xml" data="img/amex.svg"></object>
+                                        <object class="cc-box-color discover" type="image/svg+xml" data="img/discover.svg"></object>
+                                        <object class="cc-box-color diners" type="image/svg+xml" data="img/diners.svg"></object>
+                                        <object class="cc-box-color jcb" type="image/svg+xml" data="img/jcb.svg"></object>
+                                        <div class="cf">
+                                        </div>
+                                    </div>
+                                    <label class="text field-cardnumber ">
+                                        <span type="tel" class="label required">Debit/Credit card number
+                                            <span>*</span>
+                                        </span>
+                                        <input type="text" placeholder="" value="" maxlength="19" onfocus="scrollBack()" />
+                                    </label>
+                                    <label class="select icon icon-toggle180 field-cardtype ">
+                                        <span class="label required">Card type
+                                            <span>*</span>
+                                        </span>
+                                        <select>
+                                            <option value="1">MasterCard</option>
+                                            <option value="2">Visa</option>
+                                            <option value="3">American Express</option>
+                                        </select>
+                                    </label>
+                                    <div class="cf">
+                                    </div>
+                                    <fieldset class="no-bottom-margin expiration-fields">
+                                        <label class="select icon icon-toggle180 field-expmonth ">
+                                            <span class="label required">Expiration date
+                                                <span>*</span>
+                                            </span>
+                                            <select>
+                                                <option value="0">Month</option>
+                                                <option value="1">01 - Jan</option>
+                                                <option value="2">02 - Feb</option>
+                                                <option value="3">03 - Mar</option>
+                                                <option value="4">04 - Apr</option>
+                                                <option value="5">05 - May</option>
+                                                <option value="6">06 - Jun</option>
+                                                <option value="7">07 - Jul</option>
+                                                <option value="8">08 - Aug</option>
+                                                <option value="9">09 - Sep</option>
+                                                <option value="10">10 - Oct</option>
+                                                <option value="11">11 - Nov</option>
+                                                <option value="12">12 - Dec</option>
+                                            </select>
+                                        </label>
+                                        <label class="select icon icon-toggle180 field-expyear ">
+                                            <span class="label required " style="visibility:hidden;">Year
+                                                <span>*</span>
+                                            </span>
+                                            <select>
+                                                <option value="0">Year</option>
+                                                <option value="1">2014</option>
+                                                <option value="2">2015</option>
+                                                <option value="3">2016</option>
+                                                <option value="4">2017</option>
+                                                <option value="5">2018</option>
+                                                <option value="6">2019</option>
+                                            </select>
+                                        </label>
+                                        <div class="cf">
+                                        </div>
+                                    </fieldset>
+                                    <label class="text field-cvv " type="tel">
+                                        <span class="label required">Card identification number
+                                            <span>*</span>
+                                            <a href="#what-is-this" class="what-is-this-tooltip-icon" data-control='tooltip' data-width="225" data-arrow="true" aria-describedby="what-is-this" data-fade="out" data-tooltip-id="what-is-this-tooltip-icon">
+                                                <span class="icon icon-help"></span>
+                                            </a>
+                                        </span>
+                                        <input type="password" placeholder="" value="" maxlength="4" />
+                                        <div id="what-is-this" role="tooltip" class="visuallyhidden ">
+                                            <p class="cvv-example-label">
+                                                All cards (except American Express)
+                                            </p>
+                                            <img class="cvv-example" type="image/svg+xml" src="img/visacvv.svg" />
+                                            <p>
+                                                American Express
+                                            </p>
+                                            <img class="cvv-example" type="image/svg+xml" src="img/amexcvv.svg" />
+                                        </div>
+                                        <div class="cf">
+                                        </div>
+                                    </label>
+                                    <div class="cf">
+                                    </div>
+                                    <label class="text field-cardholdername">
+                                        <span class="label required">Cardholder name
+                                            <span>*</span>
+                                        </span>
+                                        <input type="text" placeholder="" value="" />
+                                    </label>
+                                    <label class="text field-billingzip">
+                                        <span class="label required" type="tel">Billing ZIP code
+                                            <span>*</span>
+                                        </span>
+                                        <input type="text" placeholder="" value="" maxlength="8" />
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </article>
+                </section>
+
+
+
+                <!-- ================== Account Creation ================== -->
+                <section id="account-sec" class="segmented-list">
+                    <article class="segment no-target cf segment-form account-creation">
+                        <hgroup>
+                            <h3>
+                                <img class="acct-creation-exp-logo" src="lib/exp-logo-mark.svg" />
+                            </h3>
+                        </hgroup>
+                        <fieldset style="padding-left:0;">
+                            <h3>Create an account
+                                <span class="acct-creation-optional-callout">(optional)</span>
+                            </h3>
+                            <div class="acct-creation-benefits cf">
+                                <div class="acct-creation-bullet">
+                                    <span class="icon icon-success"></span>
+                                    <span class="acct-bullet-text">Earn Expedia Rewards points</span>
+                                </div>
+                                <div class="acct-creation-bullet">
+                                    <span class="icon icon-success"></span>
+                                    <span class="acct-bullet-text">All your itineraries in one place</span>
+                                </div>
+                                <div class="acct-creation-bullet">
+                                    <span class="icon icon-success"></span>
+                                    <span class="acct-bullet-text">Faster checkout</span>
+                                </div>
+                            </div>
+                            <p class="label">Email</p>
+                            <span id="creationemail" class="secondary">Primary contact email address</span>
+                            <label class="text field-create-password">
+                                <span class="label ">Create password</span>
+                                <input type="password" placeholder="6-30 characters, no spaces" value="" />
+                            </label>
+                            <label class="text field-confirm-password">
+                                <span class="label ">Confirm password</span>
+                                <input type="password" placeholder="confirm your password" value="" />
+                            </label>
+                            <label class="check">
+                                <input type="checkbox" name="testBB" value="a" checked/>
+                                <span class="inline-label">Earn free travel points with <a href="#">Expedia Rewards</a>
+                                </span>
+                            </label>
+                        </fieldset>
+                    </article>
+                </section>
+
+
+                <!-- ================== Review and Book ================== -->
+                <section id="review-and-book" class="segmented-list">
+                    <article class="complete-booking segment no-target cf segment-form">
+                        <p class="secondary">
+                            By completing this booking, I agree that I have read and accept the <a href="https://wwwexpediacom.trunk-stubbed.sb.karmalab.net/Checkout/RulesAndRestrictions?tripid=7a44000b-2cd9-454e-8cf6-ec92c6fc7f40">Rules &amp; Restrictions</a>, <a href="http://www.expedia.com/daily/service/legal.asp" target="_blank">Terms of Use</a> and <a href="http://www.expedia.com/daily/service/privacy.asp" target="_blank">Privacy Policy</a>.
+                        </p>
+                        <button class="btn btn-action btn-primary" data-cko-click="submitForm" id="complete-booking" type="button">
+                            <!-- onclick="javascript:$('#confirmmodal').fadeToggle();" -->
+                            <span class="btn-label">Complete Reservation
+                                <span class="icon icon-toggle90"></span>
+                            </span>
+                        </button>
+                    </article>
+                </section>
+            </section>
+            </div>
+            </div>
+            <footer class="site-footer" role="contentinfo"></footer>
+            <script>
+            $LAB.runQueue();
+            </script>
+</body>
+
+</html>

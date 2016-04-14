@@ -1,0 +1,42 @@
+//LESS for Complete Booking/Rules & Restrictions
+
+
+
+
+
+.complete-booking p.optional-note+fieldset {
+	.margin(t,@baseFontPx,24);
+}
+
+.complete-booking p.field-validation-msg+fieldset {
+	.margin(t,@baseFontPx,6);
+}
+
+
+
+.complete-booking fieldset {
+	margin-bottom:0;
+	label {
+		max-width: 100%;
+	}
+}
+
+.complete-booking button {
+	margin-bottom:18px;
+	.btn-label { 
+		@media (max-width: @bpLgPh) {
+			padding-left:6px;
+			padding-right:6px;
+		}
+	}
+}
+
+.security-msg {
+	.icon {
+		display: table-cell;
+	}
+	.security-text {
+				display:table-cell;
+				padding-left:6px;
+			}
+}

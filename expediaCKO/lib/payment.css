@@ -1,0 +1,51 @@
+label.field-cardnumber input {
+  max-width: 250px;
+}
+.expiration-fields {
+  float: left;
+  max-width: 300px;
+}
+label.field-expiration {
+  float: left;
+}
+select.field-expmonth {
+  float: left;
+}
+select.field-expyear {
+  float: left;
+  margin-left: 12px;
+  margin-right: 24px;
+}
+label.field-expmonth {
+  float: left;
+}
+label.field-expyear {
+  float: left;
+  margin-left: 12px;
+  margin-right: 24px;
+}
+label.field-cvv {
+  float: left;
+  width: 200px;
+}
+label.field-cvv input {
+  float: left;
+  width: 60px;
+}
+@media only screen and (max-width: 480px) {
+  label.field-cvv {
+    width: 100%;
+  }
+}
+a.what-is-this-tooltip {
+  display: inline-block;
+  margin-left: 12px;
+  vertical-align: center;
+  font-size: 13px;
+}
+.what-is-this-tooltip span.icon {
+  color: #0065b8 !important;
+}
+label.field-billingzip input {
+  max-width: 100px;
+}

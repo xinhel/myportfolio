@@ -1,0 +1,60 @@
+h4.step {
+  background-color: blue;
+}
+/*insurance*/
+.insurance fieldset {
+  color: #000000;
+}
+.insurance fieldset .ins-bullet {
+  font-size: 1em;
+  font-weight: 500;
+}
+.insurance fieldset .ins-bullet ul li {
+  font-size: 0.8em;
+  padding-bottom: 0.25em;
+  font-weight: 400;
+}
+.contact-name {
+	font-size: .8823529411764706em;
+}
+.field-gender {
+	max-width: 390px;
+	margin-top: .7058823529411765em;
+}
+
+label.gender {
+	margin-top: 0px;
+	margin-left: 1px;
+}
+
+label.birthday {
+	margin-top: 0px;
+	width: 60px;
+	margin-right: 10px;
+}
+
+label.birthyear {
+	margin-top: 0px;
+	width: 80px;
+	margin-right: 10px;
+}
+
+/*.toggle-trigger .icon-expand {
+	-webkit-transform: rotate(-180deg);
+}
+
+.js .toggle-pane {
+	opacity: 1;
+	height: auto;
+	visibility: visible;
+}
+
+.toggle-trigger.open .icon-expand {
+	-webkit-transform: rotate(0deg);
+}
+
+.js .toggle-pane.open {
+	opacity: 0;
+	height: 0;
+	visibility: hidden;
+}*/
