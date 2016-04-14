@@ -1,0 +1,59 @@
+/*Account creation LESS*/
+
+.account-creation {
+
+	.acct-creation-exp-logo {
+	    margin-right: 16px;
+	    width:21px;
+	  }
+
+	fieldset {
+		padding-left:0;
+		color:@textSecondary;
+		
+		
+
+		h3 {
+			margin-top:0;
+			padding-top:3px;
+			line-height: 1.45em;
+			font-size: 17px;
+			margin-bottom: 12px;
+
+			.acct-creation-optional-callout {
+				font-weight: 400;
+
+			}
+			
+		}
+
+		.acct-creation-bullet {
+			display:inline-;
+			float:left;
+			margin-bottom:6px;
+			margin-right:12px;
+
+			font-size:13px;
+		
+			.icon-success {
+				display: table-cell;
+				color:@alertSuccess;
+			}
+
+			.acct-bullet-text {
+				display:table-cell;
+				padding-left:3px;
+				color:@alertSuccess;
+			}
+		}
+
+		label.field-create-password, label.field-confirm-password {
+			width:250px;
+		}
+
+		 @media (min-width:@bpLgPh){
+	  		padding-left:39px;
+	  	}
+	}
+	
+}

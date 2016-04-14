@@ -1,0 +1,11 @@
+/*Skinny Confirmation*/
+.conf-bullet {
+  margin-left: 24px;
+}
+.conf-bullet .icon-success {
+  display: table-cell;
+  padding-right: 6px;
+}
+.conf-bullet .conf-text {
+  display: table-cell;
+}

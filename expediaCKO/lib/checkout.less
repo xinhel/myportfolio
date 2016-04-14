@@ -1,0 +1,510 @@
+//LESS for shared Checkout components
+
+/* Checkout shared styles */
+
+
+
+	//Box elements for page structure
+	.temp-segment {
+		float:left;
+		padding: 12px;
+		width:100%;
+		height:150px;
+		border:1px dashed red;
+
+	}
+
+	.temp-standalone-small {
+		float:left;
+		padding: 6px 12px 6px 12px;
+		margin:12px 0 12px 0;
+		width:100%;
+		height:40px;
+		border:1px dashed blue;
+	}
+
+	.temp-standalone-small:first-child {
+		margin-top:0;
+	}
+
+	.temp-standalone-small+.temp-standalone-small {
+		margin-top:0;
+	}
+
+
+
+//Heading size override
+.section-header-main {
+	height:30px;
+}
+
+h1.section-header-main {
+	font-size:25px;
+}
+
+//Rules Restrictions Bulleted List JERM=====
+.rr-bullets{
+	margin-top: 0px;
+	font-size: 13px;
+}
+
+// ========================================
+
+
+//Alert messages to 100% by default
+.alert {
+	margin-bottom: 12px;
+	width:100%;
+	/*border:none;*/
+	ul {
+		margin-top:6px;
+		li {
+			padding-bottom:3px;
+		}
+	}
+}
+
+//Alert messages set to 13px font
+.alert .alert-message {
+	font-size:13px;
+}
+
+
+//On-page notifications
+.notification-wrap 
+{
+  position: fixed;
+  top: 2em;
+  width: 100%;
+  z-index: 100;
+}
+
+.notification
+{
+  line-height: 24px;
+  padding: 12px 18px;
+  background-color: #00355f;
+  position: relative;
+  z-index: 100;
+  color: #fff;
+  font-size: 17px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.117188) 0px 9px 27px 0px;
+  max-width:320px;
+  margin: 0 auto;
+  display:none;
+
+	// 0 - 400px 
+	  @media only screen and (max-width: @bpLgPh)
+	  {
+		max-width: 80%;
+	  }
+}
+
+
+//Confirm booking interstitial
+.site-header-dupe {
+		width: 100%;
+		-webkit-background-clip: border-box;
+		-webkit-background-origin: padding-box;
+		-webkit-background-size: auto;
+		-webkit-box-shadow: rgb(235, 195, 38) 0px 1px 0px 0px inset;
+		-webkit-font-smoothing: antialiased;
+		-webkit-tap-highlight-color: rgba(0, 135, 245, 0);
+		background-attachment: scroll;
+		background-clip: border-box;
+		background-color: rgb(255, 255, 255);
+		background-image: none;
+		background-origin: padding-box;
+		background-size: auto;
+		border-bottom-color: rgb(199, 199, 199);
+		border-bottom-style: solid;
+		border-bottom-width: 1px;
+		border-image-outset: 0px;
+		border-image-repeat: stretch;
+		border-image-slice: 100%;
+		border-image-source: none;
+		border-image-width: 1;
+		border-left-color: rgba(0, 0, 0, 0);
+		border-left-style: solid;
+		border-left-width: 0px;
+		border-right-color: rgba(0, 0, 0, 0);
+		border-right-style: solid;
+		border-right-width: 0px;
+		border-top-color: rgb(255, 203, 0);
+		border-top-style: solid;
+		border-top-width: 5px;
+		box-shadow: rgb(235, 195, 38) 0px 1px 0px 0px inset;
+		box-sizing: border-box;
+		color: rgb(107, 107, 107);
+		display: block;
+		font-family: 'Helvetica Neue', Arial, 'Lucida Grande', sans-serif;
+		font-size: 17px;
+		line-height: 24px;
+		min-height: 66px;
+		padding-bottom: 6px;
+		padding-left: 0px;
+		padding-right: 0px;
+		padding-top: 13px;
+		.logo {
+			margin-top: 0 !important;
+		}
+	}
+
+#confirmmodal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  z-index: 102;
+  background-color: #f5f5f5;
+  display: none;
+/*  padding:24px, 24px, 24px, 0;*/
+  text-align: center;
+
+  h3 {
+  	margin-top:72px;
+  }
+ }
+
+ .cssanimations.svg .loader {
+background-image:url('http://wwwexpediacom.trunk.sb.karmalab.net/static/ui_toolkit/v2-0/images/loader-light.svg');
+}
+
+#loaderPrimary {
+	.padding(trbl,@baseFontPx,48,0,48,0);
+	}
+	
+
+
+//SA Error page
+
+
+
+.sa-header {
+	display:inline-block !important; 
+	float:none !important;
+/*	width:100%; 
+*/
+	@media (min-width: @bpLgPh) {
+		max-width:60%;	
+	}
+
+
+
+	@media (min-width: @bpDsk) {
+		width:100%;
+	}	
+}
+
+.close-button-window {
+	display:inline-block;
+	margin-top:0 !important;
+	width:100%;
+
+	@media (min-width: @bpLgPh) {
+		display:inline-block;
+		float:right;
+		max-width:100px;	
+	}
+
+
+	@media (min-width: @bpDsk) {
+		display:none;		
+	}
+}
+
+
+
+
+//Confidence messages
+.confidence-container {
+	float:left;
+	//.padding(trbl,13,0,0,12,0);
+	padding-bottom:12px;
+	margin-bottom:6px;
+	//.margin(b,13,6);
+	width:100%;
+	#font > .size(15,17);
+	color:@alertSuccess;
+
+	.confidence-msg {
+		display:inline-block;
+		margin-right:12px;
+		.icon {
+			margin-right: 3px;
+		}
+	}
+
+	.confidence-msg:last-child {
+		margin-right:0;
+	}		
+}
+
+
+.greenText {
+	color:@alertSuccess !important;
+}
+
+.module-level-success-msg {
+	margin-bottom:12px;
+	font-size:13px;
+	line-height:18px;
+}
+
+
+
+// Forms & errors 
+fieldset {
+	margin-bottom:12px ;
+}
+
+.no-label {
+	margin-top:36px;
+}
+
+.remove-bottom-margin {
+	margin-bottom:0;
+}
+
+.field-validation-msg {
+  color:@alertError;
+  #font > .size(13,17);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.module-validation-msg {
+	margin-bottom: 12px;
+ 	color:@alertError;
+ 	#font > .size(13,17);
+  	font-weight: 400;
+  	line-height: 1.45;
+	@media (min-width: @bpLgPh) {
+		margin-left:39px;
+	}
+}
+
+
+
+.required span {
+  display: inline;
+  .margin(l,13,2);
+  color:@alertError;
+}
+
+.text.invalid input + .field-validation-msg{
+	.margin(t,13,6);
+}
+
+
+//For fields ending with an icon
+span.icon + .field-validation-msg {
+	.margin(t,13,6);	
+}
+
+.select.invalid select + .field-validation-msg{
+	.margin(t,13,60);
+}
+
+
+label.text {
+	.max-width(@baseFontPx,444);
+	
+	
+}
+
+.text input {
+//		max-width: 444px;
+	}
+
+label.select {
+	.max-width(@baseFontPx,444);
+}
+
+.select input {
+//		max-width: 444px;
+	}
+
+
+
+// Primary col
+.checkout section[role="main"] {
+
+	
+	// reduce margins between modules 
+	.segmented-list {
+	  margin:0;
+	}
+	.segmented-list + .segmented-list {
+	  .margin(trbl,@baseFontPx,6,0,12,0);
+	}
+	.segment.segment-summary {
+	}
+	// remove top margin on any first child elements in segments
+	.segment > :first-child {
+		margin-top:0;
+	}
+	.segment hgroup > :first-child {
+		margin-top:0;
+		margin-bottom:0;
+	}
+	.segment fieldset label:first-child {
+	  margin-top: 0;
+	}
+
+	.segment .secondary {
+		color:@textSecondary;
+	}
+
+	// button width 100% to auto by breakpoint
+	.btn {
+	  width:100%;
+	  .min-width(15,130);
+	  text-align: center;
+	  
+	  @media (min-width:@bpLgPh) {
+		width:auto;
+	  }
+	}
+
+
+
+	.addbtn {
+	  width:100%;
+	  .min-width(15,130);
+	  text-align: center;
+
+	  @media (min-width:@bpLgPh) {
+		width:auto;
+	  }
+	}
+
+
+	//Optional fields
+	.optional-fields {
+		margin-top:12px;
+		margin-bottom:0;
+	}
+
+	.optional-fields dt{
+		margin-bottom:0px;
+		#font > .size(13,17);
+		color:@link;
+	}
+
+	fieldset.optional-fieldset {
+		margin-top:12px;
+		margin-bottom:0;
+		padding-left:2px;
+		padding-right:2px;
+	}
+
+	// Segment headers / icons
+	.segmented-list
+	  hgroup {
+	  display: none;
+	  float:left;
+	  .icon {
+	    color: @brandBlue;
+	    .margin(r,@h3,18);
+	  }
+	  @media (min-width:@bpLgPh){
+	  	display: block;
+	  }
+	}
+
+	// Summary segments
+
+	.saved-info-playback {
+	  display: block;
+	  float:left;
+	  max-width: 80%;
+
+	  .field-label {
+	  	display:block;
+	  	//margin-bottom:6px;
+	    //float:left;
+	    max-width:100%;
+	    #font > .size(13,17);
+	    font-weight: bold;
+	    color:@textSecondary;
+	  }
+
+	  .saved-info {
+	    display: block;
+	    //.padding(trbl,@baseFontPx,6,18,12,18);    
+	    //float:left;
+	    //margin-top:3px;
+	    max-width: 100%;
+	   	font-size:17px;
+	   	color:@text;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    line-height:19px;
+	}
+}
+
+
+	/*.details {
+	  float:left;
+	  width: 78%;
+	  ul {
+	  	margin:0;
+	  	padding:0;
+	  	list-style: none;
+	  	#font > .sizeIncludeLineheight(13,@baseFontPx);
+	  }
+	  li {
+	  	display:inline-block;
+	  	float:left;
+	  	max-width:100%;
+	  	.margin(r,13,12);
+	  	padding:0;
+	  	color:@textSecondary;
+	  	overflow: hidden;
+	    text-overflow:ellipsis;
+	  }
+	}*/
+
+	.rates {
+				width: 30%;
+				margin-top: 12px;
+				color: blue;
+			}
+
+/*	//If displaying a saved card when there is just one line of playback
+	.one-line-playback{
+	  	margin-bottom:0 !important;
+	}
+*/
+	// Edit link
+
+	.edit-link {
+		float:right;
+		#font > .size(13);
+		//.padding(t,13,3);
+		/*@media (max-width: @bpLgPh) {
+			text-align:right;
+			width:100%;
+		}*/
+	}
+	hgroup .icon.success {
+		color:@alertSuccess;
+	}
+}
+
+
+//Opinion Lab link
+.feedback-link {
+  font-size: .7647058823529411em;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 1.3846153846154em;
+}
+

@@ -1,0 +1,353 @@
+/* Sign in */
+
+
+// Expand / collapse toggle
+
+
+.signin {
+  
+  .segment.no-target {
+    .padding(trbl,@baseFontPx,12,18,12,18);
+  }
+
+  fieldset {
+    margin-bottom:0;
+  }
+
+  .signin-module {
+    .padding(trbl,@baseFontPx,12,18,12,18);
+  }
+  .toggle-trigger, .toggle-inner {
+    display: block;
+    .padding(trbl,@baseFontPx,3,18,0,0);
+  }
+
+  .signin-exp-logo {
+    margin-right: 16px;
+    width:21px;
+  }
+
+  .toggle-trigger {
+  	font-weight:bold;
+  }
+
+  .toggle-trigger:hover {
+    text-decoration: underline !important;
+  }
+  
+  .toggle-trigger.open {
+    color:@brandBlue;
+  }
+  .toggle-trigger.open:hover {
+    background-color: transparent;
+    text-decoration: underline;
+  } 
+
+  .toggle-inner {
+  	//.padding(trbl,@baseFontPx,12,18,18,36);
+    .padding(trbl,@baseFontPx,12,12,0,0);
+  }
+
+}
+
+// Sign in fields
+
+.signin-fields {
+  width:100%;
+  margin-bottom:0;
+  .padding(b,@baseFontPx,12);
+  .padding(l,@baseFontPx,2);
+  .border(b,@baseFontPx,2,@moduleGrey);
+}
+
+.signin-fields-no-fb {
+  width:100%;
+  margin-bottom:0;
+  .padding(b,@baseFontPx,12);
+  .padding(l,@baseFontPx,2);
+  //.border(b,@baseFontPx,2,@moduleGrey);
+
+}
+
+
+
+.signin-facebook {
+  margin-bottom: 0;
+  .margin(t,@baseFontPx,12);
+}
+
+button.btn-signin {
+  float:left;
+  .margin(trb,15,12,0,12);
+}
+
+// Reset button styles for facebook button
+a.btn-signin-facebook {
+  margin-top: 0;
+  margin-right: 0;
+  background-color: #3b5998 ;
+  color:#fff !important;
+  border-top:none;
+  border-right:none;
+  border-left:none;
+  border-bottom-color:@moduleGrey;
+  .btn-label {
+    .padding(trbl,15,8,12,9,12);
+    width: 100%;
+/*    min-width: 210px;*/
+  }
+}
+
+a.btn-signin-facebook:hover {
+  background-color: #2f477a !important;
+}
+
+// Adjust for pixel jump
+a.btn-signin-facebook:active {
+  .margin(t,15,1);
+}
+
+a.btn-signin-facebook img {
+  float:left;
+  vertical-align: top;
+  .height(15,18);
+  .padding(trbl,15,0,6,0,0);
+}
+
+
+@media (max-width: @bpLgPh) {
+  .bpLgPhCTA {
+    display:none;
+  }
+
+  .bpLgPhPlusCTA {
+    display:inline-block;
+  }
+}
+
+@media (min-width: @bpLgPh) {
+  .bpLgPhCTA {
+    display:inline-block;
+  }
+
+  .bpLgPhPlusCTA {
+    display:none;
+  }
+}
+
+
+
+.keep-signedin {
+  dislpay:block;
+  clear:both;
+  width:100%;
+  .margin(t,13,6);
+}
+
+.forgot-password-link {
+  display: block;
+  #font > .size(13);
+  color:@link;
+}
+
+// Sign in fields responsiveness
+
+@media (max-width: @bpLgPh) {
+  .signin {
+    .toggle-inner {
+      .padding(trbl,@baseFontPx,12,18,18,0);
+    }
+  }
+}
+
+@media (min-width:@bpLgPh) {
+  button.btn-signin {
+    .margin(trbl,15,12,24,0,0);
+  }
+  .forgot-password-link {
+    float:left;
+    clear:none;
+    .margin(t,13,21);
+  }
+  a.btn-signin-facebook {
+    margin-top:0;
+  }
+}
+
+@media (min-width:@bpSmTab) {
+  .signin-fields {
+    float:left;
+    width:50%;
+    max-width: 336px;
+    .border(trbl,@baseFontPx,0,2,0,0,#e5e5e5);
+    .padding(r,@baseFontPx,18);
+    .margin(r,@baseFontPx,18);
+  }
+  .signin-facebook {
+    margin-top:0;
+  }
+  
+  a.btn-signin-facebook {
+    margin-top:0;
+  }
+  button.btn-signin {
+    float:left;
+    margin-bottom:0;
+  }
+.signin {
+   .toggle-inner {
+    //.padding(trbl,@baseFontPx,12,18,18,36);
+  }
+}
+
+}
+
+@media (min-width:@bpDsk) {
+  .signin-fields {
+    width:55%;
+  }
+}
+
+
+// Signed in
+/*.signedin {
+  .segment.no-target {
+    .padding(trbl,@baseFontPx,12,18,12,18);
+  }
+
+  .signin-module {
+    .padding(trbl,@baseFontPx,12,18,12,18);
+  }
+  .signin-exp-logo {
+    margin-right: 18px;
+  }
+  
+  img{
+    max-height:24px;
+  }
+}
+*/
+
+
+
+
+/*.signedin-playback {
+  display: block;
+  float:left;
+  max-width: 80%;*/
+
+
+  /*.signedin-as-label {
+    //float:left;
+    max-width:100%;
+    #font > .size(13,17);
+    font-weight: bold;
+    color:@textSecondary;
+  }*/
+
+/*  .signedin-email {
+    display: block;
+    //.padding(trbl,@baseFontPx,6,18,12,18);    
+    //float:left;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    #font > .size(15,17);
+    color:@text;
+  }*/
+/*  .padding(trbl,@baseFontPx,12,18,12,18);
+  Temp CSS for images
+    img {
+      float:left;
+      vertical-align: text-bottom;
+      height: 18px;
+      margin-right: 6px;
+      margin-top:3px;
+      @media (max-width: @bpLgPh) {
+        display:none;
+      }      
+    }  
+  label {
+    width:100%;
+  }*/
+/*}*/
+
+
+/*.signin-playthiback {
+  width:100%;
+
+}
+.signedin-name {
+  display: block;
+  //float:left;
+  max-width: 100%;
+  //.padding(trbl,@baseFontPx,12,18,12,18);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+*/
+
+.rewards-callout {
+  margin-top:6px;
+  font-size:13px;
+  color:@textSecondary;
+
+  @media (min-width:@bpLgPh) {
+    padding-left:39px;
+  }
+}
+
+
+
+
+.site-content a.signout-link {
+  display: block;
+  float:right;
+  //.padding(trbl,@baseFontPx,12,0,12,0);
+  color:@link;
+}
+
+a.signout-link:hover {
+  color:@link;
+  text-decoration: none;
+}
+
+.signout-link .icon {
+  display:block;
+   @media (min-width:@bpSmTab){
+    display:none;
+  }
+}
+
+
+.signout-label {
+  display: none;
+  //.padding(t,13,3);
+  #font > .size(13);
+  @media (min-width:@bpSmTab) {
+    display: block;
+  }
+}
+
+
+/*.checkout section[role="main"] .signedin .saved-info-playback {
+  max-width:100%;
+}*/
+
+
+/*
+// Signing in - loading user data 
+
+.disabled {
+  opacity:.6;
+}
+
+.signin .disabled {
+  cursor: wait !important;
+  * {
+    cursor: wait !important;
+  }
+}
+*/
+
+

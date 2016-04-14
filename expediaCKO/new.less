@@ -1,0 +1,238 @@
+/*Responsive*/
+ #traveler-info-done {
+    float: right;
+    min-width: 200px;
+    @media only screen and (max-width:480px) {
+        width: 85%;
+    }
+}
+.cc-promo {
+    position: static;
+    background-color: #fff;
+    border: 1px solid #cecece;
+    padding: 10px 15px;
+    margin-top: 10px;
+    h4.title-main {
+        margin: 0px;
+    }
+    p.title-sub {
+        padding: 5px 0px;
+    }
+    .ccImg {
+        float: left;
+    }
+    .statement-credit-wrap {
+        float: right;
+        font-size: 1.3em;
+    }
+    .total-after-credit {
+        font-weight: bold;
+    }
+    .cc-learnmore {
+        clear: both;
+        padding-top: 3px;
+    }
+}
+.inner {
+    background: #fff;
+    border: 1px solid #cecece;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+/*traveler info */
+ .month-select, .day-select, .year-select {
+    @media only screen and (max-width:480px) {
+        width: 32%;
+    }
+}
+.travelerinfo {
+    .id-msg {
+        padding:5px 0px;
+    }
+    .form-content {
+        padding:5px 30px;
+    }
+    .name-field {
+        width:47%;
+        max-width:219px;
+    }
+    .editbutton {
+        color: @link;
+        font-size: 0.8em;
+        line-height: 2;
+        margin-right: 10px;
+        float: right;
+    }
+    .stepbar {
+        margin-top:0px;
+        color:#ffffff;
+        background-color:#0065b8;
+        padding:5px 0px 5px 10px;
+        font-size: 90%;
+    }
+    .loyalty {
+        font-size:0.9em;
+        padding-top:10px;
+    }
+    .traveler-select {
+        margin: 2px 0px;
+    }
+    .traveler-title {
+        margin:0px 20px 0px 20px;
+        background-color:#d1eaff;
+        padding:7px 10px;
+        margin-top: 10px;
+        max-width: 455px;
+    }
+    @media only screen and (max-width:480px) {
+        .id-msg {
+            padding:5px 0px 7px 0px;
+        }
+        .traveler-title {
+            margin:0px;
+        }
+        .form-content {
+            padding:5px 2px;
+        }
+    }
+    .playback-edit {
+        display:none;
+        margin-bottom:10px;
+        button.update {
+            margin-top: 10px;
+        }
+    }
+    .infoplayback {
+        @media only screen and (max-width:480px) {
+            width: 100%;
+        }
+        .playbacktitle {
+            background-color:#d1eaff;
+            margin:4px 20px 0px 20px;
+            max-width: 400px;
+        }
+        .playback-detail {
+            padding:10px 0px 10px 40px;
+            margin:0px 20px 15px 20px;
+            background-color:#f9f9f9;
+            max-width: 400px;
+        }
+        @media only screen and (max-width:480px) {
+            .playbacktitle {
+                margin:5px 0px 0px 0px;
+            }
+            .playback-detail {
+                padding:5px 0px 5px 40px;
+                margin:0px;
+            }
+        }
+    }
+    .playback-banner {
+        margin:5px 20px 10px 20px;
+        background-color:#d1eaff;
+        display:none;
+        padding-top:3px;
+        max-width: 400px;
+        @media only screen and (max-width:480px) {
+            margin:3px 0px;
+            width: 100%;
+        }
+    }
+}
+/*insurance*/
+ #ins-added1, #ins-added2, #ins-declined {
+    display: none;
+}
+.insurance {
+    fieldset {
+        
+        h3 {
+            font-size: 1.2em;
+            
+        }
+        .ins-added, .ins-declined {
+            color: blue;
+        }
+        #ins-plans {
+            h3 {
+                color: @brandBlue;
+                font-size: 95%;
+            }
+            .insurance-c-dt {
+                color: @link;
+                margin-right: 10px;
+                float: right;
+                font-size: 0.7em;
+                font-weight: normal;
+                visibility: hidden;
+                @media only screen and (max-width:480px) {
+                    visibility: visible;
+                }
+            }
+            
+            @media only screen and (min-width:600px) {
+                #ins-plan-1-select {
+                    margin-top: 170px;
+                }
+                #ins-plans {
+                    // max-width: 100%;
+                    display: block;
+                }
+                #noplan {
+                    clear: both;
+                }
+                #ins-plan-1 {
+                    float: left;
+                    
+                }
+                #ins-plan-2 {
+                    float: right;
+                    
+                }
+            }
+        }
+        .ins-bullet {
+            margin-left: 5px;
+            .ins-bullet-text {
+                font-size: 1.17em;
+                font-weight: 700;
+            }
+            ul {
+                // padding-bottom: 0.25em;
+                font-weight: normal;
+                list-style-position: inside;
+                font-size: 90%;
+                color: @darkGrey;
+            }
+            li {
+                color: @textSecondary;
+            }
+        }
+        .ins-detail {
+            margin-top: 0.1em;
+            display: block;
+            @media only screen and (max-width:480px) {
+                display: none;
+            }
+        }
+        .ins-terms-link {
+            font-size: 1em;
+            margin: 0px 0px 0px 10px;
+        }
+        label.check {
+            display:inline-block;
+            width:100%;
+            margin-bottom: 0px;
+            padding: 20px 5px 20px 10px;
+            background-color: #f5e9ba;
+            // line-height: 21px;
+            .inline-label {
+                font-size:0.9em;
+            }
+        }
+        #decline {
+            background-color: transparent;
+        }
+    }
+}

@@ -1,0 +1,233 @@
+//LESS for Trip Summary
+
+.no-confidence-messaging {
+	margin-top:0 !important;
+}
+
+.trip-summary-container {
+	margin-top:39px;
+	width:100%;
+	font-size:13px;
+	margin-right: 1.7em;
+
+
+	.product-info-panel {
+		margin-bottom:10px;
+		width:100%;
+
+		.tripsum-card {
+			background-color: #fff;
+			padding:10px;
+			margin-bottom: 7px;
+		}
+
+		.product-image-panel {
+			float:left;
+			margin-top:7px;
+			margin-left: 10px;
+			.icon {
+				color: @brandBlue;
+				font-size: 70%;
+			}
+		}
+
+		.product-data-panel {
+			margin-left:60px;
+
+			.product-title {
+				font-weight:bold;
+				font-size:12px;
+				h2 {
+					color:@brandBlue;
+					font-size: 1.2em;
+					line-height: 1.45em;
+					padding-bottom: 5px;
+				}
+				
+			}
+
+			.product-sub-title {
+
+			}
+			
+			.product-attributes {
+
+				.attribute {
+					margin-right:3px;
+				}
+				.icon-spacer {
+					margin-right: 2px;
+				}
+			}
+
+		}
+	}
+
+
+	.trip-info-panel {
+		margin-bottom:12px;
+		width:100%;
+		.trip-location {
+			display: inline-block;
+/*			font-weight: bold;*/
+		}
+
+		.date {
+			display:inline-block;
+		}
+
+	}
+
+
+
+
+
+/*START PRICE*/
+
+	.price-info-panel {
+		width:100%;
+	
+		.price-line {
+			max-width: 300px;
+			.left {
+				display:inline-block;
+				float:left;
+				width: 60%;
+			}
+
+			
+			.right {
+				display:inline-block;
+				float:right;
+				width: 40%;
+				text-align: right;
+			}
+
+			.price-item {
+				/*font-weight: bold;*/
+				color:@text;	
+			}
+
+			.total-item {
+				font-weight: bold;
+			}
+
+			.expandable {
+				a {
+					color:@text;
+				}
+
+				a:hover {
+					.icon-expand {
+						color:@linkHover;
+					}
+					color:@linkHover;
+				}
+
+				.icon-expand {
+					color:@link;
+				}
+			}
+
+
+
+			.zero-due {
+				color:@alertSuccess !important;
+			}
+
+		}
+
+		ul.price-breakdown {
+			margin-top:3px;
+			padding-left:9px;
+			padding-right:24px;
+			list-style-type: none;
+			max-width: 300px;
+			
+			li {
+				margin-bottom:3px;
+			}
+			.breakdown-left {
+				display:inline-block;
+				float:left;
+				width:60%;
+			}
+
+			.breakdown-right {
+				display:inline-block;
+				float:right;
+				text-align: right;
+				width:40%;
+			}
+
+			
+		
+
+		}
+
+		ul.middle-breakdown {
+			margin-bottom:18px !important;
+		}
+
+	.disclaimer-text {
+		margin-top:12px;
+		font-size: 13px;
+		color:@mediumGrey;
+		float: right;
+
+	}
+
+	.rates {
+				width: 100%;
+				margin-top: 12px;
+				}
+		
+
+		
+
+	}
+
+/*END PRICE*/
+
+}
+
+/*Tablet Screen size*/
+@media screen and (min-width:@bpSmTab) and  (max-width: @bpLgTab) {
+	.trip-info-panel, 
+	.price-info-panel, 
+	.product-info-panel {
+		width: 50% !important;
+		/*display: inline;*/
+	}
+
+	.product-info-panel, 
+	.trip-info-panel{
+		float: left;
+	}
+
+	 
+	.price-info-panel {
+		float: right;
+	}
+
+}
+
+/*Desktop*/
+@media screen and (min-width:@bpLgTab) {
+
+}
+
+/*Mobile*/
+@media screen and (max-width:@bpLgTab) {
+	.trip-summary-container {
+		margin-top:0;
+	}
+}
+
+
+
+
+
+
+
+

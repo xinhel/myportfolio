@@ -1,0 +1,186 @@
+body {
+    padding-left: 64px;
+    padding-right: 64px;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+}
+
+ol {
+    margin-bottom: 0px;
+}
+
+li {
+    display: block;
+}
+
+.banner {
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+.banner h3,h4 {
+    font-weight: 300;
+}
+
+.banner h3 {
+    color: #bf6580;
+}
+
+.banner h4 {
+    letter-spacing: 0.5px;
+}
+
+.queue {
+    margin-left: 96px;
+    margin-right: 96px;
+}
+
+.stat {
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+#join {
+    height: 70vh;
+    width: 275px;
+    padding: 8px 8px 8px 8px;
+    margin-left: 15px;
+    overflow: scroll;
+    box-shadow: inset 0 0 8px #d3d3d3;
+}
+
+.index {
+    list-style-type: none;
+    float: left;
+    padding-left: 0px;
+}
+
+.index-item {
+    padding-top: 42px;
+    padding-left: 8px;
+    padding-right: 8px;
+    height: 112px;
+}
+
+.line {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+.line-item {
+    overflow: auto;
+    position: relative;
+}
+
+.line-item-info {
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 18px;
+    padding-right: 18px;
+    float: left;
+}
+
+
+
+.line li:nth-of-type(odd) .line-item-info {
+    background-color: #f6f6f6;
+}
+
+.line li:nth-of-type(even) .line-item-info {
+    background-color: #fafafa;
+}
+
+.info_course {
+    float: left;
+}
+
+.info_hw {
+    float: right;
+}
+
+.info_q {
+    clear: both;
+}
+
+.line-item-action {
+    width: 100%;
+    height: 112px;
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.join_btn, .leave_btn {
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+    background-color: rgba(191, 101, 128,0.8);
+    color: white;
+    font-size: 18px;
+}
+
+.leave_btn {
+    display: none;
+}
+
+.join_btn:hover, .leave_btn:hover {
+    color: white;
+}
+
+/*.line-item-join {
+    width: 5%;
+    float: right;
+    height: 112px;
+}
+
+.join_btn {
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+    background-color: #bf6580;
+}*/
+
+.line-item p {
+    margin-bottom: 8px;
+}
+
+#signup {
+    padding-left: 32px;
+    padding-right: 15px;
+}
+
+#signup {
+    margin-bottom: 16px;
+}
+
+.control-label {
+    text-align: center !important;
+}
+
+.sidenote {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.signup_btn {
+    width:100%;
+    background-color: #bf6580;
+    color: white;
+    font-size: 16px;
+    font-weight: 300;
+    border: none;
+}
+
+.qpool_tgl {
+    background-color: white;
+    border: solid 2px #bf6580;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.signup_btn:hover, .qpool_tgl:hover {
+    background-color: #bf6580;
+    color: white;
+}
