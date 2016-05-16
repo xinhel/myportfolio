@@ -91,11 +91,11 @@ li {
     background-color: #fafafa;
 }
 
-.info_course {
+.info_hw {
     float: left;
 }
 
-.info_hw {
+.info_course {
     float: right;
 }
 
