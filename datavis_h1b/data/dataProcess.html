@@ -1,0 +1,95 @@
+<html>
+<head>
+    <!-- Load the d3 library. -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="original/H1Bstate.js"></script>
+    <title>H1B Visa</title>
+    
+</head>
+<div id = "stateMap">
+</div>
+<script>
+var stateData = {};
+var dataset;
+
+var processData = function(dataset, stateName, start, end){
+    var num = end - start;
+    var usefularray = dataset.slice(start, end);
+    console.log(usefularray);
+
+    usefularray.sort(function(a,b){
+        if (a.Occupation > b.Occupation){
+            return 1;
+        }
+        if (a.Occupation < b.Occupation){
+            return -1;
+        }
+        return 0;
+    });
+
+    var allOccupation = [];
+    for (var i = 0; i < usefularray.length; i++){
+        if (i == 0 || usefularray[i].Occupation != usefularray[i-1].Occupation){
+            allOccupation.push({"name": usefularray[i].Occupation, "num": 1 });
+        }
+        else{
+            allOccupation[allOccupation.length-1].num += 1;
+        }
+    }
+    allOccupation.sort(function(a,b){return b.num-a.num;});
+    console.log(allOccupation);
+    top5Occupation = allOccupation.slice(0,5);
+
+    usefularray.sort(function(a,b){
+        if (a.Employer_Name > b.Employer_Name){
+            return 1;
+        }
+        if (a.Employer_Name < b.Employer_Name){
+            return -1;
+        }
+        return 0;
+    });
+
+    var allCompany = [];
+    for (var i = 0; i < usefularray.length; i++){
+        if (i == 0 || usefularray[i].Employer_Name != usefularray[i-1].Employer_Name){
+            allCompany.push({"name": usefularray[i].Employer_Name, "num":1 });
+        }
+        else{
+            allCompany[allCompany.length-1].num += 1;
+        }
+    }
+    allCompany.sort(function(a,b){return b.num-a.num;});
+    console.log(allCompany);
+    top5Company = allCompany.slice(0,5);
+
+    stateData[stateName] = {"num": num, "top5Occupation": top5Occupation, "top5Company": top5Company};
+
+    //print out the processed data in div
+    document.getElementById("stateMap").innerHTML += "{\"State\":\""+ stateName + "\",<br>" + "\"num\":" + num + ",<br>" +"\"top5Occupation\":[";
+    for (var i = 0; i<4; i++){
+        document.getElementById("stateMap").innerHTML += "{\"name\":\"" + top5Occupation[i].name + "\"," + "\"num\":" + top5Occupation[i].num + "},";
+    }
+    document.getElementById("stateMap").innerHTML += "{\"name\":\"" + top5Occupation[4].name + "\"," + "\"num\":" + top5Occupation[4].num + "}],<br>";
+
+    document.getElementById("stateMap").innerHTML += "\"top5Company\":[";
+    for (var i = 0; i<4; i++){
+        document.getElementById("stateMap").innerHTML += "{\"name\":\"" + top5Company[i].name + "\"," + "\"num\":" + top5Company[i].num + "},";
+    }
+    document.getElementById("stateMap").innerHTML += "{\"name\":\"" + top5Company[4].name + "\"," + "\"num\":" + top5Company[4].num + "}]<br>},";
+    document.getElementById("stateMap").innerHTML += "<br></br>";
+
+}
+
+var j = 0;
+for (var i = 1; i <= dataset.length; i++){
+    var start = j;
+    if (i< dataset.length && dataset[i].State == dataset[i-1].State) continue;
+    else{
+        processData(dataset, dataset[i-1].State, start, i);
+        j = i;
+    }
+}
+</script>
+</html>

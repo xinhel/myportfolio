@@ -103,6 +103,10 @@ li {
     clear: both;
 }
 
+.info_q strong {
+    font-weight: normal;
+}
+
 .line-item-action {
     width: 100%;
     height: 112px;

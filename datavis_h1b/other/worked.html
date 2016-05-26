@@ -1,0 +1,459 @@
+<html>
+<head>
+    <!-- Load the d3 library. -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="data/stateData.js"></script>
+    <script src="js/states.js"></script>
+    <title>H1B Visa</title>
+    
+</head>
+<body>
+<div id = "USMap">
+</div>
+<script>
+var stateGrid = {
+"ME" : { "state": "ME", "row": 0, "col": 10 },
+"WI" : { "state": "WI", "row": 1, "col": 5 },
+"VT" : { "state": "VT", "row": 1, "col": 9 },
+"NH" : { "state": "NH", "row": 1, "col": 10 },
+"WA" : { "state": "WA", "row": 2, "col": 0 },
+"ID" : { "state": "ID", "row": 2, "col": 1 },
+"MT" : { "state": "MT", "row": 2, "col": 2 },
+"ND" : { "state": "ND", "row": 2, "col": 3 },
+"MN" : { "state": "MN", "row": 2, "col": 4 },
+"IL" : { "state": "IL", "row": 2, "col": 5 },
+"MI" : { "state": "MI", "row": 2, "col": 6 },
+"NY" : { "state": "NY", "row": 2, "col": 8 },
+"MA" : { "state": "MA", "row": 2, "col": 9 },
+"OR" : { "state": "OR", "row": 3, "col": 0 },
+"NV" : { "state": "NV", "row": 3, "col": 1 },
+"WY" : { "state": "WY", "row": 3, "col": 2 },
+"SD" : { "state": "SD", "row": 3, "col": 3 },
+"IA" : { "state": "IA", "row": 3, "col": 4 },
+"IN" : { "state": "IN", "row": 3, "col": 5 },
+"OH" : { "state": "OH", "row": 3, "col": 6 },
+"PA" : { "state": "PA", "row": 3, "col": 7 },
+"NJ" : { "state": "NJ", "row": 3, "col": 8 },
+"CT" : { "state": "CT", "row": 3, "col": 9 },
+"RI" : { "state": "RI", "row": 3, "col": 10 },
+"CA" : { "state": "CA", "row": 4, "col": 0 },
+"UT" : { "state": "UT", "row": 4, "col": 1 },
+"CO" : { "state": "CO", "row": 4, "col": 2 },
+"NE" : { "state": "NE", "row": 4, "col": 3 },
+"MO" : { "state": "MO", "row": 4, "col": 4 },
+"KY" : { "state": "KY", "row": 4, "col": 5 },
+"WV" : { "state": "WV", "row": 4, "col": 6 },
+"VA" : { "state": "VA", "row": 4, "col": 7 },
+"MD" : { "state": "MD", "row": 4, "col": 8 },
+"DE" : { "state": "DE", "row": 4, "col": 9 },
+"AZ" : { "state": "AZ", "row": 5, "col": 1 },
+"NM" : { "state": "NM", "row": 5, "col": 2 },
+"KS" : { "state": "KS", "row": 5, "col": 3 },
+"AR" : { "state": "AR", "row": 5, "col": 4 },
+"TN" : { "state": "TN", "row": 5, "col": 5 },
+"NC" : { "state": "NC", "row": 5, "col": 6 },
+"SC" : { "state": "SC", "row": 5, "col": 7 },
+"OK" : { "state": "OK", "row": 6, "col": 3 },
+"LA" : { "state": "LA", "row": 6, "col": 4 },
+"MS" : { "state": "MS", "row": 6, "col": 5 },
+"AL" : { "state": "AL", "row": 6, "col": 6 },
+"GA" : { "state": "GA", "row": 6, "col": 7 },
+"HI" : { "state": "HI", "row": 7, "col": 0 },
+"AK" : { "state": "AK", "row": 7, "col": 1 },
+"TX" : { "state": "TX", "row": 7, "col": 3 },
+"FL" : { "state": "FL", "row": 7, "col": 8 }
+};
+
+
+var xScale, yScale, xDomain, yDomain;
+
+var width = 550;
+var height = 350;
+
+var svg = d3.select("#USMap").append("svg")
+.attr("height", height)
+.attr("width", width);
+
+var histgramSVG = d3.select("#USMap").append("svg")
+.attr("height", height)
+.attr("width", width)
+.attr("id", "histgram");
+
+var button_width = width/7;
+var button_height = height/10;
+
+var button1 = histgramSVG.append("g");
+button1.append("rect")
+.attr("x", width/2-button_width).attr("y", 50)
+.attr("rx", 5).attr("ry", 5)
+.attr("width", button_width).attr("height", button_height)
+.style("fill","#addd8e");
+
+button1.append("text")
+.attr("x", width/2-button_width/2).attr("y", 70)
+.text("Occupation")
+.style("text-anchor","middle");
+
+var selectedButton = button1;
+
+var button2 = histgramSVG.append("g");
+button2.append("rect")
+.attr("x", width/2+10).attr("y", 50)
+.attr("rx", 5).attr("ry", 5)
+.attr("width", button_width).attr("height", button_height)
+.style("fill","#addd8e");
+
+button2.append("text")
+.attr("x", width/2+10+button_width/2).attr("y", 70)
+.text("Company")
+.style("text-anchor","middle");
+
+var radiusScale = d3.scale.sqrt().domain([14, 17561]).range([7, 25]);
+
+var AbbrToRandiu = function(Abbr) {
+	name = abbrToName(Abbr);
+	for (var i = 0; i<stateData.length; i++){
+		if (stateData[i].State == name){
+			return radiusScale(stateData[i].num);
+		}
+	}
+	return 0.0;
+}
+
+var AbbrToColor = function(abbr){
+	var colors = ['rgb(27,158,119)','rgb(217,95,2)','#bebada','rgb(231,41,138)','rgb(102,166,30)','rgb(230,171,2)','rgb(166,118,29)','rgb(102,102,102)'];
+	// var colors = ['rgb(247,252,240)','rgb(224,243,219)','rgb(204,235,197)','rgb(168,221,181)','rgb(123,204,196)','rgb(78,179,211)','rgb(43,140,190)','rgb(8,88,158)'];
+	var allOccupations = ["", "Other Economic Sector", "Advanced Mfg", "Educational Services","Agribusiness", "IT","Health Care",  "Retail"];
+	name = abbrToName(abbr);
+	var i = 0; 
+	var Occupation;
+	for (i = 0; i<stateData.length; i++){
+		if (stateData[i].State == name){
+			Occupation = stateData[i].top5Occupation[0].name;
+			break;
+		}
+	}
+	for (var k = 0; k<allOccupations.length; k++){
+		if (Occupation == allOccupations[k]){
+			return colors[k];
+		}
+	}
+	return "grey";
+}
+
+var stateXScale = d3.scale.linear().domain([0,11]).range([50, 500]);
+var stateYScale = d3.scale.linear().domain([0,7]).range([50, 300]);
+
+var stateIDs = Object.getOwnPropertyNames(stateGrid);
+
+var groups = svg.selectAll(".node")
+				.data(stateIDs).enter()
+				.append("g");
+
+var circles = groups.append("circle")
+			.attr("r", function(state) { return  AbbrToRandiu(state); })
+			.attr("cx", function(state){return stateXScale(stateGrid[state].col); })
+			.attr("cy", function(state){return stateYScale(stateGrid[state].row); })			
+			.attr("fill", function(state){return AbbrToColor(state); });
+var labels = groups.append("text").text(function(state) { return state; })
+			.attr("x", function(state){return stateXScale(stateGrid[state].col);})
+			.attr("y", function(state){return stateYScale(stateGrid[state].row);})
+			.style("text-anchor", "middle")
+			.style("font-size", 12);
+
+var DrawGraph = function(state, button){
+	d3.select("#graph").remove();
+	d3.select("#title").remove();
+	name = abbrToName(state);
+
+	var histgramTitle = histgramSVG.append("text")
+	.attr("x", 550/2)
+	.attr("y", 25)
+	.attr("id", "title")
+	.text(name)
+	.style("text-anchor", "middle");
+
+	var i = 0; 
+	for (i = 0; i<stateData.length; i++){
+		if (stateData[i].State == name){
+			break;
+		}
+	}
+	if (button == button1){
+		nums = stateData[i].top5Occupation;
+	}
+	else{
+		nums = stateData[i].top5Company;
+	}
+	var xScale1 = d3.scale.linear().domain([3, 6171]).range([10, width-200]);
+	var xScale2 = d3.scale.linear().domain([3, 2775]).range([10, width-200]);
+	var xScale = button == button1? xScale1: xScale2;
+
+	var x = 50;
+	var y = 120;
+	var graph = histgramSVG.append("g").attr("id", "graph");
+
+	var hisgramcolors = ['rgb(27,158,119)','rgb(217,95,2)','rgb(117,112,179)','rgb(231,41,138)','rgb(102,166,30)'];
+	for (var k = 0; k<5; k++){
+		graph.append("rect")
+		.attr("x", 50).attr("y", y)
+		.attr("width", xScale(nums[k].num)).attr("height", height/12)
+		.style("fill", hisgramcolors[k]);
+		graph.append("text")
+		.attr("x", 50+xScale(nums[k].num)+5)
+		.attr("y", y+height/24)
+		.text(function(){
+			var s = nums[k].name == ""? "Other": nums[k].name;
+			s = s + " " + nums[k].num;
+			return s;
+		})
+		.style("font-size", 12);
+		y = y+ height/12 +10;
+	}
+}
+
+circles.on("click", function(state){
+	circles.style("fill", function(state){return AbbrToColor(state); });
+	d3.select(this).style("fill", "#377eb8");
+	DrawGraph(state, selectedButton);
+	button1.on("click", function(){
+		selectedButton = button1;
+		console.log("1");
+		DrawGraph(state, selectedButton);
+	})
+	button2.on("click", function(){
+		selectedButton = button2;
+		console.log("2");
+		DrawGraph(state, selectedButton);
+	})
+	
+});
+</script>
+
+<div id = "buttons">
+	<button id="Occupation">Occupation</button>
+	<button id="AcceptRate">Accept Rate</button>
+	<button id="Salary">Salary</button>
+	
+</div>
+<div id = "points">
+</div>
+
+<script type="text/javascript" >
+var height = 200;
+var width = 400;
+var padding = 50;
+
+var svg0 = d3.select("#points").append("svg").attr("height", height).attr("width", width).attr("id", "svg0");
+var svg1 = d3.select("#points").append("svg").attr("height", height).attr("width", width).attr("id", "svg1");
+var svg2 = d3.select("#points").append("svg").attr("height", height).attr("width", width).attr("id", "svg2");
+
+var centroids;
+
+var points;
+
+var OccupationMapFunction = function(){
+	var OccupationMap = {};
+	var cnt = 0;
+	var points = [];
+	for (var i = 0; i<stateData.length; i++){
+		var top1 = stateData[i].top5Occupation[0];
+		var top2 = stateData[i].top5Occupation[1];
+		
+		if (OccupationMap[top1.name] == undefined){
+			OccupationMap[top1.name] = cnt;
+			cnt += 1;
+		}
+		if (OccupationMap[top2.name] == undefined){
+			OccupationMap[top2.name] = cnt;
+			cnt += 1;
+		}
+		var point = {
+			"x": OccupationMap[top1.name],
+			"y": OccupationMap[top2.name],
+			"num": top1.num + top2.num,
+			"label": stateData[i].State
+		};
+		points.push(point);
+	}
+	return points;
+}
+
+var AcceptRateMapFunction = function(){
+	var points = [];
+	for (var i = 0; i<stateData.length; i++){
+		var point = {
+			"x": stateData[i].num * stateData[i].AcceptRate,
+			"y": stateData[i].AcceptRate,
+			"num": stateData[i].num * stateData[i].AcceptRate,
+			"label": stateData[i].State
+		};
+		points.push(point);
+	}
+	return points;
+}
+
+var SalaryMapFunction = function(){
+	var points = [];
+	for (var i = 0; i<stateData.length; i++){
+		var point = {
+			"x": stateData[i].meanSalary,
+			"y": stateData[i].maxSalary,
+			"num": stateData[i].meanSalary,
+			"label": stateData[i].State
+		};
+		points.push(point);
+	}
+	return points;
+}
+
+var centroids = new Array(3);
+
+var makePoints = function(input){
+	if(input == "Occupation"){
+		points = OccupationMapFunction();
+	}
+	else if (input == "AcceptRate"){
+		points = AcceptRateMapFunction();
+	}
+	else if (input == "Salary"){
+		points = SalaryMapFunction();
+	}
+
+	for (var i = 0; i < centroids.length; i++) {
+	    // Initialize from a randomly chosen point
+		var randomPoint = points[Math.floor(Math.random() * points.length)];
+		centroids[i] = { x: randomPoint.x, y: randomPoint.y };
+	}
+}
+
+var moveMeans = function () {
+	centroids.forEach(function (centroid, i) {
+		var assignedPoints = 
+			points.filter(function (point) { return point.cluster == i; });
+		
+		centroid.x = d3.mean(assignedPoints, function (point) { return point.x; });
+		centroid.y = d3.mean(assignedPoints, function (point) { return point.y; });
+	});
+};
+
+var findClosest = function () {
+	points.forEach(function (point) {
+		var nearest;
+		var shortestDistance = Number.MAX_VALUE;
+		for (var i = 0; i < centroids.length; i++) {
+			var c = centroids[i];
+			var distance = Math.sqrt( 
+				(c.x - point.x) * (c.x - point.x) +
+				(c.y - point.y) * (c.y - point.y)
+			);
+		
+			if (distance < shortestDistance) {
+				shortestDistance = distance;
+				nearest = i;
+			}
+		}
+		point.cluster = nearest;
+	});
+};
+
+var nameToColor = function(name){
+	var colors = ['rgb(27,158,119)','rgb(217,95,2)','#bebada','rgb(231,41,138)','rgb(102,166,30)','rgb(230,171,2)','rgb(166,118,29)','rgb(102,102,102)'];
+	var allOccupations = ["", "Other Economic Sector", "Advanced Mfg", "Educational Services","Agribusiness", "IT","Health Care",  "Retail"];
+	var i = 0; 
+	var Occupation;
+	for (i = 0; i<stateData.length; i++){
+		if (stateData[i].State == name){
+			Occupation = stateData[i].top5Occupation[0].name;
+			break;
+		}
+	}
+	for (var k = 0; k<allOccupations.length; k++){
+		if (Occupation == allOccupations[k]){
+			return colors[k];
+		}
+	}
+	return "grey";
+}
+
+var DrawCluster = function (i, svgName){
+	d3.select("#onecluster").remove();
+	var data = [];
+	for (var k = 0; k < points.length; k++){
+		if(points[k].cluster == i){
+			data.push(points[k]);
+		}
+	}
+ 	var radiusScale = d3.scale.sqrt()
+		.domain(d3.extent(data, function (point) {
+			return point.num;
+		})).range([3, 15]);
+
+    var force = d3.layout.force()  
+   	.nodes(data)//加载节点数据    
+  	.size([width,height])//设置有效空间的大小   
+   	.charge(-15)//负电荷量，相互排斥设置的负值越大越排斥 
+   	.start();//设置生效
+
+   	var group = svgName.selectAll(".c") 
+	.data(data)  
+	.enter()
+	.append("g")
+	.attr("class", "onecluster");
+
+   	var nodes = group.append("circle")  
+	.style("fill", function(d){
+		return nameToColor(d.label);
+	})
+	.attr("r", function(d){
+		return radiusScale(d.num);
+	})
+	.call(force.drag);
+
+	var labels = group.append("text")
+	.text(function (d){
+		return nameToAbbr(d.label);
+	})
+	.style("font-size", 10)
+	.style("text-anchor","middle");
+
+	force.on("tick",function(){  
+		group.attr("transform", function(d) { 
+	    	return 'translate(' + [d.x, d.y] + ')'; 
+		});    
+	});
+
+	// force.start();
+ //    for (var i = 100; i > 0; --i) force.tick();
+ //    force.stop();
+}
+
+var execute = function(input){
+	makePoints(input);
+	for (var time = 0; time < 30; time++){
+		findClosest();
+		moveMeans();
+	}
+	DrawCluster(0, svg0);
+	DrawCluster(1, svg1);
+	DrawCluster(2, svg2);
+}
+
+d3.select("#Occupation").on("click", function (){
+	d3.selectAll(".onecluster").remove();
+	execute("Occupation");
+});
+
+d3.select("#AcceptRate").on("click", function (){
+	d3.selectAll(".onecluster").remove();
+	execute("AcceptRate");
+});
+
+d3.select("#Salary").on("click", function (){
+	d3.selectAll(".onecluster").remove();
+	execute("Salary");
+});
+</script>
+</body>
+</html>

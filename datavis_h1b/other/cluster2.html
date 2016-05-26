@@ -1,0 +1,255 @@
+<html>
+<head>
+    <!-- Load the d3 library. -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="data/stateData.js"></script>
+    <script src="js/states.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <title>H1B Visa</title>
+    
+</head>
+<body>
+<div>
+	<form>
+  		<input type="checkbox" name="box" value="Occupation" id ="box1"> Occupation<br>
+		<input type="checkbox" name="box" value="AcceptRate" id="box2"> Accept Rate<br>
+		<input type="checkbox" name="box" value="Salary" id="box3">Salary<br>
+	</form>
+</div>
+<div id = "points">
+</div>
+<script>
+var getCheckedValues = function(){
+	var inputValues = [];
+	var checkboxes = document.getElementsByName("box");
+	for (var i = 0; i<checkboxes.length; i++){
+		if (checkboxes[i].checked){
+			inputValues.push(checkboxes[i].value);
+		}
+	}
+	return inputValues;
+}
+var input = ["Occupation"];
+
+var height = 200;
+var width = 800;
+var padding = 50;
+
+var svg0 = d3.select("#points").append("svg").attr("height", height).attr("width", width).attr("id", "svg0");
+var svg1 = d3.select("#points").append("svg").attr("height", height).attr("width", width).attr("id", "svg1");
+var svg2 = d3.select("#points").append("svg").attr("height", height).attr("width", width).attr("id", "svg2");
+
+var centroids;
+
+var points;
+
+var OccupationMapFunction = function(){
+	var OccupationMap = {};
+	var cnt = 0;
+	var points = [];
+	for (var i = 0; i<stateData.length; i++){
+		var top1 = stateData[i].top5Occupation[0];
+		var top2 = stateData[i].top5Occupation[1];
+		
+		if (OccupationMap[top1.name] == undefined){
+			OccupationMap[top1.name] = cnt;
+			cnt += 1;
+		}
+		if (OccupationMap[top2.name] == undefined){
+			OccupationMap[top2.name] = cnt;
+			cnt += 1;
+		}
+		var point = {
+			"x": OccupationMap[top1.name],
+			"y": OccupationMap[top2.name],
+			"num": top1.num + top2.num,
+			"label": stateData[i].State
+		};
+		points.push(point);
+	}
+	return points;
+}
+
+var AcceptRateMapFunction = function(){
+	var points = [];
+	for (var i = 0; i<stateData.length; i++){
+		var point = {
+			"x": stateData[i].num * stateData[i].AcceptRate,
+			"y": stateData[i].AcceptRate,
+			"num": stateData[i].num * stateData[i].AcceptRate,
+			"label": stateData[i].State
+		};
+		points.push(point);
+	}
+	console.log(points);
+	return points;
+}
+
+var SalaryMapFunction = function(){
+
+}
+
+
+var centroids = new Array(3);
+
+var makePoints = function(){
+	input = getCheckedValues();
+	console.log(input);
+	if(input[0] == "Occupation"){
+		points = OccupationMapFunction();
+	}
+	else if (input[0] == "AcceptRate"){
+		points = AcceptRateMapFunction();
+	}
+	console.log(points);
+	for (var i = 0; i < centroids.length; i++) {
+	// Initialize from a randomly chosen point
+	var randomPoint = points[Math.floor(Math.random() * points.length)];
+	centroids[i] = { x: randomPoint.x, y: randomPoint.y };
+}
+}
+
+var moveMeans = function () {
+	centroids.forEach(function (centroid, i) {
+		var assignedPoints = 
+			points.filter(function (point) { return point.cluster == i; });
+		
+		centroid.x = d3.mean(assignedPoints, function (point) { return point.x; });
+		centroid.y = d3.mean(assignedPoints, function (point) { return point.y; });
+	});
+};
+
+var findClosest = function () {
+	points.forEach(function (point) {
+		var nearest;
+		var shortestDistance = Number.MAX_VALUE;
+		for (var i = 0; i < centroids.length; i++) {
+			var c = centroids[i];
+			var distance = Math.sqrt( 
+				(c.x - point.x) * (c.x - point.x) +
+				(c.y - point.y) * (c.y - point.y)
+			);
+		
+			if (distance < shortestDistance) {
+				shortestDistance = distance;
+				nearest = i;
+			}
+		}
+		point.cluster = nearest;
+	});
+};
+
+var nameToColor = function(name){
+	var colors = ['rgb(27,158,119)','rgb(217,95,2)','#bebada','rgb(231,41,138)','rgb(102,166,30)','rgb(230,171,2)','rgb(166,118,29)','rgb(102,102,102)'];
+	var allOccupations = ["", "Other Economic Sector", "Advanced Mfg", "Educational Services","Agribusiness", "IT","Health Care",  "Retail"];
+	var i = 0; 
+	var Occupation;
+	for (i = 0; i<stateData.length; i++){
+		if (stateData[i].State == name){
+			Occupation = stateData[i].top5Occupation[0].name;
+			break;
+		}
+	}
+	for (var k = 0; k<allOccupations.length; k++){
+		if (Occupation == allOccupations[k]){
+			return colors[k];
+		}
+	}
+	return "grey";
+}
+
+var DrawCluster = function (i, svgName){
+	d3.select("#onecluster").remove();
+	var data = [];
+	for (var k = 0; k < points.length; k++){
+		if(points[k].cluster == i){
+			data.push(points[k]);
+		}
+	}
+ 	//console.log(data);
+ 	var radiusScale = d3.scale.sqrt()
+		.domain(d3.extent(data, function (point) {
+			return point.num;
+		})).range([3, 15]);
+
+    var force = d3.layout.force()  
+   	.nodes(data)//加载节点数据    
+  	.size([width/3,height])//设置有效空间的大小   
+   	.charge(-15)//负电荷量，相互排斥设置的负值越大越排斥 
+   	.start();//设置生效
+
+   	var group = svgName.selectAll(".c") 
+	.data(data)  
+	.enter()
+	.append("g")
+	.attr("class", "onecluster");
+
+   	var nodes = group.append("circle")  
+	.style("fill", function(d){
+		return nameToColor(d.label);
+	})
+	.attr("r", function(d){
+		return radiusScale(d.num);
+	})
+	.call(force.drag);
+
+	var labels = group.append("text")
+	.text(function (d){
+		return nameToAbbr(d.label);
+	})
+	.style("font-size", 10);
+
+	console.log(labels);
+
+	force.on("tick",function(){  
+		group.attr("transform", function(d) { 
+	    	return 'translate(' + [d.x, d.y] + ')'; 
+		});    
+	});
+
+	force.start();
+    for (var i = 100; i > 0; --i) force.tick();
+    force.stop();
+
+}
+
+var execute = function(){
+	makePoints();
+	for (var time = 0; time < 30; time++){
+		findClosest();
+		moveMeans();
+	}
+	DrawCluster(0, svg0);
+	DrawCluster(1, svg1);
+	DrawCluster(2, svg2);
+}
+
+document.getElementById("box1").addEventListener("click", function(){
+	if(document.getElementById("box1").checked){
+		execute();
+	}
+	else{
+		d3.selectAll(".onecluster").remove();
+	}
+});
+document.getElementById("box2").addEventListener("click", function(){
+    if(document.getElementById("box2").checked){
+		execute();
+	}
+	else{
+		d3.selectAll(".onecluster").remove();
+	}
+});
+document.getElementById("box3").addEventListener("click", function(){
+    if(document.getElementById("box3").checked){
+		execute();
+	}
+	else{
+		d3.selectAll(".onecluster").remove();
+	}
+});
+
+</script>
+</body>
+</html>

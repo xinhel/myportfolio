@@ -1,0 +1,154 @@
+<html>
+<head>
+    <!-- Load the d3 library. -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="data/stateData.js"></script>
+    <script src="js/states.js"></script>
+    <title>H1B Visa</title>
+    
+</head>
+<body>
+<div id = "buttons">
+	<button id="findclosest">Find Closest</button>
+	<button id="movemeans">Move Means</button>
+	<div id = "location"></div>
+</div>
+<div id = "points">
+</div>
+<div>
+	<button id="showCluster">Show Clusters</button>
+</dic>
+<script>
+var height = 350;
+var width = 550;
+var padding = 50;
+
+var svg = d3.select("#points").append("svg").attr("height", height).attr("width", width);
+
+var lines, kmeansCircles, kmeansCentroids;
+
+var xScale, yScale, kmeansPoints;
+var times = 0;
+
+var OccupationMap = {};
+var cnt = 0;
+
+kmeansPoints = stateData.map(function(state){
+	var top1 = state.top5Occupation[0];
+	var top2 = state.top5Occupation[1];
+	if (OccupationMap[top1.name] == undefined){
+		OccupationMap[top1.name] = cnt;
+		cnt += 1;
+	}
+	if (OccupationMap[top2.name] == undefined){
+		OccupationMap[top2.name] = cnt;
+		cnt += 1;
+	}
+	return {
+		x: OccupationMap[top1.name],//+top1.num/state.num,
+		y: OccupationMap[top2.name],//+top2.num/state.num,
+		label: state.State
+	};
+})
+
+xScale = d3.scale.linear()
+	.domain(d3.extent(kmeansPoints, function (point) {
+		return point.x;
+	})).range([padding, width - padding]);
+	
+yScale = d3.scale.linear()
+	.domain(d3.extent(kmeansPoints, function (point) {
+		return point.y;
+	})).range([height - padding, padding]);
+
+lines = svg.selectAll("line").data(kmeansPoints);
+
+	// Each point has a line that is initially pointing to itself
+lines.enter().append("line")
+.attr("x1", function(d) { return xScale(d.x); })
+.attr("y1", function(d) { return yScale(d.y); })
+.attr("x2", function(d) { return xScale(d.x); })
+.attr("y2", function(d) { return yScale(d.y); })
+.style("stroke", "#aaa");
+
+kmeansCircles = svg.selectAll(".point").data(kmeansPoints);
+
+	// Create a mouseover callback that lists country names
+kmeansCircles.enter().append("circle")
+.attr("class", "point")
+.attr("cx", function(d) { return xScale(d.x); })
+.attr("cy", function(d) { return yScale(d.y); })
+.attr("r", 3)
+.style("fill", "green")
+.style("opacity", 0.5)
+.on("mouseover", function (d) {
+	d3.select("#location").text(d.label);
+});
+
+	// Hmmm... how many clusters?
+kmeansCentroids = new Array(3);
+for (var i = 0; i < kmeansCentroids.length; i++) {
+	// Initialize from a randomly chosen point
+	var randomPoint = kmeansPoints[Math.floor(Math.random() * kmeansPoints.length)];
+	kmeansCentroids[i] = { x: randomPoint.x, y: randomPoint.y };
+}
+
+var movemeans = function () {
+	kmeansCentroids.forEach(function (centroid, i) {
+		var assignedPoints = 
+			kmeansPoints.filter(function (point) { return point.cluster == i; });
+		
+		centroid.x = d3.mean(assignedPoints, function (point) { return point.x; });
+		centroid.y = d3.mean(assignedPoints, function (point) { return point.y; });
+	});
+	
+	lines.transition().duration(1000).attr("x2", function (point) {
+		return xScale(kmeansCentroids[point.cluster].x);
+	})
+	.attr("y2", function (point) {
+		return yScale(kmeansCentroids[point.cluster].y);
+	});
+	times++;
+	if(times <= 20){
+		setTimeout(findclosest, 1000);
+	}
+}
+
+var findclosest = function () {
+	kmeansPoints.forEach(function (point) {
+		var nearest;
+		var shortestDistance = Number.MAX_VALUE;
+		for (var i = 0; i < kmeansCentroids.length; i++) {
+			var c = kmeansCentroids[i];
+			var distance = Math.sqrt( 
+				(c.x - point.x) * (c.x - point.x) +
+				(c.y - point.y) * (c.y - point.y)
+			);
+		
+			if (distance < shortestDistance) {
+				shortestDistance = distance;
+				nearest = i;
+			}
+		}
+		
+		point.cluster = nearest;
+				
+	});
+	
+	lines.transition().duration(1000).attr("x2", function (point) {
+		return xScale(kmeansCentroids[point.cluster].x);
+	})
+	.attr("y2", function (point) {
+		return yScale(kmeansCentroids[point.cluster].y);
+	});
+	times++;
+	if(times <= 20){
+		setTimeout(movemeans, 1000);
+	}
+	
+}
+findclosest();
+</script>
+</body>
+</html>

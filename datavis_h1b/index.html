@@ -1,0 +1,2291 @@
+<html>
+<head>
+    <!-- Load the d3 library. -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="data/stateData.js"></script>
+    <script src="js/states.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<!--Load auxillary scripts-->
+	<script src="liquidFillGauge.js" language="JavaScript"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <title>H1B Visa</title>
+<style>
+#container {
+	background: #fbfaf3; 
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#charts {
+  top: 0;
+  right: 0;
+  width: 30%;
+  position: absolute;
+}
+.country {
+  stroke: #fff;
+  stroke-width: .3px;
+  stroke-linejoin: round;
+  cursor: pointer;
+}
+
+.hidden { 
+  display: none; 
+}
+div.tooltip {
+  color: #222; 
+  background: #fff; 
+  padding: .5em; 
+  text-shadow: #f5f5f5 0 1px 0;
+  border-radius: 2px; 
+  box-shadow: 0px 0px 2px 0px #a6a6a6; 
+  opacity: 0.9; 
+  position: absolute;
+}
+
+#container rect {
+  fill: none;
+  pointer-events: all;
+}
+
+body { font-family: "Open Sans"; }
+svg { 
+  border: solid black 0px; 
+}
+.bar rect { fill: #ccc; }
+.axis path { fill: none; stroke: black;}
+.axis line { stroke: black; }
+.axis text { font-size: x-small; }
+.axisL path { fill: none; stroke: black;}
+.axisL line { stroke: black; }
+.axisL text { font-size: x-small; }
+
+        #LittleMen{
+            margin: 0 auto;
+            text-align: center;
+        }
+        .man, .man2{
+            fill:gray;
+            display:inline-block;
+            margin-left:3px;
+            margin-right: 3px;
+        }
+div{
+  text-align: center;
+  vertical-align: middle;
+}
+h2{
+	text-align: center;
+  vertical-align: middle;
+}
+h5{
+	text-align: center;
+  vertical-align: middle;
+}
+</style> 
+</head>
+<body>
+<br></br>
+<h2 id = "MenText">H-1B Application Data from 2008 to 2014</h2>
+<h5>Click Year To See The Accept Rate</h5>
+<div id="LittleMen"></div>
+<br></br>
+<h2 id="refertext">U.S. GDP  VS  H-1B</h2>
+<h5>click each line or text to see the relationship with GDP</h5>
+<div id="refer"></div>
+<br></br>
+<h2 id="linearRegression">Linear Regression U.S. GDP  VS  H-1B</h2>
+<h5>click the rect or text on the right side to see the linear regression</h5>
+<div id="plot">
+</div>
+<br></br>
+
+
+<script>
+/*working with the data*/
+var dataset;
+//var data;
+var pass = [];
+var pass1 = [];
+var apply = [];
+var apply1 = [];
+var rate = [];
+var rate1 = [];
+var gdp = [];
+d3.csv("2008_csv.csv", function(d) {
+ return {
+    	date: d.DECISION_DATE,
+    	status: d.CASE_STATUS
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 apply.push({x:2008, y: num});
+  	 var p = 0;
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='CERTIFIED'|| dataset[i].status=='CERTIFIED-EXPIRED')
+  	 		p++;
+  	 }
+  	 pass.push({x: 2008, y: p});
+  	 rate.push({x: 2008, y: p/num*100});
+ 
+  d3.csv("2009_csv.csv", function(d) {
+	 return {
+    	date: d.DECISION_DATE,
+    	status: d.CASE_STATUS
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 apply.push({x:2009, y: num});
+  	 var p = 0;
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='Certified'||dataset[i].status=='Certified-Expired')
+            p++;	 
+  	 }
+  	 pass.push({x: 2009, y: p});
+	   rate.push({x: 2009, y: p/num*100});
+
+  d3.csv("2010_csv.csv", function(d) {
+	 return {
+    	date: d.DECISION_DATE,
+    	status: d.CASE_STATUS
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 apply.push({x:2010, y: num});
+  	 var p = 0;
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='Certified'||dataset[i].status=='Certified-Expired')
+  	 		p++;
+  	 }
+  	 pass.push({x: 2010, y: p});
+  	 rate.push({x: 2010, y: p/num*100});
+
+  d3.csv("2011_csv.csv", function(d) {
+	 return {
+    	date: d.DECISION_DATE,
+    	status: d.CASE_STATUS
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 var p = 0;
+  	 apply.push({x:2011, y: num});
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='Certified'||dataset[i].status=='Certified-Expired')
+  	 		p++;
+  	 }
+  	 pass.push({x: 2011, y: p});
+  	 rate.push({x: 2011, y: p/num*100});
+  	 
+  d3.csv("2012_csv.csv", function(d) {
+	 return {
+    	date: d.DECISION_DATE,
+    	status: d.CASE_STATUS
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 apply.push({x:2012, y: num});
+  	 var p = 0;
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='Certified'||dataset[i].status=='Certified-Expired')
+  	 		p++;
+  	 }
+  	 pass.push({x: 2012, y: p});
+  	 rate.push({x: 2012, y: p/num*100});
+
+  d3.csv("2013_csv.csv", function(d) {
+	 return {
+    	date: d.Decision_Date,
+    	status: d.Case_Status
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 apply.push({x:2013, y: num});
+  	 var p = 0;
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='Certified'||dataset[i].status=='Certified-Expired')
+  	 		p++;
+  	 }
+  	 pass.push({x: 2013, y: p});
+  	 rate.push({x: 2013, y: p/num*100});
+
+  d3.csv("2014_csv.csv", function(d) {
+	 return {
+    	date: d.Decision_Date,
+    	status: d.Case_Status
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 apply.push({x:2014, y: num});
+  	 var p = 0;
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='Certified'||dataset[i].status=='Certified-Expired')
+  	 		p++;
+  	 }
+  	 pass.push({x: 2014, y: p});
+  	 rate.push({x: 2014, y: p/num*100});
+    
+
+  d3.csv("GDP.csv", function(d){
+    return {
+      year: +d.Year,
+      growing: +d.GDP
+    };
+   }, function(error, rows){
+      data = rows;
+      for (var i=0; i<data.length; i++){
+        gdp.push({x: data[i].year, y: data[i].growing});
+      }   
+
+   for(var i=0; i<7; i++){
+      apply1.push({x: gdp[i].y, y: apply[i].y});
+   }
+   for(var i=0; i<7; i++){
+      pass1.push({x: gdp[i].y, y: pass[i].y});
+   }
+   for(var i=0; i<7; i++){
+      rate1.push({x: gdp[i].y, y: rate[i].y});
+   }
+var height = 250;
+var width = 800;
+
+var svg = d3.select("#refer").append("svg")
+.attr("height", height)
+.attr("width", width);
+
+var svgG = d3.select("#plot").append("svg")
+.attr("height", height)
+.attr("width", width+100);
+
+
+var miny = d3.min(apply1, function(d){
+	return d.y;
+})
+var maxy = d3.max(apply1, function(d){
+	return d.y;
+})
+var minPy = d3.min(pass1, function(d){
+	return d.y;
+})
+var maxPy = d3.max(pass1, function(d){
+	return d.y;
+})
+var minRy = d3.min(rate1, function(d){
+	return d.y;
+})
+var maxRy = d3.max(rate1, function(d){
+	return d.y;
+})
+var minGy = d3.min(gdp, function(d){
+  return d.y;
+})
+var maxGy = d3.max(gdp, function(d){
+  return d.y;
+})
+var mean = d3.mean(apply, function(d){
+  return d.y;
+})
+
+var xScale = d3.scale.linear().domain([2007, 2015]).range([60, width-30]);
+var xScaleG = d3.scale.linear().domain([minGy,maxGy]).range([60, width-30]);
+var yScaleA = d3.scale.linear().domain([miny-15000, maxy+15000]).range([height-30, 30]);
+var yScaleP = d3.scale.linear().domain([minPy-5000, maxPy+5000]).range([height-30, 30]);
+var yScaleR = d3.scale.linear().domain([minRy-10, maxRy+10]).range([height-30, 30]);
+var yScaleG = d3.scale.linear().domain([minGy-0.5, maxGy+0.5]).range([height-30,30]);
+
+var xAxis = d3.svg.axis().scale(xScale);
+svg.append("g")
+  .attr("class", "axis")
+  .attr("transform", "translate(0, " + (height-30) + ")")
+  .call(xAxis);
+
+var xAxisG = d3.svg.axis().scale(xScaleG);
+svgG.append("g")
+  .attr("class", "axisL")
+  .attr("transform", "translate(0, " + (height-30) + ")")
+  .call(xAxisG);
+
+var yAxisA = d3.svg.axis().scale(yScaleA).orient("left");
+/*using for two xAxises*/
+// svg.append("g")
+
+//   .attr("class", "axis")
+//   .attr("transform", "translate(" + (60) + ", 0)")
+//   .call(yAxisA);
+
+svgG.append("g")
+	.attr("class", "axisL")
+	.attr("transform", "translate(" + (60) + ", 0)")
+	.call(yAxisA);
+
+var yAxisP = d3.svg.axis().scale(yScaleP).orient("left");
+
+var yAxisR = d3.svg.axis().scale(yScaleR).orient("left");
+
+var yAxisG = d3.svg.axis().orient("left");
+svg.append("g")
+  .attr("class", "axis")
+  .attr("transform", "translate(" + (width-30) + ", 0)");
+  //.call(yAxisG);
+
+var modelA = {};
+var modelP = {};
+var modelR = {};
+var modelG = {};
+var meanAX = d3.mean(apply1, function (d) { 
+	return d.x;
+});
+var meanAY = d3.mean(apply1, function (d) { 
+	return d.y;
+});
+
+var meanPX = d3.mean(pass1, function (d) { 
+	return d.x;
+});
+var meanPY = d3.mean(pass1, function (d) { 
+	return d.y;
+});
+
+var meanRX = d3.mean(rate1, function (d) { 
+	return d.x;
+});
+var meanRY = d3.mean(rate1, function (d) { 
+	return d.y;
+});
+
+var meanGX = d3.mean(gdp, function(d){
+  return d.y;
+})
+var meanGY = d3.mean(gdp, function(d){
+  return d.y;
+})
+
+modelA.slope = d3.sum(apply1, function (d) {
+	return (d.x - meanAX) * (d.y - meanAY);
+});
+modelA.slope /= d3.sum(apply1, function (d) {
+	return (d.x - meanAX) * (d.x - meanAX);
+});
+
+modelP.slope = d3.sum(pass1, function (d) {
+	return (d.x - meanPX) * (d.y - meanPY);
+});
+modelP.slope /= d3.sum(pass1, function (d) {
+	return (d.x - meanPX) * (d.x - meanPX);
+});
+
+modelR.slope = d3.sum(rate1, function (d) {
+	return (d.x - meanRX) * (d.y - meanRY);
+});
+modelR.slope /= d3.sum(rate1, function (d) {
+	return (d.x - meanRX) * (d.x - meanRX);
+});
+
+modelG.slope = d3.sum(gdp, function (d) {
+  return (d.x - meanGX) * (d.y - meanGY);
+});
+modelG.slope /= d3.sum(gdp, function (d) {
+  return (d.x - meanGX) * (d.x - meanGX);
+});
+modelA.intercept = meanAY - modelA.slope * meanAX;
+modelP.intercept = meanPY - modelP.slope * meanPX;
+modelR.intercept = meanRY - modelR.slope * meanRX;
+modelG.intercept = meanGY - modelG.slope * meanGX;
+/*forecasting*/
+// var forecastA = 2015*modelA.slope + modelA.intercept; 
+// apply.push({x: 2015, y: forecastA});
+// var forecastP = 2015*modelP.slope + modelP.intercept; 
+// pass.push({x: 2015, y: forecastP});
+// var forecastR = 2015*modelR.slope + modelR.intercept; 
+// rate.push({x: 2015, y: forecastR});
+// var forecastG = 2015*modelG.slope + modelG.intercept; 
+// gdp.push({x: 2015, y: forecastG});
+
+/*Line in the first image*/
+var lineA = d3.svg.line()
+            .x(function(d,i){
+              return xScale(i+2008);
+            })
+            .y(function(d){
+              return yScaleA(d.y);
+            });
+var lineG = d3.svg.line()
+            .x(function(d,i){
+              return xScale(i+2008);
+            })
+            .y(function(d){
+              return yScaleG(d.y);
+            });  
+var lineP = d3.svg.line()
+            .x(function(d,i){
+              return xScale(i+2008);
+            })
+            .y(function(d){
+              return yScaleP(d.y);
+            });        
+var lineR = d3.svg.line()
+            .x(function(d,i){
+              return xScale(i+2008);
+            })
+            .y(function(d){
+              return yScaleR(d.y);
+            });  
+svg.append("path").attr("d",lineA(apply))
+                  .attr("fill","none")
+                  .attr("stroke","grey")
+                  .attr("opacity",0.2)
+                  .attr("stroke-width",3)
+                  .attr("class","line");
+svg.append("path").attr("d",lineA(pass))
+                  .attr("fill","none")
+                  .attr("stroke","#3792a4")
+                  .attr("opacity",0.2)
+                  .attr("stroke-width",3)
+                  .attr("class","line");
+svg.append("path").attr("d",lineR(rate))
+                  .attr("fill","none")
+                  .attr("stroke","#b73d66")
+                  .attr("opacity",0.2)
+                  .attr("stroke-width",3)
+                  .attr("class","line");
+svg.append("path").attr("d",lineG(gdp))
+                  .attr("fill","none")
+                  .attr("stroke","green")
+                  .attr("opacity",0.8)
+                  .attr("stroke-width",2)
+                  .attr("class","Lines");  
+svg.append("text")
+   .attr("x",width-100)
+   .attr("y",50)
+   .text("GDP")
+   .attr("fill","green")
+   .attr("class","gdpname")
+   .attr("font-size",15);
+svg.append("text")
+   .attr("x",width-100)
+   .attr("y",95)
+   .text("accept")
+   .attr("fill","#3792a4")
+   .attr("class","name")
+   .attr("opacity",0.2);
+svg.append("text")
+   .attr("x",width-100)
+   .attr("y",115)
+   .text("rate")
+   .attr("fill","#b73d66")
+   .attr("class","name")
+   .attr("opacity",0.2);   
+svg.append("text")
+   .attr("x",width-100)
+   .attr("y",75)
+   .text("apply")
+   .attr("fill","grey")
+   .attr("class","name")
+   .attr("opacity",0.2);  
+
+$(".name").click(function(){
+  var clicked = $(this);
+  var color = $(this).attr("fill");
+  $(".name").css("opacity",0.2);
+  $(this).css("opacity",0.8);
+  $(".line").each(function(){
+      if($(this).attr("stroke")==color){
+        $(this).css("opacity",0.8);
+      }
+      else
+        $(this).css("opacity",0.2);
+  })
+});
+$(".line").click(function(){
+  var clicked = $(this);
+  var color = $(this).attr("stroke");
+  $(".line").css("opacity",0.2);
+  $(this).css("opacity",0.8);
+  $(".name").each(function(){
+      if($(this).attr("fill")==color)
+        $(this).css("opacity",0.8);
+      else
+        $(this).css("opacity",0.2);
+  })
+
+});
+
+/*The Linear Regression Part*/
+var rectA = svgG.append("rect")
+                .attr("x",width+15)
+                .attr("y",50)
+                .attr("width",30)
+                .attr("height",20)
+                .attr("fill","grey")
+                .attr("opacity",0.8)
+                .attr("class","LR");
+var txtA = svgG.append("text")
+               .attr("x",width+50)
+               .attr("y",65)
+               .text("apply")
+               .attr("fill","grey")
+               .attr("opacity",0.8)
+               .attr("class","lr");
+
+var rectP = svgG.append("rect")
+                .attr("x",width+15)
+                .attr("y",80)
+                .attr("width",30)
+                .attr("height",20)
+                .attr("fill","#3792a4")
+                .attr("opacity",0.3)
+                .attr("class","LR");
+var txtP = svgG.append("text")
+               .attr("x",width+50)
+               .attr("y",95)
+               .text("accept")
+               .attr("fill","#3792a4")
+               .attr("opacity",0.2)
+               .attr("class","lr");
+
+var rectR = svgG.append("rect")
+                .attr("x",width+15)
+                .attr("y",110)
+                .attr("width",30)
+                .attr("height",20)
+                .attr("fill","#b73d66")
+                .attr("opacity",0.3)
+                .attr("class","LR");
+var txtR = svgG.append("text")
+               .attr("x",width+50)
+               .attr("y",125)
+               .text("rate")
+               .attr("fill","#b73d66")
+               .attr("opacity",0.2)
+               .attr("class","lr");
+
+
+$(".LR").click(function(){
+  var clicked = $(this);
+  var color = $(this).attr("fill");
+  $(".LR").css("opacity",0.2);
+  $(this).css("opacity",0.8);
+  $(".lr").each(function(){
+      if($(this).attr("fill")==color)
+        $(this).css("opacity",0.8);
+      else
+        $(this).css("opacity",0.2);
+  })
+  d3.selectAll(".linear").remove();
+  d3.selectAll(".axisL").remove();
+  svgG.append("g")
+      .attr("class", "axisL")
+      .attr("transform", "translate(0, " + (height-30) + ")")
+      .call(xAxisG);
+  if(color=="grey"){
+    svgG.append("g")
+        .attr("class", "axisL")
+        .attr("transform", "translate(" + (60) + ", 0)")
+        .call(yAxisA);
+    var circlesA = svgG.selectAll("g.linear").data(apply1).enter()
+        .append("circle")
+        .classed("linear",true)
+        .attr("cx", function (d) { return xScaleG(d.x); })
+        .attr("cy", function (d) { return yScaleA(d.y); })
+        .attr("r", 5)
+        .style("opacity", "0.3"); 
+    var regressionLineA = svgG.append("g")
+      .append("line")
+      .attr("class","linear")
+      .attr("x1", xScaleG(minGy))
+      .attr("y1", yScaleA(modelA.slope * minGy + modelA.intercept))
+      .attr("x2", xScaleG(maxGy))
+      .attr("y2", yScaleA(modelA.slope * maxGy + modelA.intercept))
+      .style("stroke", "grey");
+  }
+  else if(color=="#3792a4"){
+    svgG.append("g")
+        .attr("class", "axisL")
+        .attr("transform", "translate(" + (60) + ", 0)")
+        .call(yAxisP);
+    var circlesP = svgG.selectAll("g.linear").data(pass1).enter()
+            .append("circle")
+            .classed("linear",true)
+            .attr("cx", function (d) { return xScaleG(d.x); })
+            .attr("cy", function (d) { return yScaleP(d.y); })
+            .attr("r", 5)
+            .style("opacity", "0.3");
+    var regressionLineP = svgG.append("g")
+            .append("line")
+            .attr("class","linear")
+            .attr("x1", xScaleG(minGy))
+            .attr("y1", yScaleP(modelP.slope * minGy + modelP.intercept))
+            .attr("x2", xScaleG(maxGy))
+            .attr("y2", yScaleP(modelP.slope * maxGy + modelP.intercept))
+            .style("stroke", "#3792a4");
+  }
+  else if(color=="#b73d66"){
+    svgG.append("g")
+        .attr("class", "axisL")
+        .attr("transform", "translate(" + (60) + ", 0)")
+        .call(yAxisR);
+
+    var circlesR = svgG.selectAll("g.linear").data(rate1).enter()
+            .append("g")
+            .append("circle")
+            .classed("linear",true)
+            .attr("cx", function (d) { return xScaleG(d.x); })
+            .attr("cy", function (d) { return yScaleR(d.y); })
+            .attr("r", 5)
+            .style("opacity", "0.3");
+
+    var regressionLineR = svgG.append("g")
+            .attr("class","linear")
+            .append("line")
+            .attr("x1", xScaleG(minGy))
+            .attr("y1", yScaleR(modelR.slope * minGy + modelR.intercept))
+            .attr("x2", xScaleG(maxGy))
+            .attr("y2", yScaleR(modelR.slope * maxGy + modelR.intercept))
+            .style("stroke", "#b73d66");
+  }
+});
+
+var circlesA = svgG.selectAll("g.linear").data(apply1).enter()
+.append("g")
+.append("circle")
+.classed("linear",true)
+.attr("cx", function (d) { return xScaleG(d.x); })
+.attr("cy", function (d) { return yScaleA(d.y); })
+.attr("r", 5)
+.style("opacity", "0.3");                                                 
+
+var regressionLineA = svgG.append("g")
+.append("line")
+.attr("class","linear")
+.attr("x1", xScaleG(minGy))
+.attr("y1", yScaleA(modelA.slope * minGy + modelA.intercept))
+.attr("x2", xScaleG(maxGy))
+.attr("y2", yScaleA(modelA.slope * maxGy + modelA.intercept))
+.style("stroke", "grey");
+
+
+
+
+var man0 = d3.select("#LittleMen").append("svg")
+      .attr("id","man0")
+      .attr("class","man")
+      .attr("height", 115)
+        .attr("width", 115)
+        .attr("viewBox","-15.0 -10.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head = man0.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var dd = "M28.256,11.163c-1.123-0.228-2.344-0.218-3.447,0.042c-7.493,0.878-9.926,9.551-9.239,16.164c0.298,2.859,4.805,2.889,4.504,0c-0.25-2.41-0.143-6.047,1.138-8.632c0,3.142,0,6.284,0,9.425c0,0.111,0.011,0.215,0.016,0.322c-0.003,0.051-0.015,0.094-0.015,0.146c0,7.479-0.013,14.955-0.322,22.428c-0.137,3.322,5.014,3.309,5.15,0c0.242-5.857,0.303-11.717,0.317-17.578c0.244,0.016,0.488,0.016,0.732,0.002c0.015,5.861,0.074,11.721,0.314,17.576c0.137,3.309,5.288,3.322,5.15,0c-0.309-7.473-0.32-14.949-0.32-22.428c0-0.232-0.031-0.443-0.078-0.646c-0.007-3.247-0.131-6.497-0.093-9.742c1.534,2.597,1.674,6.558,1.408,9.125c-0.302,2.887,4.206,2.858,4.504,0C38.678,20.617,36.128,11.719,28.256,11.163z";
+var body = man0.append("path")
+         .attr("d",dd);
+
+var rect = man0.append("rect")
+         .attr("x",4)
+         .attr("y",70.5)
+         .attr("width",45)
+         .attr("height",19)
+         .attr("rx",5)
+         .attr("ry",4)
+         .attr("fill","white")
+         .on("click", function(d){
+             setUpDeathText(2008);
+         })
+         .attr("stroke","#003400")
+         .attr("stroke-width",1.5);
+man0.append("text")
+   .attr("x",8)
+   .attr("y",87)
+   .text("2008")
+   .on("click", function(d){
+             setUpDeathText(2008);
+         })
+   .attr("font-size",16.5);
+
+var man1 = d3.select("#LittleMen").append("svg")
+      .attr("id","man1")
+      .attr("class","man")
+      .attr("height", 83)
+        .attr("width", 83)
+        .attr("viewBox","-30.0 0.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head1 = man1.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var body1 = man1.append("path")
+         .attr("d",dd);
+
+var rect1 = man1.append("rect")
+         .attr("x",-3)
+         .attr("y",70.5)
+         .attr("rx",7)
+         .attr("ry",7)
+         .attr("width",62)
+         .attr("height",29)
+         .attr("fill","white")
+         .attr("stroke","#003400")
+         .attr("stroke-width",2)
+         .on("click", function(d){
+             setUpDeathText(2009);
+         });
+man1.append("text")
+   .attr("x",4)
+   .attr("y",95)
+   .text("2009")
+   .attr("font-size",22)
+   .on("click", function(d){
+             setUpDeathText(2009);
+         });   
+
+var man2 = d3.select("#LittleMen").append("svg")
+      .attr("id","man2")
+      .attr("class","man")
+      .attr("height", 187)
+        .attr("width", 187)
+        .attr("viewBox","-20.0 -25.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head2 = man2.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var body2 = man2.append("path")
+         .attr("d",dd);
+
+var rect2 = man2.append("rect")
+         .attr("x",11.5)
+         .attr("y",62)
+         .attr("rx",3)
+         .attr("ry",3)
+         .attr("width",28)
+         .attr("height",12)
+         .attr("fill","white")
+         .attr("stroke","#003400")
+         .attr("stroke-width",1)
+         .on("click", function(d){
+             setUpDeathText(2010);
+         });
+man2.append("text")
+   .attr("x",14.5)
+   .attr("y",72,5)
+   .text("2010")
+   .attr("font-size",11)
+   .on("click", function(d){
+             setUpDeathText(2010);
+         })
+   .attr("font-size",10);   
+
+var man3 = d3.select("#LittleMen").append("svg")
+      .attr("id","man3")
+      .attr("class","man")
+      .attr("height", 188)
+        .attr("width", 188)
+        .attr("viewBox","-15.0 -25.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head3 = man3.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var body3 = man3.append("path")
+         .attr("d",dd);
+
+var rect3 = man3.append("rect")
+         .attr("x",11.5)
+         .attr("y",62.5)
+         .attr("rx",3)
+         .attr("ry",3)
+         .attr("width",28.5)
+         .attr("height",12)
+         .attr("fill","white")
+         .attr("stroke","#003400")
+         .attr("stroke-width",1)
+         .on("click", function(d){
+             setUpDeathText(2011);
+         });
+man3.append("text")
+   .attr("x",14)
+   .attr("y",73)
+   .text("2011")
+   .attr("font-size",11)
+   .on("click", function(d){
+             setUpDeathText(2011);
+         })
+   .attr("font-size",10.5);  
+
+var man4 = d3.select("#LittleMen").append("svg")
+      .attr("id","man4")
+      .attr("class","man")
+      .attr("height", 180)
+        .attr("width", 180)
+        .attr("viewBox","-15.0 -25.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head4 = man4.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var body4 = man4.append("path")
+         .attr("d",dd);
+
+var rect4 = man4.append("rect")
+         .attr("x",12)
+         .attr("y",62.5)
+         .attr("rx",3)
+         .attr("ry",2)
+         .attr("width",30)
+         .attr("height",12)
+         .attr("fill","white")
+         .attr("stroke","#003400")
+         .attr("stroke-width",1)
+         .on("click", function(d){
+             setUpDeathText(2012);
+         });
+man4.append("text")
+   .attr("x",14.5)
+   .attr("y",72.7)
+   .text("2012")
+   .attr("font-size",12)
+   .on("click", function(d){
+             setUpDeathText(2012);
+         })
+   .attr("font-size",11);    
+
+var man5 = d3.select("#LittleMen").append("svg")
+      .attr("id","man5")
+      .attr("class","man")
+      .attr("height", 119)
+        .attr("width", 119)
+        .attr("viewBox","-15.0 -15.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head5 = man5.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var body5 = man5.append("path")
+         .attr("d",dd);
+
+var rect5 = man5.append("rect")
+         .attr("x",4)
+         .attr("y",66.5)
+         .attr("rx",6)
+         .attr("ry",4)
+         .attr("width",46)
+         .attr("height",18)
+         .attr("fill","white")
+         .attr("stroke","#003400")
+         .attr("stroke-width",1.5)
+         .on("click", function(d){
+             setUpDeathText(2013);
+         });
+man5.append("text")
+   .attr("x",8.5)
+   .attr("y",82)
+   .text("2013")
+   .attr("font-size",18)
+   .on("click", function(d){
+             setUpDeathText(2013);
+         })
+   .attr("font-size",16.5);   
+
+var man6 = d3.select("#LittleMen").append("svg")
+      .attr("id","man6")
+      .attr("class","man")
+      .attr("height", 193)
+        .attr("width", 193)
+        .attr("viewBox","-15.0 -25.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head6 = man6.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var body6 = man6.append("path")
+         .attr("d",dd);
+
+var rect6 = man6.append("rect")
+         .attr("x",13)
+         .attr("y",63)
+         .attr("rx",3)
+         .attr("ry",3)
+         .attr("width",28)
+         .attr("height",11.5)
+         .attr("fill","white")
+         .attr("stroke","#003400")
+         .attr("stroke-width",1)
+         .on("click", function(d){
+             setUpDeathText(2014);
+         });
+man6.append("text")
+   .attr("x",15.5)
+   .attr("y",73)
+   .text("2014")
+   .attr("font-size",11)
+   .on("click",function(d){
+    setUpDeathText(2014);
+   })
+   .attr("font-size",10);  
+//enter data into the svg men
+var men= d3.selectAll(".man")[0];
+for(var i=0;i<7;i++){
+    men[i].__data__ = {"id":i};
+} 
+
+var timerUpdate;
+
+var selectedYear = 2009;
+setUpDeathText(selectedYear);
+
+
+function setUpDeathText(yrVal){
+    clearInterval(timerUpdate);
+
+    selectedYear = yrVal;
+
+    var manSize = 30000;
+    d3.selectAll(".man").style("fill", function(d){
+       if(d.id==yrVal-2008){
+           
+           return "#e08c8c";
+       } //each man represents 30,000 people
+       else{return "#a6a6a6";}
+    })
+    var i = yrVal-2008;
+    d3.selectAll(".liquidFillGaugeText").remove();
+    d3.selectAll(".liquidFill").remove();
+    //console.log(rate);
+    var value = rate[i].y;
+    loadLiquidFillGauge("man"+i, value);   
+}
+
+
+});
+  	});
+  	 
+  	});
+
+  	});
+  	});
+  	});
+
+});
+
+});
+</script>
+<div id = "USMap">
+	<h2>H1-B Issuance Based on Industries</h2>
+	<h5>click each state to show the top 5 companies/industries that get most H1-B issuance.</h5>
+</div>
+
+<script>
+var stateGrid = {
+"ME" : { "state": "ME", "row": 0, "col": 10 },
+"WI" : { "state": "WI", "row": 1, "col": 5 },
+"VT" : { "state": "VT", "row": 1, "col": 9 },
+"NH" : { "state": "NH", "row": 1, "col": 10 },
+"WA" : { "state": "WA", "row": 2, "col": 0 },
+"ID" : { "state": "ID", "row": 2, "col": 1 },
+"MT" : { "state": "MT", "row": 2, "col": 2 },
+"ND" : { "state": "ND", "row": 2, "col": 3 },
+"MN" : { "state": "MN", "row": 2, "col": 4 },
+"IL" : { "state": "IL", "row": 2, "col": 5 },
+"MI" : { "state": "MI", "row": 2, "col": 6 },
+"NY" : { "state": "NY", "row": 2, "col": 8 },
+"MA" : { "state": "MA", "row": 2, "col": 9 },
+"OR" : { "state": "OR", "row": 3, "col": 0 },
+"NV" : { "state": "NV", "row": 3, "col": 1 },
+"WY" : { "state": "WY", "row": 3, "col": 2 },
+"SD" : { "state": "SD", "row": 3, "col": 3 },
+"IA" : { "state": "IA", "row": 3, "col": 4 },
+"IN" : { "state": "IN", "row": 3, "col": 5 },
+"OH" : { "state": "OH", "row": 3, "col": 6 },
+"PA" : { "state": "PA", "row": 3, "col": 7 },
+"NJ" : { "state": "NJ", "row": 3, "col": 8 },
+"CT" : { "state": "CT", "row": 3, "col": 9 },
+"RI" : { "state": "RI", "row": 3, "col": 10 },
+"CA" : { "state": "CA", "row": 4, "col": 0 },
+"UT" : { "state": "UT", "row": 4, "col": 1 },
+"CO" : { "state": "CO", "row": 4, "col": 2 },
+"NE" : { "state": "NE", "row": 4, "col": 3 },
+"MO" : { "state": "MO", "row": 4, "col": 4 },
+"KY" : { "state": "KY", "row": 4, "col": 5 },
+"WV" : { "state": "WV", "row": 4, "col": 6 },
+"VA" : { "state": "VA", "row": 4, "col": 7 },
+"MD" : { "state": "MD", "row": 4, "col": 8 },
+"DE" : { "state": "DE", "row": 4, "col": 9 },
+"AZ" : { "state": "AZ", "row": 5, "col": 1 },
+"NM" : { "state": "NM", "row": 5, "col": 2 },
+"KS" : { "state": "KS", "row": 5, "col": 3 },
+"AR" : { "state": "AR", "row": 5, "col": 4 },
+"TN" : { "state": "TN", "row": 5, "col": 5 },
+"NC" : { "state": "NC", "row": 5, "col": 6 },
+"SC" : { "state": "SC", "row": 5, "col": 7 },
+"OK" : { "state": "OK", "row": 6, "col": 3 },
+"LA" : { "state": "LA", "row": 6, "col": 4 },
+"MS" : { "state": "MS", "row": 6, "col": 5 },
+"AL" : { "state": "AL", "row": 6, "col": 6 },
+"GA" : { "state": "GA", "row": 6, "col": 7 },
+"HI" : { "state": "HI", "row": 7, "col": 0 },
+"AK" : { "state": "AK", "row": 7, "col": 1 },
+"TX" : { "state": "TX", "row": 7, "col": 3 },
+"FL" : { "state": "FL", "row": 7, "col": 8 }
+};
+
+var bar_width = 600;
+var bar_height = 350;
+
+var svg = d3.select("#USMap").append("svg")
+.attr("height", bar_height)
+.attr("width", bar_width);
+
+var histgramSVG = d3.select("#USMap").append("svg")
+.attr("height", bar_height)
+.attr("width", bar_width)
+.attr("id", "histgram");
+
+var button_width = bar_width/7;
+var button_height = bar_height/10;
+
+var button1 = histgramSVG.append("g");
+button1.append("rect")
+.attr("x", bar_width/2-button_width).attr("y", 50)
+.attr("rx", 5).attr("ry", 5)
+.attr("width", button_width).attr("height", button_height)
+.style("fill","#eeeacd");
+
+button1.append("text")
+.attr("x", bar_width/2-button_width/2).attr("y", 70)
+.text("Occupation")
+.style("text-anchor","middle");
+
+var selectedButton = button1;
+
+var button2 = histgramSVG.append("g");
+button2.append("rect")
+.attr("x", bar_width/2+10).attr("y", 50)
+.attr("rx", 5).attr("ry", 5)
+.attr("width", button_width).attr("height", button_height)
+.style("fill","#eeeacd");
+
+button2.append("text")
+.attr("x", bar_width/2+10+button_width/2).attr("y", 70)
+.text("Company")
+.style("text-anchor","middle");
+
+var radiusScale = d3.scale.sqrt().domain([14, 17561]).range([7, 25]);
+
+var AbbrToRandiu = function(Abbr) {
+	name = abbrToName(Abbr);
+	for (var i = 0; i<stateData.length; i++){
+		if (stateData[i].State == name){
+			return radiusScale(stateData[i].num);
+		}
+	}
+	return 0.0;
+}
+var allOccupations = ["IT","", "Other Economic Sector", "Advanced Mfg", "Educational Services","Agribusiness", "Health Care",  "Retail"];
+var state_colors =['rgb(141,211,199)','rgb(255,255,179)','rgb(190,186,218)','rgb(251,128,114)','rgb(128,177,211)','rgb(253,180,98)','rgb(179,222,105)','rgb(252,205,229)'];
+var AbbrToColor = function(abbr){
+	name = abbrToName(abbr);
+	var i = 0; 
+	var Occupation;
+	for (i = 0; i<stateData.length; i++){
+		if (stateData[i].State == name){
+			Occupation = stateData[i].top5Occupation[0].name;
+			break;
+		}
+	}
+	for (var k = 0; k<allOccupations.length; k++){
+		if (Occupation == allOccupations[k]){
+			return state_colors[k];
+		}
+	}
+	return "grey";
+}
+
+var stateXScale = d3.scale.linear().domain([0,11]).range([80, bar_width-10]);
+var stateYScale = d3.scale.linear().domain([0,7]).range([50, bar_height-30]);
+
+var stateIDs = Object.getOwnPropertyNames(stateGrid);
+var prex = [0,20,70,90,80,80,60,50];
+var value = 40;
+allOccupations.forEach(function(element,index) {
+	svg.append("text").attr("x", function(){
+		value = value+prex[index]+10;
+		return value;
+	})
+	.attr("y",20)
+	.attr("text-anchor","middle")
+	.attr("font-size", 10)
+	.attr("fill",state_colors[index]).text(function(){
+			var s = element == ""? "Other": element;
+			return s;
+
+	});
+});
+
+var groups = svg.selectAll(".node")
+				.data(stateIDs).enter()
+				.append("g");
+
+var circles_states = groups.append("circle")
+			.attr("r", function(state) { return  AbbrToRandiu(state); })
+			.attr("cx", function(state){return stateXScale(stateGrid[state].col); })
+			.attr("cy", function(state){return stateYScale(stateGrid[state].row); })
+			.attr("id", function(state){ return state; })			
+			.attr("fill", function(state){return AbbrToColor(state); });
+
+var labels_states = groups.append("text").text(function(state) { return state; })
+			.attr("x", function(state){return stateXScale(stateGrid[state].col);})
+			.attr("y", function(state){return stateYScale(stateGrid[state].row);})
+			.attr("id", function(state){return state;})
+			.style("text-anchor", "middle")
+			.style("font-size", 12);
+
+var DrawGraph = function(state, button){
+	d3.select("#graph").remove();
+	d3.select("#title").remove();
+	name = abbrToName(state);
+
+	var histgramTitle = histgramSVG.append("text")
+	.attr("x", 550/2)
+	.attr("y", 25)
+	.attr("id", "title")
+	.text(name)
+	.style("text-anchor", "middle");
+
+	var i = 0; 
+	for (i = 0; i<stateData.length; i++){
+		if (stateData[i].State == name){
+			break;
+		}
+	}
+	if (button == button1){
+		nums = stateData[i].top5Occupation;
+	}
+	else{
+		nums = stateData[i].top5Company;
+	}
+	var xScale1 = d3.scale.linear().domain([3, 6171]).range([10, bar_width-250]);
+	var xScale2 = d3.scale.linear().domain([3, 2775]).range([10, bar_width-250]);
+	var hisgramexScale = button == button1? xScale1: xScale2;
+
+	var x = 50;
+	var y = 120;
+	var graph = histgramSVG.append("g").attr("id", "graph");
+
+	var hisgramcolors = ['rgb(27,158,119)','rgb(217,95,2)','rgb(117,112,179)','rgb(231,41,138)','rgb(102,166,30)'];
+	for (var k = 0; k<5; k++){
+		graph.append("rect")
+		.attr("x", 50).attr("y", y)
+		.attr("width", hisgramexScale(nums[k].num)).attr("height", bar_height/12)
+		.style("fill", hisgramcolors[k]);
+		graph.append("text")
+		.attr("x", 50+hisgramexScale(nums[k].num)+5)
+		.attr("y", y+bar_height/24)
+		.text(function(){
+			var s = nums[k].name == ""? "Other": nums[k].name;
+			s = s + " " + nums[k].num;
+			return s;
+		})
+		.style("font-size", 10);
+		y = y + bar_height/12 +10;
+	}
+}
+
+circles_states.on("click", function(state){
+	circles_states.style("fill", function(state){return AbbrToColor(state); });
+	labels_states.style("fill","black");
+	var iid = d3.select(this).attr("id");
+	d3.select("#"+iid).style("fill","#e6e6e6");
+	DrawGraph(state, selectedButton);
+	button1.on("click", function(){
+		selectedButton = button1;
+		console.log("1");
+		DrawGraph(state, selectedButton);
+	})
+	button2.on("click", function(){
+		selectedButton = button2;
+		console.log("2");
+		DrawGraph(state, selectedButton);
+	})
+	
+});
+
+labels_states.on("click", function(state){
+	circles_states.style("fill", function(state){return AbbrToColor(state); });
+	labels_states.style("fill","black");
+	var iid = d3.select(this).attr("id");
+	d3.select("#"+iid).style("fill","#e6e6e6");
+	d3.select(this).style("fill", "black");
+	DrawGraph(state, selectedButton);
+	button1.on("click", function(){
+		selectedButton = button1;
+		console.log("1");
+		DrawGraph(state, selectedButton);
+	})
+	button2.on("click", function(){
+		selectedButton = button2;
+		console.log("2");
+		DrawGraph(state, selectedButton);
+	})
+	
+});
+</script>
+
+<script type="text/javascript" >
+var height = 200;
+var width = 250;
+var padding = 50;
+var animation_width = 300;
+var animation_height = 200;
+
+var svgKmeans = d3.select("#points").append("svg").attr("height", animation_height).attr("width", animation_width).attr("id", "Kmeans");
+var svg0 = d3.select("#points").append("svg").attr("height", height).attr("width", width).attr("id", "svg0");
+var svg1 = d3.select("#points").append("svg").attr("height", height).attr("width", width).attr("id", "svg1");
+var svg2 = d3.select("#points").append("svg").attr("height", height).attr("width", width).attr("id", "svg2");
+
+var centroids, circles, kmeansxScale, kmeansyScale;
+
+var points;
+
+var times = 0;
+
+var OccupationMapFunction = function(){
+	var OccupationMap = {};
+	var cnt = 0;
+	var points = [];
+	for (var i = 0; i<stateData.length; i++){
+		var top1 = stateData[i].top5Occupation[0];
+		var top2 = stateData[i].top5Occupation[1];
+		
+		if (OccupationMap[top1.name] == undefined){
+			OccupationMap[top1.name] = cnt;
+			cnt += 1;
+		}
+		if (OccupationMap[top2.name] == undefined){
+			OccupationMap[top2.name] = cnt;
+			cnt += 1;
+		}
+		var point = {
+			"x": OccupationMap[top1.name],
+			"y": OccupationMap[top2.name],
+			"num": top1.num + top2.num,
+			"label": stateData[i].State
+		};
+		points.push(point);
+	}
+	return points;
+}
+
+var AcceptRateMapFunction = function(){
+	var points = [];
+	for (var i = 0; i<stateData.length; i++){
+		var point = {
+			"x": stateData[i].num * stateData[i].AcceptRate,
+			"y": stateData[i].AcceptRate,
+			"num": stateData[i].num * stateData[i].AcceptRate,
+			"label": stateData[i].State
+		};
+		points.push(point);
+	}
+	return points;
+}
+
+var SalaryMapFunction = function(){
+	var points = [];
+	for (var i = 0; i<stateData.length; i++){
+		var point = {
+			"x": stateData[i].meanSalary,
+			"y": stateData[i].maxSalary,
+			"num": stateData[i].meanSalary,
+			"label": stateData[i].State
+		};
+		points.push(point);
+	}
+	return points;
+}
+
+var centroids = new Array(3);
+
+var makePoints = function(input){
+	if(input == "Occupation"){
+		points = OccupationMapFunction();
+	}
+	else if (input == "AcceptRate"){
+		points = AcceptRateMapFunction();
+	}
+	else if (input == "Salary"){
+		points = SalaryMapFunction();
+	}
+
+	for (var i = 0; i < centroids.length; i++) {
+	    // Initialize from a randomly chosen point
+		var randomPoint = points[i];
+		centroids[i] = { x: randomPoint.x, y: randomPoint.y };
+	}
+}
+
+var moveMeans = function (points_array) {
+	centroids.forEach(function (centroid, i) {
+		var assignedPoints = 
+			points_array.filter(function (point) { return point.cluster == i; });
+		
+		centroid.x = d3.mean(assignedPoints, function (point) { return point.x; });
+		centroid.y = d3.mean(assignedPoints, function (point) { return point.y; });
+		// console.log(centroid.x);
+	});
+	// console.log(centroids);
+	lines.transition().duration(1000).attr("x2", function (point) {
+		// console.log(kmeansxScale(centroids[point.cluster].x));
+		// console.log(centroids[point.cluster].x);
+		return kmeansxScale(centroids[point.cluster].x);
+		// return centroids[point.cluster].x;
+	})
+	.attr("y2", function (point) {
+		return kmeansyScale(centroids[point.cluster].y);
+		// return centroids[point.cluster].y;
+	});
+	times++;
+
+	if(times <= 20){
+		setTimeout(function() {
+			findClosest(points_array);
+		}, 1000);
+	}
+};
+
+var findClosest = function (points_array) {
+	points_array.forEach(function (point) {
+		var nearest;
+		var shortestDistance = Number.MAX_VALUE;
+		for (var i = 0; i < centroids.length; i++) {
+			var c = centroids[i];
+			var distance = Math.sqrt( 
+				(c.x - point.x) * (c.x - point.x) +
+				(c.y - point.y) * (c.y - point.y)
+			);
+		
+			if (distance < shortestDistance) {
+				shortestDistance = distance;
+				nearest = i;
+			}
+		}
+		point.cluster = nearest;
+	});
+	lines.transition().duration(1000).attr("x2", function (point) {
+		return kmeansxScale(centroids[point.cluster].x);
+		// return centroids[point.cluster].x;
+	})
+	.attr("y2", function (point) {
+		return kmeansyScale(centroids[point.cluster].y);
+		// return centroids[point.cluster].y;
+	});
+	times++;
+	if(times <= 20){
+		setTimeout(function() {
+			moveMeans(points_array);
+		}, 1000);
+	}
+};
+
+var nameToColor = function(name){
+	var colors = ['rgb(141,211,199)','rgb(255,255,179)','rgb(190,186,218)','rgb(251,128,114)','rgb(128,177,211)','rgb(253,180,98)','rgb(179,222,105)','rgb(252,205,229)'];
+	var allOccupations = ["IT","", "Other Economic Sector", "Advanced Mfg", "Educational Services","Agribusiness", "Health Care",  "Retail"];
+	var i = 0; 
+	var Occupation;
+	for (i = 0; i<stateData.length; i++){
+		if (stateData[i].State == name){
+			Occupation = stateData[i].top5Occupation[0].name;
+			break;
+		}
+	}
+	for (var k = 0; k<allOccupations.length; k++){
+		if (Occupation == allOccupations[k]){
+			return colors[k];
+		}
+	}
+	return "grey";
+}
+
+var DrawCluster = function (i, svgName){
+	d3.select("#onecluster").remove();
+	var data = [];
+	for (var k = 0; k < points.length; k++){
+		console.log(points[k].cluster)
+		if(points[k].cluster == i){
+			data.push(points[k]);
+		}
+
+	}
+ 	var radiusScale = d3.scale.sqrt()
+		.domain(d3.extent(data, function (point) {
+			return point.num;
+		})).range([3, 15]);
+
+    var force = d3.layout.force()  
+   	.nodes(data)//加载节点数据    
+  	.size([width,height])//设置有效空间的大小   
+   	.charge(-15)//负电荷量，相互排斥设置的负值越大越排斥 
+   	.start();//设置生效
+
+   	var group = svgName.selectAll(".c") 
+	.data(data)  
+	.enter()
+	.append("g")
+	.attr("class", "onecluster");
+
+   	var nodes = group.append("circle")  
+	.style("fill", function(d){
+		return nameToColor(d.label);
+	})
+	.attr("r", function(d){
+		return radiusScale(d.num);
+	})
+	.call(force.drag);
+
+	var labels = group.append("text")
+	.text(function (d){
+		return nameToAbbr(d.label);
+	})
+	.style("font-size", 10)
+	.style("text-anchor","middle");
+
+	force.on("tick",function(){  
+		group.attr("transform", function(d) { 
+	    	return 'translate(' + [d.x, d.y] + ')'; 
+		});    
+	});
+}
+
+var copyPoints = [];
+
+var execute = function(input){
+	console.log("herer");
+	points = [];
+	makePoints(input);
+	copyPoints = [];
+	// for (var lp = 0; lp < points.length; lp++) {
+	// 	var point = points[lp];
+	// 	console.log(point);
+	// 	var tmpObj = {};
+	// 	for (var k in point) {
+	// 		tmpObj[k] = point[k];
+	// 	}
+	// 	copyPoints.push(tmpObj);
+	// }
+
+	kmeansxScale = d3.scale.linear()
+	.domain(d3.extent(copyPoints, function (point) {
+		return point.x;
+	})).range([padding, width - padding]);
+	
+	kmeansyScale = d3.scale.linear()
+		.domain(d3.extent(copyPoints, function (point) {
+			return point.y;
+		})).range([height - padding, padding]);
+
+    lines = svgKmeans.selectAll("line").data(copyPoints);
+
+	lines.enter().append("line")
+	.attr("x1", function(d) { return kmeansxScale(d.x); })
+	.attr("y1", function(d) { return kmeansyScale(d.y); })
+	.attr("x2", function(d) { return kmeansxScale(d.x); })
+	.attr("y2", function(d) { return kmeansyScale(d.y); })
+	.style("stroke", "#aaa");
+
+	circles = svgKmeans.selectAll(".point").data(copyPoints);
+
+	// Create a mouseover callback that lists country names
+	circles.enter().append("circle")
+	.attr("class", "point")
+	.attr("cx", function(d) { return kmeansxScale(d.x); })
+	.attr("cy", function(d) { return kmeansyScale(d.y); })
+	.attr("r", 3)
+	.style("fill", "green")
+	.style("opacity", 0.5);
+
+	// findClosest(copyPoints);
+
+	for (var time = 0; time < 30; time++){
+		findClosest(points);
+		moveMeans(points);
+	}
+	DrawCluster(0, svg0);
+	DrawCluster(1, svg1);
+	DrawCluster(2, svg2);
+}
+
+d3.select("#Occupation").on("click", function (){
+	d3.selectAll(".onecluster").remove();
+	points = [];
+	kmean_animation("Occupation");
+	execute("Occupation");
+});
+
+d3.select("#AcceptRate").on("click", function (){
+	d3.selectAll(".onecluster").remove();
+	points = [];
+	kmean_animation("AcceptRate");
+	execute("AcceptRate");
+});
+
+d3.select("#Salary").on("click", function (){
+	d3.selectAll(".onecluster").remove();
+	points = [];
+	kmean_animation("Salary");
+	execute("Salary");
+});
+</script>
+
+
+<script>
+// var height = 350;
+// var width = 550;
+// var padding = 50;
+
+var kmean_animation = function(buttonName){
+	d3.selectAll(".kmeansyuan").remove();
+	d3.selectAll(".kmeansxian").remove();
+var lines, kmeansCircles, kmeansCentroids;
+
+var xScale, yScale, kmeansPoints;
+var times = 0;
+
+var OccupationMap = {};
+var cnt = 0;
+
+if(buttonName == "Occupation"){
+	kmeansPoints = OccupationMapFunction();
+}
+if(buttonName == "AcceptRate"){
+	kmeansPoints = AcceptRateMapFunction();
+}
+if(buttonName == "Salary"){
+	kmeansPoints = SalaryMapFunction();
+}
+
+
+xScale = d3.scale.linear()
+	.domain(d3.extent(kmeansPoints, function (point) {
+		return point.x;
+	})).range([padding, width - padding]);
+	
+yScale = d3.scale.linear()
+	.domain(d3.extent(kmeansPoints, function (point) {
+		return point.y;
+	})).range([height - padding, padding]);
+
+lines = svgKmeans.selectAll("line").data(kmeansPoints);
+
+	// Each point has a line that is initially pointing to itself
+lines.enter().append("line")
+.attr("class","kmeansxian")
+.attr("x1", function(d) { return xScale(d.x); })
+.attr("y1", function(d) { return yScale(d.y); })
+.attr("x2", function(d) { return xScale(d.x); })
+.attr("y2", function(d) { return yScale(d.y); })
+.style("stroke", "#aaa");
+
+kmeansCircles = svgKmeans.selectAll(".point").data(kmeansPoints);
+
+	// Create a mouseover callback that lists country names
+kmeansCircles.enter().append("circle")
+.attr("class", "kmeansyuan")
+.attr("cx", function(d) { return xScale(d.x); })
+.attr("cy", function(d) { return yScale(d.y); })
+.attr("r", 3)
+.style("fill", function(d) { return nameToColor(d.label);})
+.style("opacity", 0.5);
+
+	// Hmmm... how many clusters?
+kmeansCentroids = new Array(3);
+for (var i = 0; i < kmeansCentroids.length; i++) {
+	// Initialize from a randomly chosen point
+	var randomPoint = kmeansPoints[i];
+	kmeansCentroids[i] = { x: randomPoint.x, y: randomPoint.y };
+}
+
+var movemeans = function () {
+	kmeansCentroids.forEach(function (centroid, i) {
+		var assignedPoints = 
+			kmeansPoints.filter(function (point) { return point.cluster == i; });
+		
+		centroid.x = d3.mean(assignedPoints, function (point) { return point.x; });
+		centroid.y = d3.mean(assignedPoints, function (point) { return point.y; });
+	});
+	
+	lines.transition().duration(200).attr("x2", function (point) {
+		return xScale(kmeansCentroids[point.cluster].x);
+	})
+	.attr("y2", function (point) {
+		return yScale(kmeansCentroids[point.cluster].y);
+	});
+	times++;
+	if(times <= 20){
+		setTimeout(findclosest, 500);
+	}
+}
+
+var findclosest = function () {
+	kmeansPoints.forEach(function (point) {
+		var nearest;
+		var shortestDistance = Number.MAX_VALUE;
+		for (var i = 0; i < kmeansCentroids.length; i++) {
+			var c = kmeansCentroids[i];
+			var distance = Math.sqrt( 
+				(c.x - point.x) * (c.x - point.x) +
+				(c.y - point.y) * (c.y - point.y)
+			);
+		
+			if (distance < shortestDistance) {
+				shortestDistance = distance;
+				nearest = i;
+			}
+		}
+		
+		point.cluster = nearest;
+				
+	});
+	
+	lines.transition().duration(200).attr("x2", function (point) {
+		return xScale(kmeansCentroids[point.cluster].x);
+	})
+	.attr("y2", function (point) {
+		return yScale(kmeansCentroids[point.cluster].y);
+	});
+	times++;
+	if(times <= 20){
+		setTimeout(movemeans, 500);
+	}
+	
+}
+findclosest();
+
+};
+</script>
+
+<div>
+    <h2>Visa Issuances World Map</h2>
+<h5>Play with the dashboard on the right to explore more.</h5>
+<div id="container">
+<div id="map">
+  <div class="tooltip hidden" style="left:812px;top:41px">Russian Federation</div>
+</div>
+<div id="charts"></div>
+</div>
+</div>
+
+<script src="topojson.js"></script>
+  <script src="http://d3js.org/queue.v1.min.js"></script>
+<script>
+// The SVG container
+var width2  = 1200,
+    height2 = 650,
+    active;
+
+var projection = d3.geo.mercator()
+                .translate([480, 300])
+                .scale(150);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var color = d3.scale.sqrt()
+    .domain([0,5300000])
+    .range(["#f1f1f1", "#2a2a2a"]);
+
+var color2 = d3.scale.pow()
+    .domain([0,1500000])
+    .range(["#f1f1f1","#2a2a2a"]);
+
+var color3 = d3.scale.pow()
+    .domain([0,220000])
+    .range(["#F0F3F3","#073E15"]);
+
+var color4 = d3.scale.pow()
+    .domain([0,80000])
+    .range(["#d0daef","#061534"]);
+
+var ftotalScale = d3.scale.pow()
+    .domain([0,850000])
+    .range(["#D8E7DB","#073E15"]);
+
+var htotalScale = d3.scale.pow()
+    .domain([0,300000])
+    .range(["#d0daef","#061534"]);
+
+var svg = d3.select("#map").append("svg")
+    .attr("width", width2)
+    .attr("height", height2);
+
+svg.append("rect")
+    .attr("width", width2)
+    .attr("height", height2)
+    .on("click", reset);
+
+var g = svg.append("g");
+
+var visaChart = d3.select("#charts").append("svg").attr("id","visaChart").attr("width",360).attr("height",650);
+visaChart.append("rect")
+    .attr("width", "90%")
+    .attr("height", "100%")
+    .attr("x",55)
+    .style("fill", "rgba(255,255,255,0.8");
+
+var tbar = visaChart.append("g").attr("transform","translate(0,50)");
+var fbar = visaChart.append("g").attr("transform","translate(0,100)");
+var hbar = visaChart.append("g").attr("transform","translate(0,150)");
+var yearLegend = visaChart.append("g").attr("transform","translate(0,200)");
+var selector = visaChart.append("g").attr("transform","translate(0,50)");
+
+function click(d) {
+  if (d.us == true) {
+    console.log(d);
+    if (active === d) {
+      reset();
+      queue()
+      .defer(d3.json, "world-50m.json")
+      .defer(d3.tsv, "world-country-names.tsv")
+      .defer(d3.csv, "FY10NIV.csv")
+      .defer(d3.csv, "FY11NIV.csv")
+      .defer(d3.csv, "FY12NIV.csv")
+      .defer(d3.csv, "FY13NIV.csv")
+      .defer(d3.csv, "gdp.csv")
+      .await(ready);
+    }else {
+    g.selectAll(".active").classed("active", false);
+    d3.select(this).classed("active", active = d);
+
+    var b = path.bounds(d);
+    g.transition().duration(750).attr("transform",
+        "translate(" + projection.translate() + ")"
+        + "scale(" + .95 / Math.max((b[1][0] - b[0][0]) / width2, (b[1][1] - b[0][1]) / height2) + ")"
+        + "translate(" + -(b[1][0] + b[0][0]) / 2 + "," + -(b[1][1] + b[0][1]) / 2 + ")");
+    
+    d3.selectAll("rect.tbar").remove();
+    d3.selectAll("rect.fbar").remove();
+    d3.selectAll("rect.hbar").remove();
+    d3.selectAll("text.typeLabel").remove();
+    d3.selectAll("text.yearLegend").remove();
+    d3.selectAll("rect.selector").remove();
+    d3.selectAll("g.slice").remove();
+    d3.selectAll("text.pieTitle").remove();
+    d3.selectAll("text.visTitle").remove();
+    d3.selectAll("text.msg1").remove();
+    d3.selectAll("text.msg2").remove();
+    d3.selectAll("text.msg3").remove();
+    //draw bar charts of visa
+    //total
+    visaChart.append("text").attr("class","visTitle")
+              .attr("transform","translate(210,50)")
+              .text("Visa Issuances to " + d.name +  " by Year")
+              .attr("font-size",12)
+              .attr("text-anchor","middle");
+    var totalArr = [d.total10,d.total11,d.total12,d.total13];
+    tbar.append("text")
+      .attr("class","typeLabel")
+      .attr("x", 60)
+      .attr("y", 45)
+      .attr("font-size",12)
+      .text("Total");
+    totalArr.forEach(function(element,index,array) {
+      tbar.append("rect")
+        .attr("class","tbar")
+        .attr("x",70+index*70)
+        .attr("y",50)
+        .attr("width", 70)
+        .attr("height", 15)
+        .style("fill", function() {
+          return color2(element);
+        })
+    });
+    //f1
+    var f1Arr = [d.f10,d.f11,d.f12,d.f13];
+    fbar.append("text")
+      .attr("class","typeLabel")
+      .attr("x", 60)
+      .attr("y", 45)
+      .attr("font-size",12)
+      .text("F-1");
+    f1Arr.forEach(function(element,index,array) {
+      fbar.append("rect")
+        .attr("class","fbar")
+        .attr("x",70+index*70)
+        .attr("y",50)
+        .attr("width", 70)
+        .attr("height", 15)
+        .style("fill", function() {
+          return color3(element);
+        })
+    });
+
+    var h1bArr = [d.h10,d.h11,d.h12,d.h13];
+    hbar.append("text")
+    .attr("class","typeLabel")
+    .attr("x", 60)
+    .attr("y", 45)
+    .attr("font-size",12)
+    .text("H-1B");
+    h1bArr.forEach(function(element,index,array) {
+      hbar.append("rect")
+        .attr("class","hbar")
+        .attr("x",70+index*70)
+        .attr("y",50)
+        .attr("width", 70)
+        .attr("height", 15)
+        .style("fill", function() {
+          return color4(element);
+        })
+    });
+
+    var years = ["2010","2011","2012","2013"];
+    years.forEach(function(element,index,array) {
+        yearLegend.append("text")
+        .attr("class","yearLegend")
+        .attr("x",105+index*70)
+        .attr("y",50)
+        .attr("font-size",15)
+        .attr("text-anchor", "middle")
+        .text(element);
+
+    var tmp = d;
+    selector.append("rect")
+        .attr("class","selector")
+        .attr("id",element)
+        .attr("x",70+index*70)
+        .attr("y",20)
+        .attr("width",70)
+        .attr("height",180)
+        .style("fill","rgba(251,250,243,.8)")
+        .style("visibility","hidden")
+        .on("mouseover",function() {
+          d3.selectAll(".selector").style("visibility","hidden");
+          d3.select(this).style("visibility","visible");
+          var selected = d3.select(this).attr("id");
+          drawPie(tmp,selected);
+        })
+        .on("click",function() {
+          d3.selectAll(".selector").style("visibility","hidden");
+          d3.select(this).style("visibility","visible");
+          var selected = d3.select(this).attr("id");
+          drawPie(tmp,selected);
+        });
+    });
+  }
+  //draw pie chart
+  visaChart.append("text").attr("class","pieTitle")
+                  .attr("transform","translate(210,320)")
+                  .text("2010-2014 Total Visa Issuances Distribution by Type")
+                  .attr("font-size",12)
+                  .attr("text-anchor","middle");
+  var visas = [{type:"F-1",percent:d.ftotal/d.visaTotal},{type:"H1-B",percent:d.htotal/d.visaTotal},{type:"Other",percent:(d.visaTotal-d.ftotal-d.htotal)/d.visaTotal}];
+  console.log(visas);
+  var colors = ["#839e8a","#828a99","#bfbfbf"];
+  var pie = visaChart.selectAll("g.slice").data([visas])
+              .enter()
+              .append("g")
+              .classed("slice", true)
+              .attr("transform", "translate(210,450)");
+  var layout = d3.layout.pie().value(function(d){
+          return d.percent;
+  });
+  var arc = d3.svg.arc().outerRadius(100);
+  var arcs = pie.selectAll("g.slice").data(layout).enter().append("g").classed("slice",true).append("path")
+      .attr("fill", function(d, i){
+          return colors[i];
+      })
+      .attr("d", function (d) {
+          return arc(d);
+      });
+  }
+}
+
+function drawPie(d,selected) {
+  d3.selectAll("g.slice").remove();
+  if (selected === "2010") {
+  d3.select("text.pieTitle").text("2010 Total Visa Issuances Distribution by Type");
+  var visas = [{type:"F-1",percent:d.f10/d.total10},{type:"H1-B",percent:d.h10/d.total10},{type:"Other",percent:(d.total10-d.f10-d.h10)/d.total10}];
+  var colors = ["#839e8a","#828a99","#bfbfbf"];
+  var pie = visaChart.selectAll("g.slice").data([visas])
+              .enter()
+              .append("g")
+              .classed("slice", true)
+              .attr("transform", "translate(210,450)");
+  var layout = d3.layout.pie().value(function(d){
+          return d.percent;
+  });
+  var arc = d3.svg.arc().outerRadius(100);
+  var arcs = pie.selectAll("g.slice").data(layout).enter().append("g").classed("slice",true).append("path")
+      .attr("fill", function(d, i){
+          return colors[i];
+      })
+      .attr("d", function (d) {
+          return arc(d);
+      });
+  }else if (selected === "2011") {
+    d3.select(".pieTitle").text("2011 Total Visa Issuances Distribution by Type");
+    var visas = [{type:"F-1",percent:d.f11/d.total11},{type:"H1-B",percent:d.h11/d.total11},{type:"Other",percent:(d.total11-d.f11-d.h11)/d.total11}];
+  var colors = ["#839e8a","#828a99","#bfbfbf"];
+  var pie = visaChart.selectAll("g.slice").data([visas])
+              .enter()
+              .append("g")
+              .classed("slice", true)
+              .attr("transform", "translate(210,450)");
+  var layout = d3.layout.pie().value(function(d){
+          return d.percent;
+  });
+  var arc = d3.svg.arc().outerRadius(100);
+  var arcs = pie.selectAll("g.slice").data(layout).enter().append("g").classed("slice",true).append("path")
+      .attr("fill", function(d, i){
+          return colors[i];
+      })
+      .attr("d", function (d) {
+          return arc(d);
+      });
+  }else if (selected === "2012") {
+    d3.select(".pieTitle").text("2012 Total Visa Issuances Distribution by Type");
+    var visas = [{type:"F-1",percent:d.f12/d.total12},{type:"H1-B",percent:d.h12/d.total12},{type:"Other",percent:(d.total12-d.f12-d.h12)/d.total12}];
+  var colors = ["#839e8a","#828a99","#bfbfbf"];
+  var pie = visaChart.selectAll("g.slice").data([visas])
+              .enter()
+              .append("g")
+              .classed("slice", true)
+              .attr("transform", "translate(210,450)");
+  var layout = d3.layout.pie().value(function(d){
+          return d.percent;
+  });
+  var arc = d3.svg.arc().outerRadius(100);
+  var arcs = pie.selectAll("g.slice").data(layout).enter().append("g").classed("slice",true).append("path")
+      .attr("fill", function(d, i){
+          return colors[i];
+      })
+      .attr("d", function (d) {
+          return arc(d);
+      });
+  }else if (selected === "2013") {
+    d3.select(".pieTitle").text("2013 Total Visa Issuances Distribution by Type");
+    var visas = [{type:"F-1",percent:d.f13/d.total13},{type:"H1-B",percent:d.h13/d.total13},{type:"Other",percent:(d.total13-d.f13-d.h13)/d.total13}];
+  var colors = ["#839e8a","#828a99","#bfbfbf"];
+  var pie = visaChart.selectAll("g.slice").data([visas])
+              .enter()
+              .append("g")
+              .classed("slice", true)
+              .attr("transform", "translate(210,450)");
+  var layout = d3.layout.pie().value(function(d){
+          return d.percent;
+  });
+  var arc = d3.svg.arc().outerRadius(100);
+  var arcs = pie.selectAll("g.slice").data(layout).enter().append("g").classed("slice",true).append("path")
+      .attr("fill", function(d, i){
+          return colors[i];
+      })
+      .attr("d", function (d) {
+          return arc(d);
+      });
+  }
+}
+
+function changeMap(type,countries) {
+    svg.select("g").selectAll("path").remove();
+    if (type === "total") {
+      var country = g.selectAll(".country").data(countries);
+      country
+       .enter()
+        .insert("path")
+        .attr("class", "country")    
+          .attr("title", function(d,i) { return d.name; })
+          .attr("d", path)
+          .on("click", click)
+          .style("fill", function(d){
+            if (d.us == true) {
+              return color(d.visaTotal);
+            } else {
+              return "#fff";
+            }
+          });
+    } else if (type === "f1") {
+      var country = g.selectAll(".country").data(countries);
+      country
+       .enter()
+        .insert("path")
+        .attr("class", "country")    
+          .attr("title", function(d,i) { return d.name; })
+          .attr("d", path)
+          .on("click", click)
+          .style("fill", function(d){
+            if (d.us == true) {
+              return ftotalScale(d.f10 + d.f11 + d.f12 + d.f13);
+            } else {
+              return "#fff";
+            }
+          });
+    } else if (type === "h1b") {
+      var country = g.selectAll(".country").data(countries);
+      country
+       .enter()
+        .insert("path")
+        .attr("class", "country")    
+          .attr("title", function(d,i) { return d.name; })
+          .attr("d", path)
+          .on("click", click)
+          .style("fill", function(d){
+            if (d.us == true) {
+              return htotalScale(d.h10 + d.h11 + d.h12 + d.h13);
+            } else {
+              return "#fff";
+            }
+          });
+    }
+}
+
+function reset() {
+  g.selectAll(".active").classed("active", active = false);
+  g.transition().duration(750).attr("transform", "");
+}
+
+
+
+var tooltip = d3.select("#map").append("div")
+    .attr("class", "tooltip");
+
+queue()
+    .defer(d3.json, "world-50m.json")
+    .defer(d3.tsv, "world-country-names.tsv")
+    .defer(d3.csv, "FY10NIV.csv")
+    .defer(d3.csv, "FY11NIV.csv")
+    .defer(d3.csv, "FY12NIV.csv")
+    .defer(d3.csv, "FY13NIV.csv")
+    .await(ready);
+
+
+function ready(error, world, names, niv10, niv11, niv12, niv13) {
+  var countries = topojson.object(world, world.objects.countries).geometries,
+      neighbors = topojson.neighbors(world, countries),
+      i = -1,
+      n = countries.length;
+
+  countries.forEach(function(d) { 
+    var tryit = names.filter(function(n) { return d.id == n.id; })[0];
+    if (typeof tryit === "undefined"){
+      d.name = "Unknown";
+    } else {
+      d.name = tryit.name; 
+    }
+  });
+
+  countries.forEach(function(d){
+    var cFilter1 = niv10.filter(function(v) {return d.name == v.country; })[0];
+    var cFilter2 = niv11.filter(function(v) {return d.name == v.country; })[0];
+    var cFilter3 = niv12.filter(function(v) {return d.name == v.country; })[0];
+    var cFilter4 = niv13.filter(function(v) {return d.name == v.country; })[0];
+    if (typeof cFilter1 === "undefined" || typeof cFilter2 === "undefined" || typeof cFilter3 === "undefined" || typeof cFilter4 === "undefined") {
+      d.us = false;
+      d.visaTotal = null;
+    }else {
+      d.us = true;
+      d.total10 = parseInt(cFilter1.Total.replace(/,/g, ''));
+      d.total11 = parseInt(cFilter2.Total.replace(/,/g, ''));
+      d.total12 = parseInt(cFilter3.Total.replace(/,/g, ''));
+      d.total13 = parseInt(cFilter4.Total.replace(/,/g, ''));
+      d.f10 = parseInt(cFilter1.f1.replace(/,/g, ''));
+      d.f11 = parseInt(cFilter2.f1.replace(/,/g, ''));
+      d.f12 = parseInt(cFilter3.f1.replace(/,/g, ''));
+      d.f13 = parseInt(cFilter4.f1.replace(/,/g, ''));
+      d.h10 = parseInt(cFilter1.h1b.replace(/,/g, ''));
+      d.h11 = parseInt(cFilter2.h1b.replace(/,/g, ''));
+      d.h12 = parseInt(cFilter3.h1b.replace(/,/g, ''));
+      d.h13 = parseInt(cFilter4.h1b.replace(/,/g, ''));
+      d.ftotal = d.f10 + d.f11 + d.f12 + d.f13;
+      d.htotal = d.h10 + d.h11 + d.h12 + d.h13;
+      d.visaTotal = d.total10 + d.total11 + d.total12 + d.total13;
+    }
+  });
+
+var country = g.selectAll(".country").data(countries);
+
+  country
+   .enter()
+    .insert("path")
+    .attr("class", "country")    
+      .attr("title", function(d,i) { return d.name; })
+      .attr("d", path)
+      .on("click", click)
+      .style("fill", function(d){
+        if (d.us == true) {
+          return color(d.visaTotal);
+        } else {
+          return "#fff";
+        }
+      });
+
+    /*Show/hide tooltip
+    country
+      .on("mousemove", function(d,i) {
+        var mouse = d3.mouse(svg.node()).map( function(d) { return parseInt(d); } );
+
+        tooltip
+          .classed("hidden", false)
+          .attr("style", "left:"+(mouse[0]+25)+"px;top:"+mouse[1]+"px")
+          .html(d.name)
+      })
+      .on("mouseout",  function(d,i) {
+        tooltip.classed("hidden", true)
+      });
+*/
+
+    d3.selectAll("rect.tbar").remove();
+    d3.selectAll("rect.fbar").remove();
+    d3.selectAll("rect.hbar").remove();
+    d3.selectAll("text.typeLabel").remove();
+    d3.selectAll("text.yearLegend").remove();
+    d3.selectAll("rect.selector").remove();
+    d3.selectAll("g.slice").remove();
+    d3.selectAll("text.pieTitle").remove();
+    d3.selectAll("text.visTitle").remove();
+
+    visaChart.append("text").attr("class","visTitle")
+              .attr("transform","translate(210,50)")
+              .text("Visa Issuances by Year")
+              .attr("font-size",12)
+              .attr("text-anchor","middle");
+
+    visaChart.append("text").attr("class","msg1")
+              .attr("transform","translate(210,320)")
+              .text("Choose a visa type to see")
+              .attr("font-size",15)
+              .attr("text-anchor","middle");
+
+    visaChart.append("text").attr("class","msg2")
+              .attr("transform","translate(210,335)")
+              .text("the issuances distribution")
+              .attr("font-size",15)
+              .attr("text-anchor","middle");
+
+    visaChart.append("text").attr("class","msg3")
+              .attr("transform","translate(210,350)")
+              .text("over different countries")
+              .attr("font-size",15)
+              .attr("text-anchor","middle");
+
+    var totalArr = [32438,37728,44860,46284];
+    tbar.append("text")
+      .attr("class","typeLabel")
+      .attr("x", 60)
+      .attr("y", 45)
+      .attr("font-size",12)
+      .text("Total");
+    totalArr.forEach(function(element,index,array) {
+      tbar.append("rect")
+        .attr("class","tbar")
+        .attr("x",70+index*70)
+        .attr("y",50)
+        .attr("width", 70)
+        .attr("height", 15)
+        .style("fill", function() {
+          return color2(element);
+        })
+    });
+
+    var f1Arr = [1945,2248,2447,2699];
+    fbar.append("text")
+      .attr("class","typeLabel")
+      .attr("x", 60)
+      .attr("y", 45)
+      .attr("font-size",12)
+      .text("F-1");
+    f1Arr.forEach(function(element,index,array) {
+      fbar.append("rect")
+        .attr("class","fbar")
+        .attr("x",70+index*70)
+        .attr("y",50)
+        .attr("width", 70)
+        .attr("height", 15)
+        .style("fill", function() {
+          return color3(element);
+        })
+    });
+
+    var h1bArr = [593,649,681,774];
+    hbar.append("text")
+      .attr("class","typeLabel")
+      .attr("x", 60)
+      .attr("y", 45)
+      .attr("font-size",12)
+      .text("H-1B");
+    h1bArr.forEach(function(element,index,array) {
+      hbar.append("rect")
+        .attr("class","hbar")
+        .attr("x",70+index*70)
+        .attr("y",50)
+        .attr("width", 70)
+        .attr("height", 15)
+        .style("fill", function() {
+          return color4(element);
+        })
+    });
+
+    var years = ["2010","2011","2012","2013"];
+    years.forEach(function(element,index,array) {
+        yearLegend.append("text")
+        .attr("class","yearLegend")
+        .attr("x",105+index*70)
+        .attr("y",50)
+        .attr("font-size",15)
+        .attr("text-anchor", "middle")
+        .text(element);
+    });
+
+    var types = ["total","f1","h1b"];
+    types.forEach(function(element,index,array) {
+        selector.append("rect")
+        .attr("class","selector")
+        .attr("id",element)
+        .attr("x",55)
+        .attr("y",15+index*50)
+        .attr("width",324)
+        .attr("height",50)
+        .style("fill","rgba(251,250,243,.8)")
+        .style("visibility","hidden")
+        .on("mouseover",function() {
+          d3.selectAll(".selector").style("visibility","hidden");
+          d3.select(this).style("visibility","visible");
+          var selected = d3.select(this).attr("id");
+          console.log(selected);
+          changeMap(selected,countries);
+        })
+        .on("click",function() {
+          d3.selectAll(".selector").style("visibility","hidden");
+          d3.select(this).style("visibility","visible");
+          var selected = d3.select(this).attr("id");
+          console.log(selected);
+          changeMap(selected,countries);
+        });
+    });
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<html>
+<head>
+    <!-- Load the d3 library. -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="data/stateData.js"></script>
+    <script src="js/states.js"></script>
+    <title>H1B Visa</title>
+    
+</head>
+<body>
+<div id = "USMap">
+</div>
+<script>
+var Geostates, node, bubble, bubblelabel;
+var svg_height = 500;
+var svg_width = 960;
+var mapCenterX = svg_width/2;
+var mapCenterY = svg_height/2;
+
+var projection = d3.geo.albersUsa().translate([svg_width/2, svg_height/2]).scale(500);
+var path = d3.geo.path().projection(projection);
+var svgMap = d3.select("#USMap").append("svg").attr("width", svg_width).attr("height", svg_height)
+			.append("g");
+
+var radiusScale = d3.scale.sqrt().domain([14, 17561]).range([8, 30]);
+
+var centroid = function(state) {			
+	if (fipsToName(state.id) == '') { return [0,0]; }
+	else { return path.centroid(state); }
+}
+
+var fipsToRandiu = function(fips) {
+	name = fipsToName(fips);
+	for (var i = 0; i<stateData.length; i++){
+		if (stateData[i].State == name){
+			return radiusScale(stateData[i].num);
+		}
+	}
+	return 0.0;
+}
+
+d3.json("data/us-10m.json", function(error, shapes){
+	Geostates = topojson.feature(shapes, shapes.objects.states).features;
+	var nonContinentalStates = Geostates.filter(function(state) {
+		return state.id == 2 || state.id == 15;
+	});
+	force = d3.layout.force().size([svg_width,svg_height]).nodes(Geostates)
+				.charge(-0.00001)
+				.gravity(0.2)
+				.friction(0.5)
+				.start();
+	node = svgMap.selectAll(".node")
+				.data(force.nodes()).enter()
+				.append("g")
+				.classed('node', true)
+
+	bubble = node.append("circle")
+				.attr('class', function(state) { return fipsToAbbr(state.id) })
+				.classed("bubble", true)
+				//save information into topojson feature properties
+				.attr("r", function(state) { return  fipsToRandiu(state.id); })			
+				.attr("fill", "grey")
+		 		.each(function(state) {
+					state.properties.r = fipsToRandiu(state.id);				
+					state.properties.c = centroid(state);
+					state.properties.x = svg_width/2;
+					state.properties.y = svg_height/2;
+					});
+
+	bubbleLabel = node.append("text")
+				.attr('class', function(state) { return fipsToAbbr(state.id) })
+				.classed("bubble-label", true)
+				.text(function(state) { return nameToAbbr(fipsToName(state.id)); })	
+
+	svgMap.selectAll('.HI, .AK')
+				.attr("transform", "translate(-100, -10)");
+
+	svgMap.selectAll('rect.non-continental').remove();
+			var BOX_RADIUS = 30;
+			nonContinentalStates.forEach(function(state) {
+			svgMap.append("rect")
+					.classed('non-continental', true)
+					.attr("x", centroid(state)[0] - BOX_RADIUS )
+					.attr("y", centroid(state)[1] - BOX_RADIUS )
+					.attr("width", BOX_RADIUS*2).attr("height", BOX_RADIUS*2)
+			});
+
+	var execute = function() {
+
+		force.on("start", function() {
+			console("here");
+			bubble.each(function(state) {
+				state.properties.r = fipsToRandiu(state.id);				
+			})
+		})
+		// force.on("tick", function() {
+		// 	//calculate distances for each node to move
+		// 	for(i = 0 ; i < Geostates.length ; i++) {
+		// 		for(j = 0 ; j < Geostates.length ; j++) { 
+		// 			it = Geostates[i].properties; 
+		// 		  	jt = Geostates[j].properties; if(i==j) continue; // not collide with self
+		// 		  	r = it.r + jt.r; 
+		// 		  	// it.c is the centroid of each county and initial position of circle 
+		// 		  	itx = it.x + it.c[0]; ity = it.y + it.c[1]; 
+		// 		  	jtx = jt.x + jt.c[0]; jty = jt.y + jt.c[1]; 
+		// 		  	// distance between centroid of two circles 
+		// 		  	d = Math.sqrt( (itx - jtx) * (itx - jtx) + (ity - jty) * (ity - jty) ); 
+		// 		  	if(r > d) { 
+		// 			  	// there's a collision if distance is smaller than radius
+		// 				dr = ( r - d ) / ( d * 0.85 );
+		// 				it.x = it.x + ( itx - jtx ) * dr;
+		// 				it.y = it.y + ( ity - jty ) * dr;
+		// 			}
+		// 		}
+		// 	}	
+
+			bubble
+				.attr("cx",function(state) { 
+					return state.properties.x + state.properties.c[0] - mapCenterX; })
+				.attr("cy",function(state) { 
+					return state.properties.y + state.properties.c[1] - mapCenterY; })
+
+			bubbleLabel
+				.attr("x",function(state) { 
+					return state.properties.x + state.properties.c[0] - mapCenterX; })
+				.attr("y",function(state) { 
+					return state.properties.y + state.properties.c[1] - mapCenterY; })					
+		})
+		force.alpha(0.1);
+	};
+
+	execute();
+
+
+
+
+
+
+});
+
+</script>
+</body>
+</html>

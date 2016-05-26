@@ -1,0 +1,937 @@
+<html>
+<meta charset="utf-8">
+<head>
+<!-- Load the d3 library. -->
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<!--Load JQuery-->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<!--Load auxillary scripts-->
+<script src="liquidFillGauge.js" language="JavaScript"></script>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<style>
+body { font-family: "Open Sans"; }
+svg { 
+  border: solid black 1px; 
+  margin: 0 auto;
+  display: block;
+}
+.bar rect { fill: #ccc; }
+.axis path { fill: none; stroke: black;}
+.axis line { stroke: black; }
+.axis text { font-size: x-small; }
+.axisL path { fill: none; stroke: black;}
+.axisL line { stroke: black; }
+.axisL text { font-size: x-small; }
+
+        #LittleMen{
+            margin: 0 auto;
+            text-align: center;
+        }
+        .man, .man2{
+            fill:gray;
+            display:inline-block;
+            margin-left:3px;
+            margin-right: 3px;
+        }
+div{
+  text-align: center;
+  vertical-align: middle;
+}
+</style>
+</head>
+<body>
+
+<br></br>
+<div id = "MenText">Application VS Pass population</div>
+<div id="LittleMen"></div>
+<br></br>
+<div id="refertext">data</div>
+<div id="refer"></div>
+<br></br>
+<div id="linearRegression">Linear Regression</div>
+<div id="plot"></div>
+
+
+<script>
+/*working with the data*/
+var dataset;
+//var data;
+var pass = [];
+var pass1 = [];
+var apply = [];
+var apply1 = [];
+var rate = [];
+var rate1 = [];
+var gdp = [];
+d3.csv("2008_csv.csv", function(d) {
+ return {
+    	date: d.DECISION_DATE,
+    	status: d.CASE_STATUS
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 apply.push({x:2008, y: num});
+  	 var p = 0;
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='CERTIFIED'|| dataset[i].status=='CERTIFIED-EXPIRED')
+  	 		p++;
+  	 }
+  	 pass.push({x: 2008, y: p});
+  	 rate.push({x: 2008, y: p/num*100});
+ 
+  d3.csv("2009_csv.csv", function(d) {
+	 return {
+    	date: d.DECISION_DATE,
+    	status: d.CASE_STATUS
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 apply.push({x:2009, y: num});
+  	 var p = 0;
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='Certified'||dataset[i].status=='Certified-Expired')
+            p++;	 
+  	 }
+  	 pass.push({x: 2009, y: p});
+	   rate.push({x: 2009, y: p/num*100});
+
+  d3.csv("2010_csv.csv", function(d) {
+	 return {
+    	date: d.DECISION_DATE,
+    	status: d.CASE_STATUS
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 apply.push({x:2010, y: num});
+  	 var p = 0;
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='Certified'||dataset[i].status=='Certified-Expired')
+  	 		p++;
+  	 }
+  	 pass.push({x: 2010, y: p});
+  	 rate.push({x: 2010, y: p/num*100});
+
+  d3.csv("2011_csv.csv", function(d) {
+	 return {
+    	date: d.DECISION_DATE,
+    	status: d.CASE_STATUS
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 var p = 0;
+  	 apply.push({x:2011, y: num});
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='Certified'||dataset[i].status=='Certified-Expired')
+  	 		p++;
+  	 }
+  	 pass.push({x: 2011, y: p});
+  	 rate.push({x: 2011, y: p/num*100});
+  	 
+  d3.csv("2012_csv.csv", function(d) {
+	 return {
+    	date: d.DECISION_DATE,
+    	status: d.CASE_STATUS
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 apply.push({x:2012, y: num});
+  	 var p = 0;
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='Certified'||dataset[i].status=='Certified-Expired')
+  	 		p++;
+  	 }
+  	 pass.push({x: 2012, y: p});
+  	 rate.push({x: 2012, y: p/num*100});
+
+  d3.csv("2013_csv.csv", function(d) {
+	 return {
+    	date: d.Decision_Date,
+    	status: d.Case_Status
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 apply.push({x:2013, y: num});
+  	 var p = 0;
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='Certified'||dataset[i].status=='Certified-Expired')
+  	 		p++;
+  	 }
+  	 pass.push({x: 2013, y: p});
+  	 rate.push({x: 2013, y: p/num*100});
+
+  d3.csv("2014_csv.csv", function(d) {
+	 return {
+    	date: d.Decision_Date,
+    	status: d.Case_Status
+  	};
+  }, function(error, rows) {
+  	 dataset = rows;
+  	 var num = dataset.length;
+  	 apply.push({x:2014, y: num});
+  	 var p = 0;
+  	 for(var i=0; i< num; i++){
+  	 	if(dataset[i].status=='Certified'||dataset[i].status=='Certified-Expired')
+  	 		p++;
+  	 }
+  	 pass.push({x: 2014, y: p});
+  	 rate.push({x: 2014, y: p/num*100});
+    
+
+  d3.csv("GDP.csv", function(d){
+    return {
+      year: +d.Year,
+      growing: +d.GDP
+    };
+   }, function(error, rows){
+      data = rows;
+      for (var i=0; i<data.length; i++){
+        gdp.push({x: data[i].year, y: data[i].growing});
+      }   
+
+   for(var i=0; i<7; i++){
+      apply1.push({x: gdp[i].y, y: apply[i].y});
+   }
+   for(var i=0; i<7; i++){
+      pass1.push({x: gdp[i].y, y: pass[i].y});
+   }
+   for(var i=0; i<7; i++){
+      rate1.push({x: gdp[i].y, y: rate[i].y});
+   }
+var height = 250;
+var width = 800;
+
+var svg = d3.select("#refer").append("svg")
+.attr("height", height)
+.attr("width", width);
+
+var svgG = d3.select("#plot").append("svg")
+.attr("height", height)
+.attr("width", width+100);
+
+
+var miny = d3.min(apply1, function(d){
+	return d.y;
+})
+var maxy = d3.max(apply1, function(d){
+	return d.y;
+})
+var minPy = d3.min(pass1, function(d){
+	return d.y;
+})
+var maxPy = d3.max(pass1, function(d){
+	return d.y;
+})
+var minRy = d3.min(rate1, function(d){
+	return d.y;
+})
+var maxRy = d3.max(rate1, function(d){
+	return d.y;
+})
+var minGy = d3.min(gdp, function(d){
+  return d.y;
+})
+var maxGy = d3.max(gdp, function(d){
+  return d.y;
+})
+var mean = d3.mean(apply, function(d){
+  return d.y;
+})
+
+var xScale = d3.scale.linear().domain([2007, 2015]).range([60, width-30]);
+var xScaleG = d3.scale.linear().domain([minGy,maxGy]).range([60, width-30]);
+var yScaleA = d3.scale.linear().domain([miny-15000, maxy+15000]).range([height-30, 30]);
+var yScaleP = d3.scale.linear().domain([minPy-5000, maxPy+5000]).range([height-30, 30]);
+var yScaleR = d3.scale.linear().domain([minRy-10, maxRy+10]).range([height-30, 30]);
+var yScaleG = d3.scale.linear().domain([minGy-0.5, maxGy+0.5]).range([height-30,30]);
+
+var xAxis = d3.svg.axis().scale(xScale);
+svg.append("g")
+  .attr("class", "axis")
+  .attr("transform", "translate(0, " + (height-30) + ")")
+  .call(xAxis);
+
+var xAxisG = d3.svg.axis().scale(xScaleG);
+svgG.append("g")
+  .attr("class", "axisL")
+  .attr("transform", "translate(0, " + (height-30) + ")")
+  .call(xAxisG);
+
+var yAxisA = d3.svg.axis().scale(yScaleA).orient("left");
+/*using for two xAxises*/
+svg.append("g")
+
+  .attr("class", "axis")
+  .attr("transform", "translate(" + (60) + ", 0)")
+  .call(yAxisA);
+
+svgG.append("g")
+	.attr("class", "axisL")
+	.attr("transform", "translate(" + (60) + ", 0)")
+	.call(yAxisA);
+
+var yAxisP = d3.svg.axis().scale(yScaleP).orient("left");
+
+var yAxisR = d3.svg.axis().scale(yScaleR).orient("left");
+
+var yAxisG = d3.svg.axis().orient("left");
+svg.append("g")
+  .attr("class", "axis")
+  .attr("transform", "translate(" + (width-30) + ", 0)");
+  //.call(yAxisG);
+
+var modelA = {};
+var modelP = {};
+var modelR = {};
+var modelG = {};
+var meanAX = d3.mean(apply1, function (d) { 
+	return d.x;
+});
+var meanAY = d3.mean(apply1, function (d) { 
+	return d.y;
+});
+
+var meanPX = d3.mean(pass1, function (d) { 
+	return d.x;
+});
+var meanPY = d3.mean(pass1, function (d) { 
+	return d.y;
+});
+
+var meanRX = d3.mean(rate1, function (d) { 
+	return d.x;
+});
+var meanRY = d3.mean(rate1, function (d) { 
+	return d.y;
+});
+
+var meanGX = d3.mean(gdp, function(d){
+  return d.y;
+})
+var meanGY = d3.mean(gdp, function(d){
+  return d.y;
+})
+
+modelA.slope = d3.sum(apply1, function (d) {
+	return (d.x - meanAX) * (d.y - meanAY);
+});
+modelA.slope /= d3.sum(apply1, function (d) {
+	return (d.x - meanAX) * (d.x - meanAX);
+});
+
+modelP.slope = d3.sum(pass1, function (d) {
+	return (d.x - meanPX) * (d.y - meanPY);
+});
+modelP.slope /= d3.sum(pass1, function (d) {
+	return (d.x - meanPX) * (d.x - meanPX);
+});
+
+modelR.slope = d3.sum(rate1, function (d) {
+	return (d.x - meanRX) * (d.y - meanRY);
+});
+modelR.slope /= d3.sum(rate1, function (d) {
+	return (d.x - meanRX) * (d.x - meanRX);
+});
+
+modelG.slope = d3.sum(gdp, function (d) {
+  return (d.x - meanGX) * (d.y - meanGY);
+});
+modelG.slope /= d3.sum(gdp, function (d) {
+  return (d.x - meanGX) * (d.x - meanGX);
+});
+modelA.intercept = meanAY - modelA.slope * meanAX;
+modelP.intercept = meanPY - modelP.slope * meanPX;
+modelR.intercept = meanRY - modelR.slope * meanRX;
+modelG.intercept = meanGY - modelG.slope * meanGX;
+/*forecasting*/
+// var forecastA = 2015*modelA.slope + modelA.intercept; 
+// apply.push({x: 2015, y: forecastA});
+// var forecastP = 2015*modelP.slope + modelP.intercept; 
+// pass.push({x: 2015, y: forecastP});
+// var forecastR = 2015*modelR.slope + modelR.intercept; 
+// rate.push({x: 2015, y: forecastR});
+// var forecastG = 2015*modelG.slope + modelG.intercept; 
+// gdp.push({x: 2015, y: forecastG});
+
+/*Line in the first image*/
+var lineA = d3.svg.line()
+            .x(function(d,i){
+              return xScale(i+2008);
+            })
+            .y(function(d){
+              return yScaleA(d.y);
+            });
+var lineG = d3.svg.line()
+            .x(function(d,i){
+              return xScale(i+2008);
+            })
+            .y(function(d){
+              return yScaleG(d.y);
+            });  
+var lineP = d3.svg.line()
+            .x(function(d,i){
+              return xScale(i+2008);
+            })
+            .y(function(d){
+              return yScaleP(d.y);
+            });        
+var lineR = d3.svg.line()
+            .x(function(d,i){
+              return xScale(i+2008);
+            })
+            .y(function(d){
+              return yScaleR(d.y);
+            });  
+svg.append("path").attr("d",lineA(apply))
+                  .attr("fill","none")
+                  .attr("stroke","grey")
+                  .attr("opacity",0.2)
+                  .attr("stroke-width",3)
+                  .attr("class","line");
+svg.append("path").attr("d",lineA(pass))
+                  .attr("fill","none")
+                  .attr("stroke","blue")
+                  .attr("opacity",0.2)
+                  .attr("stroke-width",3)
+                  .attr("class","line");
+svg.append("path").attr("d",lineR(rate))
+                  .attr("fill","none")
+                  .attr("stroke","pink")
+                  .attr("opacity",0.2)
+                  .attr("stroke-width",3)
+                  .attr("class","line");
+svg.append("path").attr("d",lineG(gdp))
+                  .attr("fill","none")
+                  .attr("stroke","green")
+                  .attr("opacity",0.8)
+                  .attr("stroke-width",2)
+                  .attr("class","Lines");  
+svg.append("text")
+   .attr("x",width-100)
+   .attr("y",50)
+   .text("gdp")
+   .attr("fill","green")
+   .attr("class","gdpname")
+   .attr("font-size",15);
+svg.append("text")
+   .attr("x",width-100)
+   .attr("y",95)
+   .text("pass")
+   .attr("fill","blue")
+   .attr("class","name")
+   .attr("opacity",0.2);
+svg.append("text")
+   .attr("x",width-100)
+   .attr("y",115)
+   .text("rate")
+   .attr("fill","pink")
+   .attr("class","name")
+   .attr("opacity",0.2);   
+svg.append("text")
+   .attr("x",width-100)
+   .attr("y",75)
+   .text("apply")
+   .attr("fill","grey")
+   .attr("class","name")
+   .attr("opacity",0.2);  
+
+$(".name").click(function(){
+  var clicked = $(this);
+  var color = $(this).attr("fill");
+  $(".name").css("opacity",0.2);
+  $(this).css("opacity",0.8);
+  $(".line").each(function(){
+      if($(this).attr("stroke")==color){
+        $(this).css("opacity",0.8);
+      }
+      else
+        $(this).css("opacity",0.2);
+  })
+});
+$(".line").click(function(){
+  var clicked = $(this);
+  var color = $(this).attr("stroke");
+  $(".line").css("opacity",0.2);
+  $(this).css("opacity",0.8);
+  $(".name").each(function(){
+      if($(this).attr("fill")==color)
+        $(this).css("opacity",0.8);
+      else
+        $(this).css("opacity",0.2);
+  })
+
+});
+
+/*The Linear Regression Part*/
+var rectA = svgG.append("rect")
+                .attr("x",width+15)
+                .attr("y",50)
+                .attr("width",30)
+                .attr("height",20)
+                .attr("fill","grey")
+                .attr("opacity",0.8)
+                .attr("class","LR");
+var txtA = svgG.append("text")
+               .attr("x",width+50)
+               .attr("y",65)
+               .text("apply")
+               .attr("fill","grey")
+               .attr("opacity",0.8)
+               .attr("class","lr");
+
+var rectP = svgG.append("rect")
+                .attr("x",width+15)
+                .attr("y",80)
+                .attr("width",30)
+                .attr("height",20)
+                .attr("fill","blue")
+                .attr("opacity",0.3)
+                .attr("class","LR");
+var txtP = svgG.append("text")
+               .attr("x",width+50)
+               .attr("y",95)
+               .text("pass")
+               .attr("fill","blue")
+               .attr("opacity",0.2)
+               .attr("class","lr");
+
+var rectR = svgG.append("rect")
+                .attr("x",width+15)
+                .attr("y",110)
+                .attr("width",30)
+                .attr("height",20)
+                .attr("fill","red")
+                .attr("opacity",0.3)
+                .attr("class","LR");
+var txtR = svgG.append("text")
+               .attr("x",width+50)
+               .attr("y",125)
+               .text("rate")
+               .attr("fill","red")
+               .attr("opacity",0.2)
+               .attr("class","lr");
+
+
+$(".LR").click(function(){
+  var clicked = $(this);
+  var color = $(this).attr("fill");
+  $(".LR").css("opacity",0.2);
+  $(this).css("opacity",0.8);
+  $(".lr").each(function(){
+      if($(this).attr("fill")==color)
+        $(this).css("opacity",0.8);
+      else
+        $(this).css("opacity",0.2);
+  })
+  d3.selectAll(".linear").remove();
+  d3.selectAll(".axisL").remove();
+  svgG.append("g")
+      .attr("class", "axisL")
+      .attr("transform", "translate(0, " + (height-30) + ")")
+      .call(xAxisG);
+  if(color=="grey"){
+    svgG.append("g")
+        .attr("class", "axisL")
+        .attr("transform", "translate(" + (60) + ", 0)")
+        .call(yAxisA);
+    var circlesA = svgG.selectAll("g.linear").data(apply1).enter()
+        .append("circle")
+        .classed("linear",true)
+        .attr("cx", function (d) { return xScaleG(d.x); })
+        .attr("cy", function (d) { return yScaleA(d.y); })
+        .attr("r", 5)
+        .style("opacity", "0.3"); 
+    var regressionLineA = svgG.append("g")
+      .append("line")
+      .attr("class","linear")
+      .attr("x1", xScaleG(minGy))
+      .attr("y1", yScaleA(modelA.slope * minGy + modelA.intercept))
+      .attr("x2", xScaleG(maxGy))
+      .attr("y2", yScaleA(modelA.slope * maxGy + modelA.intercept))
+      .style("stroke", "#993333");
+  }
+  else if(color=="blue"){
+    svgG.append("g")
+        .attr("class", "axisL")
+        .attr("transform", "translate(" + (60) + ", 0)")
+        .call(yAxisP);
+    var circlesP = svgG.selectAll("g.linear").data(pass1).enter()
+            .append("circle")
+            .classed("linear",true)
+            .attr("cx", function (d) { return xScaleG(d.x); })
+            .attr("cy", function (d) { return yScaleP(d.y); })
+            .attr("r", 5)
+            .style("opacity", "0.3");
+    var regressionLineP = svgG.append("g")
+            .append("line")
+            .attr("class","linear")
+            .attr("x1", xScaleG(minGy))
+            .attr("y1", yScaleP(modelP.slope * minGy + modelP.intercept))
+            .attr("x2", xScaleG(maxGy))
+            .attr("y2", yScaleP(modelP.slope * maxGy + modelP.intercept))
+            .style("stroke", "#993333");
+  }
+  else if(color=="red"){
+    svgG.append("g")
+        .attr("class", "axisL")
+        .attr("transform", "translate(" + (60) + ", 0)")
+        .call(yAxisR);
+
+    var circlesR = svgG.selectAll("g.linear").data(rate1).enter()
+            .append("g")
+            .append("circle")
+            .classed("linear",true)
+            .attr("cx", function (d) { return xScaleG(d.x); })
+            .attr("cy", function (d) { return yScaleR(d.y); })
+            .attr("r", 5)
+            .style("opacity", "0.3");
+
+    var regressionLineR = svgG.append("g")
+            .attr("class","linear")
+            .append("line")
+            .attr("x1", xScaleG(minGy))
+            .attr("y1", yScaleR(modelR.slope * minGy + modelR.intercept))
+            .attr("x2", xScaleG(maxGy))
+            .attr("y2", yScaleR(modelR.slope * maxGy + modelR.intercept))
+            .style("stroke", "#993333");
+  }
+});
+
+var circlesA = svgG.selectAll("g.linear").data(apply1).enter()
+.append("g")
+.append("circle")
+.classed("linear",true)
+.attr("cx", function (d) { return xScaleG(d.x); })
+.attr("cy", function (d) { return yScaleA(d.y); })
+.attr("r", 5)
+.style("opacity", "0.3");                                                 
+
+var regressionLineA = svgG.append("g")
+.append("line")
+.attr("class","linear")
+.attr("x1", xScaleG(minGy))
+.attr("y1", yScaleA(modelA.slope * minGy + modelA.intercept))
+.attr("x2", xScaleG(maxGy))
+.attr("y2", yScaleA(modelA.slope * maxGy + modelA.intercept))
+.style("stroke", "#993333");
+
+
+
+
+var man0 = d3.select("#LittleMen").append("svg")
+      .attr("id","man0")
+      .attr("class","man")
+      .attr("height", 115)
+        .attr("width", 115)
+        .attr("viewBox","-15.0 -10.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head = man0.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var dd = "M28.256,11.163c-1.123-0.228-2.344-0.218-3.447,0.042c-7.493,0.878-9.926,9.551-9.239,16.164c0.298,2.859,4.805,2.889,4.504,0c-0.25-2.41-0.143-6.047,1.138-8.632c0,3.142,0,6.284,0,9.425c0,0.111,0.011,0.215,0.016,0.322c-0.003,0.051-0.015,0.094-0.015,0.146c0,7.479-0.013,14.955-0.322,22.428c-0.137,3.322,5.014,3.309,5.15,0c0.242-5.857,0.303-11.717,0.317-17.578c0.244,0.016,0.488,0.016,0.732,0.002c0.015,5.861,0.074,11.721,0.314,17.576c0.137,3.309,5.288,3.322,5.15,0c-0.309-7.473-0.32-14.949-0.32-22.428c0-0.232-0.031-0.443-0.078-0.646c-0.007-3.247-0.131-6.497-0.093-9.742c1.534,2.597,1.674,6.558,1.408,9.125c-0.302,2.887,4.206,2.858,4.504,0C38.678,20.617,36.128,11.719,28.256,11.163z";
+var body = man0.append("path")
+         .attr("d",dd);
+
+var rect = man0.append("rect")
+         .attr("x",4)
+         .attr("y",72)
+         .attr("width",45)
+         .attr("height",19)
+         .attr("rx",5)
+         .attr("ry",4)
+         .attr("fill","#600081")
+         .attr("opacity",0.3)
+         .on("click", function(d){
+             setUpDeathText(2008);
+         });
+man0.append("text")
+   .attr("x",8)
+   .attr("y",87)
+   .text("2008")
+   .on("click", function(d){
+             setUpDeathText(2008);
+         })
+   .attr("font-size",16.5);
+
+var man1 = d3.select("#LittleMen").append("svg")
+      .attr("id","man1")
+      .attr("class","man")
+      .attr("height", 83)
+        .attr("width", 83)
+        .attr("viewBox","-30.0 0.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head1 = man1.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var body1 = man1.append("path")
+         .attr("d",dd);
+
+var rect1 = man1.append("rect")
+         .attr("x",-3)
+         .attr("y",72.5)
+         .attr("rx",7)
+         .attr("ry",7)
+         .attr("width",62)
+         .attr("height",29)
+         .attr("fill","#600081")
+         .attr("opacity",0.8)
+         .on("click", function(d){
+             setUpDeathText(2009);
+         });
+man1.append("text")
+   .attr("x",4)
+   .attr("y",95)
+   .text("2009")
+   .attr("font-size",22)
+   .on("click", function(d){
+             setUpDeathText(2009);
+         });   
+
+var man2 = d3.select("#LittleMen").append("svg")
+      .attr("id","man2")
+      .attr("class","man")
+      .attr("height", 187)
+        .attr("width", 187)
+        .attr("viewBox","-20.0 -25.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head2 = man2.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var body2 = man2.append("path")
+         .attr("d",dd);
+
+var rect2 = man2.append("rect")
+         .attr("x",11.5)
+         .attr("y",63)
+         .attr("rx",3)
+         .attr("ry",3)
+         .attr("width",28)
+         .attr("height",12)
+         .attr("fill","#8600b4")
+         .attr("opacity",0.3)
+         .on("click", function(d){
+             setUpDeathText(2010);
+         });
+man2.append("text")
+   .attr("x",14.5)
+   .attr("y",73)
+   .text("2010")
+   .attr("font-size",11)
+   .on("click", function(d){
+             setUpDeathText(2010);
+         })
+   .attr("font-size",10);   
+
+var man3 = d3.select("#LittleMen").append("svg")
+      .attr("id","man3")
+      .attr("class","man")
+      .attr("height", 188)
+        .attr("width", 188)
+        .attr("viewBox","-15.0 -25.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head3 = man3.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var body3 = man3.append("path")
+         .attr("d",dd);
+
+var rect3 = man3.append("rect")
+         .attr("x",11.5)
+         .attr("y",63)
+         .attr("rx",3)
+         .attr("ry",3)
+         .attr("width",28.5)
+         .attr("height",12)
+         .attr("fill","#8600b4")
+         .attr("opacity",0.3)
+         .on("click", function(d){
+             setUpDeathText(2011);
+         });
+man3.append("text")
+   .attr("x",14)
+   .attr("y",73)
+   .text("2011")
+   .attr("font-size",11)
+   .on("click", function(d){
+             setUpDeathText(2011);
+         })
+   .attr("font-size",10.5);  
+
+var man4 = d3.select("#LittleMen").append("svg")
+      .attr("id","man4")
+      .attr("class","man")
+      .attr("height", 180)
+        .attr("width", 180)
+        .attr("viewBox","-15.0 -25.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head4 = man4.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var body4 = man4.append("path")
+         .attr("d",dd);
+
+var rect4 = man4.append("rect")
+         .attr("x",12)
+         .attr("y",63)
+         .attr("rx",3)
+         .attr("ry",2)
+         .attr("width",30)
+         .attr("height",12)
+         .attr("fill","#8600b4")
+         .attr("opacity",0.3)
+         .on("click", function(d){
+             setUpDeathText(2012);
+         });
+man4.append("text")
+   .attr("x",14.5)
+   .attr("y",73)
+   .text("2012")
+   .attr("font-size",12)
+   .on("click", function(d){
+             setUpDeathText(2012);
+         })
+   .attr("font-size",11);    
+
+var man5 = d3.select("#LittleMen").append("svg")
+      .attr("id","man5")
+      .attr("class","man")
+      .attr("height", 119)
+        .attr("width", 119)
+        .attr("viewBox","-15.0 -15.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head5 = man5.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var body5 = man5.append("path")
+         .attr("d",dd);
+
+var rect5 = man5.append("rect")
+         .attr("x",4)
+         .attr("y",66.7)
+         .attr("rx",6)
+         .attr("ry",4)
+         .attr("width",46)
+         .attr("height",18)
+         .attr("fill","#8600b4")
+         .attr("opacity",0.3)
+         .on("click", function(d){
+             setUpDeathText(2013);
+         });
+man5.append("text")
+   .attr("x",8.5)
+   .attr("y",82)
+   .text("2013")
+   .attr("font-size",18)
+   .on("click", function(d){
+             setUpDeathText(2013);
+         })
+   .attr("font-size",16.5);   
+
+var man6 = d3.select("#LittleMen").append("svg")
+      .attr("id","man6")
+      .attr("class","man")
+      .attr("height", 193)
+        .attr("width", 193)
+        .attr("viewBox","-15.0 -25.0 80.0 100.0")
+        .attr("enable-background","new 0 0 50 50")
+        .attr("xml:space","preserve");
+var head6 = man6.append("circle")
+        .attr("cx",26.686)
+        .attr("cy",4.507)
+        .attr("r",4.507);
+var body6 = man6.append("path")
+         .attr("d",dd);
+
+var rect6 = man6.append("rect")
+         .attr("x",13)
+         .attr("y",64)
+         .attr("rx",3)
+         .attr("ry",3)
+         .attr("width",28)
+         .attr("height",11.5)
+         .attr("fill","#8600b4")
+         .attr("opacity",0.3)
+         .on("click", function(d){
+             setUpDeathText(2014);
+         });
+man6.append("text")
+   .attr("x",15.5)
+   .attr("y",73.5)
+   .text("2014")
+   .attr("font-size",11)
+   .on("click",function(d){
+    setUpDeathText(2014);
+   })
+   .attr("font-size",10);  
+//enter data into the svg men
+var men= d3.selectAll(".man")[0];
+for(var i=0;i<7;i++){
+    men[i].__data__ = {"id":i};
+} 
+
+var timerUpdate;
+
+var selectedYear = 2009;
+setUpDeathText(selectedYear);
+
+
+function setUpDeathText(yrVal){
+    clearInterval(timerUpdate);
+
+    selectedYear = yrVal;
+
+    var manSize = 30000;
+    d3.selectAll(".man").style("fill", function(d){
+       if(d.id==yrVal-2008){
+           
+           return "#e08c8c";
+       } //each man represents 30,000 people
+       else{return "#a6a6a6";}
+    })
+    var i = yrVal-2008;
+    d3.selectAll(".liquidFillGaugeText").remove();
+    d3.selectAll(".liquidFill").remove();
+    //console.log(rate);
+    var value = rate[i].y;
+    loadLiquidFillGauge("man"+i, value);   
+}
+
+
+});
+  	});
+  	 
+  	});
+
+  	});
+  	});
+  	});
+
+});
+
+});
+
+
+
+
+</script>
+
+</body>
+</html>

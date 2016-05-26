@@ -16,7 +16,7 @@ $( document ).ready(function() {
       event.preventDefault();
       $('.stat strong').text('9');
       $('.index').append('<li><div class="index-item"><span>9</span></div></li>');
-      var lineItem = $('.line').append('<li><div class="line-item"><div class="line-item-info"><p class="info_course">Math <strong></strong></p><p class="info_hw">HW <strong></strong></p><p class="info_q">Question No. <strong></strong></p><p class="info_group">Group of </p></div><div class="line-item-action"><button type="button" class="btn leave_btn leaveLine">Leave</button></div></div></li>');
+      var lineItem = $('.line').append('<li><div class="line-item"><div class="line-item-info"><p class="info_course">Math <strong></strong></p><p class="info_hw">HW <strong></strong></p><p class="info_q">Q. <strong></strong></p><p class="info_group">Group of </p></div><div class="line-item-action"><button type="button" class="btn leave_btn leaveLine">Leave</button></div></div></li>');
       jQuery.each( fields, function( i, field ) {
           if(i!=0 && i<4) {
               $('.line-item').last().children().find('.info_'+field.name+' strong').text(field.value);

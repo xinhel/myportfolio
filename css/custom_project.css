@@ -257,7 +257,7 @@ a {
     text-align: left;
 }
 
-.pm .features .strong {
+.pm .features .strong, .pm .arch .strong {
     color: #1ABC9C;
     font-size: 12.5pt;
 }
@@ -283,7 +283,6 @@ a {
     left: 0;
 }
 
-/*
 .pm .arch img:nth-of-type(2) {
     -webkit-transition: opacity .3s;
     -moz-transition: opacity .3s;
@@ -293,7 +292,7 @@ a {
 
 .pm .arch img:nth-of-type(2):hover {
     opacity: 0;
-}*/
+}
 
 .pm .features p, .pm .features img:nth-of-type(2) {
     opacity: 0;
