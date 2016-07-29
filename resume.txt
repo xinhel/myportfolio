@@ -1,0 +1,64 @@
+XINHE ELLIE LIAN
+USER EXPERIENCE DESIGNER
+
+www.ellielian.me | xhlianellie@gmail.com | (206)321-0508
+
+
+EDUCATION
+
+Cornell University                                           Ithaca, NY
+MPS 2016
+Information Science
+
+University of Washington                                    Seattle, WA
+BS 2014
+Human-Centered Design & Engineering
+
+
+EXPERIENCE
+
+UX Design Intern                                      04/2014-06/2014
+Expedia.com
+Designed the responsive website flow for travel package checkout.
+Planned and conducted lab usability test. Created a streamlined
+checkout experience with user-validated designs.
+
+UX/UI Intern                                         11/2015-12/2015
+day100 (Startup)
+Worked closely with one of the co-founders and designed the product
+interface for first release. Designed and coded the email templates for
+notifications and newsletters.
+
+
+PROJECTS
+
+Product Design & Logo Design                          01/2014-03/2014
+QueuePool
+QueuePool is a tutor center waiting-list system that makes student's
+waiting time more productive. 
+Redesigned the whole line-up experience for students at University of
+Washington's Math Study Center. Started with field user research. Led 
+the ideation and coded an interactive prototype.
+
+Product Management                                    09/2014-11/2014
+Actually
+Actually is a web application that helps software development team 
+track their development progress. 
+Shipped the Minimum Viable Product. Led the product definition 
+process. Coordinated design sprints with development. Helped design 
+and implement the user interface.
+
+
+SKILLS
+
+Design
+Sketching, Wireframes, Info Architecture, Design Specs, Data Visualization, Illustration
+
+Methods
+Field Research, Persona, Storyboards, UX Journey Map, Usability testing, Web Analytics
+
+Tools
+Adobe Suite, Sketch 3, HTML/CSS, jQuery, d3.js, Sass
+
+Languages
+Madarin, Cantonese, English
